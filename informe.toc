@@ -1,31 +1,35 @@
-\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}
-\contentsline {section}{\numberline {1.1}El problema}{1}
-\contentsline {subsection}{\numberline {1.1.1}Realidad problem\IeC {\'a}tica}{1}
-\contentsline {subsection}{\numberline {1.1.2}Antecedentes del problema}{1}
-\contentsline {subsection}{\numberline {1.1.3}Formulaci\IeC {\'o}n del problema}{1}
-\contentsline {subsection}{\numberline {1.1.4}Justificaci\IeC {\'o}n del estudio}{1}
-\contentsline {subsection}{\numberline {1.1.5}Limitaciones del problema}{2}
-\contentsline {section}{\numberline {1.2}Objetivos}{2}
-\contentsline {subsection}{\numberline {1.2.1}Objetivo general}{2}
-\contentsline {subsection}{\numberline {1.2.2}Objetivos espec\IeC {\'\i }ficos}{2}
-\contentsline {chapter}{\numberline {2}Marco referencial}{3}
-\contentsline {section}{\numberline {2.1}Marco te\IeC {\'o}rico}{3}
-\contentsline {section}{\numberline {2.2}Marco conceptual}{3}
-\contentsline {chapter}{\numberline {3}Metodolog\IeC {\'\i }a}{4}
-\contentsline {section}{\numberline {3.1}Hip\IeC {\'o}tesis}{4}
-\contentsline {section}{\numberline {3.2}Variables}{4}
-\contentsline {subsection}{\numberline {3.2.1}Variable dependiente}{4}
-\contentsline {subsection}{\numberline {3.2.2}Variable independiente}{4}
-\contentsline {section}{\numberline {3.3}Dise\IeC {\~n}o de ejecuci\IeC {\'o}n}{4}
-\contentsline {subsection}{\numberline {3.3.1}Objeto de estudio}{4}
-\contentsline {subsection}{\numberline {3.3.2}M\IeC {\'e}todos}{4}
-\contentsline {subsection}{\numberline {3.3.3}Poblaci\IeC {\'o}n y muestra}{5}
-\contentsline {subsection}{\numberline {3.3.4}T\IeC {\'e}cnicas e Instrumentos, fuentes e informantes}{5}
-\contentsline {subsection}{\numberline {3.3.5}Forma de an\IeC {\'a}lisis e Interpretaci\IeC {\'o}n de resultados}{5}
-\contentsline {subsubsection}{An\IeC {\'a}lisis de contrastaci\IeC {\'o}n}{5}
-\contentsline {subsubsection}{Indicadores}{5}
-\contentsline {chapter}{\numberline {4}Resultados}{6}
-\contentsline {chapter}{\numberline {5}An\IeC {\'a}lisis de los resultados}{7}
-\contentsline {chapter}{\numberline {6}Conclusiones y recomendaciones}{8}
-\contentsline {chapter}{\numberline {7}Referencias bibliogr\IeC {\'a}ficas}{9}
-\contentsline {chapter}{\numberline {8}Anexos}{10}
+\contentsline {section}{\numberline {0.1}Dedicatoria}{i}
+\contentsline {section}{\numberline {0.2}Agradecimiento}{i}
+\contentsline {section}{\numberline {0.3}Resumen}{1}
+\contentsline {section}{\numberline {0.4}Abstract}{1}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{2}
+\contentsline {section}{\numberline {1.1}El problema}{2}
+\contentsline {subsection}{\numberline {1.1.1}Realidad problem\IeC {\'a}tica}{2}
+\contentsline {subsection}{\numberline {1.1.2}Antecedentes del problema}{3}
+\contentsline {subsection}{\numberline {1.1.3}Formulaci\IeC {\'o}n del problema}{3}
+\contentsline {subsection}{\numberline {1.1.4}Justificaci\IeC {\'o}n del estudio}{3}
+\contentsline {subsection}{\numberline {1.1.5}Limitaciones del problema}{3}
+\contentsline {section}{\numberline {1.2}Objetivos}{4}
+\contentsline {subsection}{\numberline {1.2.1}Objetivo general}{4}
+\contentsline {subsection}{\numberline {1.2.2}Objetivos espec\IeC {\'\i }ficos}{4}
+\contentsline {chapter}{\numberline {2}Marco referencial}{5}
+\contentsline {section}{\numberline {2.1}Marco te\IeC {\'o}rico}{5}
+\contentsline {section}{\numberline {2.2}Marco conceptual}{5}
+\contentsline {chapter}{\numberline {3}Metodolog\IeC {\'\i }a}{6}
+\contentsline {section}{\numberline {3.1}Hip\IeC {\'o}tesis}{6}
+\contentsline {section}{\numberline {3.2}Variables}{6}
+\contentsline {subsection}{\numberline {3.2.1}Variable dependiente}{6}
+\contentsline {subsection}{\numberline {3.2.2}Variable independiente}{6}
+\contentsline {section}{\numberline {3.3}Dise\IeC {\~n}o de ejecuci\IeC {\'o}n}{6}
+\contentsline {subsection}{\numberline {3.3.1}Objeto de estudio}{6}
+\contentsline {subsection}{\numberline {3.3.2}M\IeC {\'e}todos}{6}
+\contentsline {subsection}{\numberline {3.3.3}Poblaci\IeC {\'o}n y muestra}{7}
+\contentsline {subsection}{\numberline {3.3.4}T\IeC {\'e}cnicas e Instrumentos, fuentes e informantes}{7}
+\contentsline {subsection}{\numberline {3.3.5}Forma de an\IeC {\'a}lisis e Interpretaci\IeC {\'o}n de resultados}{7}
+\contentsline {subsubsection}{An\IeC {\'a}lisis de contrastaci\IeC {\'o}n}{7}
+\contentsline {subsubsection}{Indicadores}{7}
+\contentsline {chapter}{\numberline {4}Resultados}{8}
+\contentsline {chapter}{\numberline {5}An\IeC {\'a}lisis de los resultados}{9}
+\contentsline {chapter}{\numberline {6}Conclusiones y recomendaciones}{10}
+\contentsline {chapter}{\numberline {7}Referencias bibliogr\IeC {\'a}ficas}{11}
+\contentsline {chapter}{\numberline {8}Anexos}{12}

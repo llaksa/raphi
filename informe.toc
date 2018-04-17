@@ -23,8 +23,8 @@
 \contentsline {section}{\numberline {3.3}Dise\IeC {\~n}o de ejecuci\IeC {\'o}n}{7}
 \contentsline {subsection}{\numberline {3.3.1}Objeto de estudio}{7}
 \contentsline {subsection}{\numberline {3.3.2}M\IeC {\'e}todos}{7}
-\contentsline {subsection}{\numberline {3.3.3}Poblaci\IeC {\'o}n y muestra}{8}
-\contentsline {subsection}{\numberline {3.3.4}T\IeC {\'e}cnicas e Instrumentos, fuentes e informantes}{8}
+\contentsline {subsection}{\numberline {3.3.3}Poblaci\IeC {\'o}n y muestra}{7}
+\contentsline {subsection}{\numberline {3.3.4}T\IeC {\'e}cnicas e Instrumentos, fuentes e informantes}{7}
 \contentsline {subsection}{\numberline {3.3.5}Forma de an\IeC {\'a}lisis e Interpretaci\IeC {\'o}n de resultados}{8}
 \contentsline {subsubsection}{An\IeC {\'a}lisis de contrastaci\IeC {\'o}n}{8}
 \contentsline {subsubsection}{Indicadores}{8}

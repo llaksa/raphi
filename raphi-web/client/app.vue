@@ -1,5 +1,8 @@
 <template>
   <div>
+    <header>
+      My header
+    </header>
     <agent
       v-for="agent in agents"
       :uuid="agent.uuid"

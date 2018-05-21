@@ -1,7 +1,6 @@
 <template>
   <div>
     <header>
-      My header
     </header>
     <agent
       v-for="agent in agents"
@@ -68,3 +67,4 @@ module.exports = {
   }
 }
 </script>
+https://www.youtube.com/watch?v=swFIxlKhZxI

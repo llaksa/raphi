@@ -68,7 +68,6 @@ module.exports = {
         return;
       }
 
-      console.log(metrics);
       this.metrics = metrics;
 
       this.startRealtime();

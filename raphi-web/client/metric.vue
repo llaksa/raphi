@@ -1,9 +1,30 @@
 <template>
   <div class="metric row">
-    <button v-on:click="toggleOneMetric" class="button col s6">
+    <div v-on:click="toggleOneMetric" class="button col s6">
       <h3 class="metric-type">{{ type }}</h3>
       <h3 class="metric-type">{{ rightNowElement }}</h3>
-    </button>
+    </div>
+    <div v-if="type === 'Temperatura-aire'">
+      <input name="-" type="text" value="_"/>
+    </div>
+    <div v-else-if="type === 'Nivel-tanque'">
+      <input name="-" type="text" value="_"/>
+    </div>
+    <div v-else-if="type === 'Intensidad de Luz'">
+      <input name="-" type="text" value="_"/>
+    </div>
+    <div v-else-if="type === 'Aire-fresco'">
+      <button>OFF</button>
+    </div>
+    <div v-else-if="type === 'Agua-fresca'">
+      <button>OFF</button>
+    </div>
+    <div v-else-if="type === 'Aire-circulacion'">
+      <button>OFF</button>
+    </div>
+    <div v-else-if="type === 'Agua-circulacion'">
+      <button>OFF</button>
+    </div>
     <line-chart v-show="showOneMetric" class="col s12"
       :chart-data="datacollection"
       :options="{ responsive: true }"

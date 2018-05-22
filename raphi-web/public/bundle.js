@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".metrics-title {\n  text-align: center;\n  font-size: 28px;\n  letter-spacing: 1px;\n  font-family: 'Monserrat', sans-serif;\n}\n.button {\n  text-transform: uppercase;\n  color: #ff7a22;\n  border: none;\n  background: none;\n  font-size: 14px;\n  font-weight: 900;\n  cursor: pointer;\n  outline: 0;\n  padding: 0;\n  font-family: 'Roboto', sans-serif;\n}\n.agent {\n  max-width: 850px;\n  box-sizing: border-box;\n  border-radius: 4px;\n  background: white;\n  padding: 20px;\n  font-family: 'Roboto', sans-serif;\n  margin: 24px 15px;\n  box-shadow: 0 1px 3px 0 rgba(165, 165, 165, 0.2), 0 2px 2px 0 rgba(163, 137, 137, 0.12), 0 0 2px 0 rgba(0, 0, 0, 0.14);\n}\n.agent-title {\n  font-size: 32px;\n  letter-spacing: 1px;\n  margin: 0;\n  font-family: 'Monserrat', sans-serif;\n}\n.agent-host {\n  font-size: 20px;\n}\n.agent-status {\n  font-size: 20px\n}\n.agent-status span {\n  font-weight: bold;\n  color: #ff7a22;\n}\n@media screen and (min-width: 850px) {\n  .agent {\n    padding: 20px 85px;\n    margin: 24px auto;\n  }\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("/*\n  .metrics-title {\n    text-align: center;\n    font-size: 28px;\n    letter-spacing: 1px;\n    font-family: 'Monserrat', sans-serif;\n  }\n  .button {\n    text-transform: uppercase;\n    color: #ff7a22;\n    border: none;\n    background: none;\n    font-size: 14px;\n    font-weight: 900;\n    cursor: pointer;\n    outline: 0;\n    padding: 0;\n    font-family: 'Roboto', sans-serif;\n  }\n  .agent {\n    max-width: 850px;\n    box-sizing: border-box;\n    border-radius: 4px;\n    background: white;\n    padding: 20px;\n    font-family: 'Roboto', sans-serif;\n    margin: 24px 15px;\n    box-shadow: 0 1px 3px 0 rgba(165, 165, 165, 0.2), 0 2px 2px 0 rgba(163, 137, 137, 0.12), 0 0 2px 0 rgba(0, 0, 0, 0.14);\n  }\n  .agent-title {\n    font-size: 32px;\n    letter-spacing: 1px;\n    margin: 0;\n    font-family: 'Monserrat', sans-serif;\n  }\n  .agent-host {\n    font-size: 20px;\n  }\n  .agent-status {\n    font-size: 20px\n  }\n  .agent-status span {\n    font-weight: bold;\n    color: #ff7a22;\n  }\n  @media screen and (min-width: 850px) {\n    .agent {\n      padding: 20px 85px;\n      margin: 24px auto;\n    }\n  }\n*/")
 ;(function(){
 'use strict';
 
@@ -68,6 +68,7 @@ module.exports = {
         return;
       }
 
+      console.log(metrics);
       this.metrics = metrics;
 
       this.startRealtime();
@@ -94,7 +95,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"agent"},[_c('div',[_c('h2',{staticClass:"agent-title"},[_vm._v(_vm._s(_vm.name)+" ("+_vm._s(_vm.pid)+")")]),_vm._v(" "),_c('p',{staticClass:"agent-host"},[_vm._v(_vm._s(_vm.hostname))]),_vm._v(" "),_c('p',{staticClass:"agent-status"},[_vm._v("Connected: "),_c('span',[_vm._v(_vm._s(_vm.connected))])]),_vm._v(" "),_c('button',{staticClass:"button",on:{"click":_vm.toggleMetrics}},[_vm._v("Toggle Metrics")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showMetrics),expression:"showMetrics"}]},[_c('h3',{staticClass:"metrics-title"},[_vm._v("Metrics")]),_vm._v(" "),_vm._l((_vm.metrics),function(metric){return _c('metric',{key:metric.type,attrs:{"uuid":_vm.uuid,"socket":_vm.socket,"type":metric.type}})})],2)]),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"agent"},[_c('div',[_c('h3',{staticClass:"agent-status"},[(_vm.connected)?_c('span',[_vm._v("Conectado")]):_c('span',[_vm._v("Desconectado")])]),_vm._v(" "),_vm._l((_vm.metrics),function(metric){return _c('metric',{key:metric.type,attrs:{"uuid":_vm.uuid,"socket":_vm.socket,"type":metric.type}})})],2),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -186,7 +187,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('top'),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,attrs:{"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._l((_vm.agents),function(agent){return _c('top',{key:agent.uuid,attrs:{"uuid":agent.uuid}})}),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,staticClass:"container",attrs:{"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -218,7 +219,7 @@ module.exports = Line.extend({
 });
 
 },{"vue-chartjs":469}],5:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".metric {\n  border: 1px solid white;\n  margin: 0 auto;\n}\n.metric-type {\n  font-size: 28px;\n  font-weight: normal;\n  font-family: 'Roboto', sans-serif;\n}\ncanvas {\n  margin: 0 auto;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("/*\n  .metric {\n    border: 1px solid white;\n    margin: 0 auto;\n  }\n  .metric-type {\n    font-size: 28px;\n    font-weight: normal;\n    font-family: 'Roboto', sans-serif;\n  }\n  canvas {\n    margin: 0 auto;\n  }\n*/")
 ;(function(){
 'use strict';
 
@@ -237,6 +238,7 @@ module.exports = {
   data: function data() {
     return {
       datacollection: {},
+      showOneMetric: false,
       error: null,
       color: null
     };
@@ -329,6 +331,9 @@ module.exports = {
     },
     handleError: function handleError(err) {
       this.error = err.message;
+    },
+    toggleOneMetric: function toggleOneMetric() {
+      this.showOneMetric = this.showOneMetric ? false : true;
     }
   }
 };
@@ -336,7 +341,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"metric"},[_c('h3',{staticClass:"metric-type"},[_vm._v(_vm._s(_vm.type))]),_vm._v(" "),_c('line-chart',{attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"metric row"},[_c('button',{staticClass:"button col s6",on:{"click":_vm.toggleOneMetric}},[_c('h3',{staticClass:"metric-type"},[_vm._v(_vm._s(_vm.type))])]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"col s12",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -350,10 +355,60 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"./line-chart":4,"moment":314,"random-material-color":362,"request-promise-native":383,"vue":471,"vue-hot-reload-api":470,"vueify/lib/insert-css":472}],6:[function(require,module,exports){
+;(function(){
+'use strict';
+
+var request = require('request-promise-native');
+
+module.exports = {
+  props: ['uuid'],
+
+  data: function data() {
+    return {
+      name: null,
+      pid: null,
+      automatic: true,
+      error: null
+    };
+  },
+  mounted: function mounted() {
+    this.initialize();
+  },
+
+
+  methods: {
+    initialize: async function initialize() {
+      var uuid = this.uuid;
+
+
+      var options = {
+        method: 'GET',
+        url: 'http://localhost:8080/agent/' + uuid,
+        json: true
+      };
+
+      var agent = void 0;
+      try {
+        agent = await request(options);
+      } catch (e) {
+        this.error = e.error.error;
+        return;
+      }
+
+      this.name = agent.name;
+      this.pid = agent.pid;
+    },
+    toggleControllMode: function toggleControllMode() {
+      this.automatic = this.automatic ? false : true;
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('header',{staticClass:"top"},[_c('div',{staticClass:"top-capsule"},[_vm._v("\n    Cultivo\n    "),_c('div',{staticClass:"top-capsule-name"},[_vm._v("\n      Lechuga\n    ")])]),_vm._v(" "),_c('div',{staticClass:"top-capsule"},[_vm._v("\n    Control\n    "),_c('button',{staticClass:"top-capsule-name"},[_vm._v("\n      Auto\n    ")])]),_vm._v(" "),_c('div',{staticClass:"top-capsule"},[_vm._v("\n    Weather\n  ")]),_vm._v(" "),_c('div',{staticClass:"top-capsule"},[_vm._v("\n    Image\n  ")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('div',{staticClass:"nav-wrapper"},[_c('div',{staticClass:"brand-logo"},[_vm._v("Cultivo: "),_c('span',[_vm._v(_vm._s(_vm.name)+" ("+_vm._s(_vm.pid)+")")])]),_vm._v(" "),_c('ul',{staticClass:"right hide-on-med-and-down",attrs:{"id":"nav-mobile"}},[_c('li',[_c('button',{on:{"click":_vm.toggleControllMode}},[_vm._v("Control:\n          "),(_vm.automatic)?_c('span',[_vm._v("Automatic")]):_c('span',[_vm._v("Manual")])])]),_vm._v(" "),_vm._m(0),_vm._v(" "),_vm._m(1)])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":"weather.html"}},[_vm._v("Clima")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":"image.html"}},[_vm._v("Imagen")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -364,7 +419,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-7139dbba", __vue__options__)
   }
 })()}
-},{"vue":471,"vue-hot-reload-api":470}],7:[function(require,module,exports){
+},{"request-promise-native":383,"vue":471,"vue-hot-reload-api":470}],7:[function(require,module,exports){
 module.exports = after
 
 function after(count, callback, err_cb) {

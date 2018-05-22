@@ -1,7 +1,11 @@
 <template>
   <div>
-    <top></top>
-    <agent
+    <top
+      v-for="agent in agents"
+      :uuid="agent.uuid"
+      :key="agent.uuid">
+    </top>
+    <agent class="container"
       v-for="agent in agents"
       :uuid="agent.uuid"
       :key="agent.uuid"

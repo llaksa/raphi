@@ -1,26 +1,24 @@
 <template>
   <div class="agent">
     <div>
-      <h2 class="agent-title">{{name}} ({{pid}})</h2>
-      <p class="agent-host">{{hostname}}</p>
-      <p class="agent-status">Connected: <span>{{connected}}</span></p>
-      <button v-on:click="toggleMetrics" class="button">Toggle Metrics</button>
-      <div v-show="showMetrics">
-        <h3 class="metrics-title">Metrics</h3>
-        <metric
-          :uuid="uuid"
-          :socket="socket"
-          v-for="metric in metrics"
-          v-bind:type="metric.type"
-          v-bind:key="metric.type"
-        ></metric>
-      </div>
+      <h3 class="agent-status">
+        <span v-if="connected">Conectado</span>
+        <span v-else>Desconectado</span>
+      </h3>
+      <metric
+        :uuid="uuid"
+        :socket="socket"
+        v-for="metric in metrics"
+        v-bind:type="metric.type"
+        v-bind:key="metric.type"
+      ></metric>
     </div>
     <p v-if="error">{{error}}</p>
   </div>
 </template>
 
 <style>
+/*
   .metrics-title {
     text-align: center;
     font-size: 28px;
@@ -71,6 +69,7 @@
       margin: 24px auto;
     }
   }
+*/
 </style>
 
 <script>

@@ -1,7 +1,9 @@
 <template>
-  <div class="metric">
-    <h3 class="metric-type">{{ type }}</h3>
-    <line-chart
+  <div class="metric row">
+    <button v-on:click="toggleOneMetric" class="button col s6">
+      <h3 class="metric-type">{{ type }}</h3>
+    </button>
+    <line-chart v-show="showOneMetric" class="col s12"
       :chart-data="datacollection"
       :options="{ responsive: true }"
       :width="400" :height="200"
@@ -10,6 +12,7 @@
   </div>
 </template>
 <style>
+/*
   .metric {
     border: 1px solid white;
     margin: 0 auto;
@@ -22,6 +25,7 @@
   canvas {
     margin: 0 auto;
   }
+*/
 </style>
 <script>
 const request = require('request-promise-native')
@@ -39,6 +43,7 @@ module.exports = {
   data() {
     return {
       datacollection: {},
+      showOneMetric: false,
       error: null,
       color: null
     }
@@ -127,6 +132,10 @@ module.exports = {
 
     handleError (err) {
       this.error = err.message
+    },
+
+    toggleOneMetric() {
+      this.showOneMetric = this.showOneMetric ? false : true
     }
   }
 }

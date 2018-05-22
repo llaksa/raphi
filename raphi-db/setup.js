@@ -23,6 +23,8 @@ async function setup () {
 
   const { db } = myConfigs
 
+  db.setup = true
+
   await databaseModule(db).catch(handleError.fatal)
 
   console.log('Success!')

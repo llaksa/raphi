@@ -2,6 +2,7 @@
   <div class="metric row">
     <button v-on:click="toggleOneMetric" class="button col s6">
       <h3 class="metric-type">{{ type }}</h3>
+      <h3 class="metric-type">{{ rightNowElement }}</h3>
     </button>
     <line-chart v-show="showOneMetric" class="col s12"
       :chart-data="datacollection"
@@ -44,6 +45,7 @@ module.exports = {
     return {
       datacollection: {},
       showOneMetric: false,
+      rightNowElement: null,
       error: null,
       color: null
     }
@@ -105,6 +107,8 @@ module.exports = {
           // Copy current values
           const labels = this.datacollection.labels
           const data = this.datacollection.datasets[0].data
+
+          this.rightNowElement = metric.value
 
           // Remove first element if length > 20
           const length = labels.length || data.length

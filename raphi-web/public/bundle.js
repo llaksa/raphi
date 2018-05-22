@@ -238,6 +238,7 @@ module.exports = {
     return {
       datacollection: {},
       showOneMetric: false,
+      rightNowElement: null,
       error: null,
       color: null
     };
@@ -307,6 +308,7 @@ module.exports = {
           var labels = _this.datacollection.labels;
           var data = _this.datacollection.datasets[0].data;
 
+          _this.rightNowElement = metric.value;
           var length = labels.length || data.length;
 
           if (length >= 20) {
@@ -340,7 +342,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"metric row"},[_c('button',{staticClass:"button col s6",on:{"click":_vm.toggleOneMetric}},[_c('h3',{staticClass:"metric-type"},[_vm._v(_vm._s(_vm.type))])]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"col s12",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"metric row"},[_c('button',{staticClass:"button col s6",on:{"click":_vm.toggleOneMetric}},[_c('h3',{staticClass:"metric-type"},[_vm._v(_vm._s(_vm.type))]),_vm._v(" "),_c('h3',{staticClass:"metric-type"},[_vm._v(_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"col s12",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

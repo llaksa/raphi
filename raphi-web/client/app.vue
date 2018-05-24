@@ -1,11 +1,20 @@
 <template>
   <div>
-    <top
-      v-for="agent in agents"
-      :uuid="agent.uuid"
-      :key="agent.uuid">
-    </top>
+    <div class="row">
+      <top
+        v-for="agent in agents"
+        :uuid="agent.uuid"
+        :key="agent.uuid">
+      </top>
+      <div>
+        <div v-on:click="toggleControll" class="col s2">
+          <h5 v-if="automatic" class="btn-small">Modo automático</h5>
+          <h5 v-else class="btn-small">Modo manual</h5>
+        </div>
+      </div>
+    </div>
     <agent class="container"
+      :automatic="automatic"
       v-for="agent in agents"
       :uuid="agent.uuid"
       :key="agent.uuid"
@@ -33,6 +42,7 @@ module.exports = {
     return {
       agents: [],
       error: null,
+      automatic: false,
       socket
     }
   },
@@ -66,6 +76,10 @@ module.exports = {
           this.agents.push(payload.agent)
         }
       })
+    },
+
+    toggleControll() {
+      this.automatic = this.automatic ? false : true
     }
   }
 }

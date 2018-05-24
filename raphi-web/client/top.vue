@@ -1,18 +1,15 @@
 <template>
-    <nav>
-      <div class="nav-wrapper">
-        <div class="brand-logo">Cultivo: <span>{{name}} ({{pid}})</span></div>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <button v-on:click="toggleControllMode">Control:
-              <span v-if="automatic">Automatic</span>
-              <span v-else>Manual</span>
-          </button></li>
-          <li><a href="weather.html">Clima</a></li>
-          <li><a href="image.html">Imagen</a></li>
-        </ul>
-      </div>
-    </nav>
+  <div>
+    <div class="col s6">
+      <h4 class="center-align">Cultivo ID: {{pid}} ({{name}})</h4>
+    </div>
+    <div class="col s2">
+      <h5 href="weather.html" class="btn-small">Clima</h5>
+    </div>
+    <div class="col s2">
+      <h5 href="image.html" class="btn-small">Imagen</h5>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,7 +22,6 @@ module.exports = {
     return {
       name: null,
       pid: null,
-      automatic: true,
       error: null,
     }
   },
@@ -54,10 +50,6 @@ module.exports = {
 
       this.name = agent.name
       this.pid = agent.pid
-    },
-
-    toggleControllMode() {
-      this.automatic = this.automatic ? false : true
     }
   }
 }

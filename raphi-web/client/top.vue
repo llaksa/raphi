@@ -1,15 +1,7 @@
 <template>
-  <div>
-    <div class="col s6">
-      <h4 class="center-align">Cultivo ID: {{pid}} ({{name}})</h4>
-    </div>
-    <div class="col s2">
-      <h5 href="weather.html" class="btn-small">Clima</h5>
-    </div>
-    <div class="col s2">
-      <h5 href="image.html" class="btn-small">Imagen</h5>
-    </div>
-  </div>
+  <nav class="brown darken-4">
+    <h2 class="white-text text-white center-align">CULTIVO ID: {{pid}} ({{name}})</h2>
+  </nav>
 </template>
 
 <script>

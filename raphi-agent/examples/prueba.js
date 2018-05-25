@@ -1,4 +1,5 @@
 const RaphiAgent = require('../')
+const cheerio    = require('cheerio')
 
 const agent = new RaphiAgent({
   name: 'Lechuga',

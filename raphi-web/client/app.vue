@@ -1,36 +1,28 @@
 <template>
   <div>
-    <div class="row">
-      <top
-        v-for="agent in agents"
-        :uuid="agent.uuid"
-        :key="agent.uuid">
-      </top>
-      <div>
-        <div v-on:click="toggleControll" class="col s2">
-          <h5 v-if="automatic" class="btn-small">Modo automático</h5>
-          <h5 v-else class="btn-small">Modo manual</h5>
-        </div>
-      </div>
-    </div>
-    <agent class="container"
-      :automatic="automatic"
+    <top
       v-for="agent in agents"
       :uuid="agent.uuid"
-      :key="agent.uuid"
-      :socket="socket">
-    </agent>
-    <p v-if="error">{{error}}</p>
+      :key="agent.uuid">
+    </top>
+    <div class="container">
+      <div class="row">
+        <div class="center-align col s12">
+          <h5 v-if="automatic" v-on:click="toggleControll" class="brown darken-4 btn-small">Modo automático</h5>
+          <h5 v-else v-on:click="toggleControll" class="brown darken-4 btn-small">Modo manual</h5>
+        </div>
+      </div>
+      <agent
+        :automatic="automatic"
+        v-for="agent in agents"
+        :uuid="agent.uuid"
+        :key="agent.uuid"
+        :socket="socket">
+      </agent>
+      <p v-if="error">{{error}}</p>
+    </div>
   </div>
 </template>
-
-<style>
-  body {
-    font-family: Arial;
-    background: #f8f8f8;
-    margin: 0;
-  }
-</style>
 
 <script>
 const request = require('request-promise-native')

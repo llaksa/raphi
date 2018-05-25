@@ -3,159 +3,175 @@
 
     <div v-if="automatic === false">
       <div v-if="type === 'Temperatura-aire'" class="valign-wrapper" >
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
           <input id="temp" type="number" class="validate" value="some number" />
-          <label class="active" for="temp">[ C° ]:</label>
+          <label class="white-text active" for="temp">[ Centigrade (C°) ]:</label>
         </div>
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
           <input id="level" type="number" class="validate" value="some number" />
-          <label class="active" for="level">[ mm ]:</label>
+          <label class="white-text active" for="level">[ Centimeter (cm) ]:</label>
         </div>
       </div>
-      
+
       <div v-else-if="type === 'Intensidad-Luz'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
           <input id="lux" type="number" class="validate" value="some number" />
-          <label class="active" for="lux">[ Lx ]:</label>
+          <label class="white-text active" for="lux">[ Lux (Lx) ]:</label>
         </div>
       </div>
     
       <div v-else-if="type === 'Aire-fresco'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff" class="waves-effect waves-light btn-small col s4">
-          <span v-if="onoff === true">ON</span>
-          <span v-else>OFF</span>
+        <div v-on:click="toggleOnOff">
+          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
+            <span class="black-text">ON</span>
+          </div>
+          <div v-else class="red waves-effect waves-light btn-small col s4">
+            <span>OFF</span>
+          </div>
         </div>
       </div>
       
       <div v-else-if="type === 'Agua-fresca'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff" class="waves-effect waves-light btn-small col s4">
-          <span v-if="onoff === true">ON</span>
-          <span v-else>OFF</span>
+        <div v-on:click="toggleOnOff">
+          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
+            <span class="black-text">ON</span>
+          </div>
+          <div v-else class="red waves-effect waves-light btn-small col s4">
+            <span>OFF</span>
+          </div>
         </div>
       </div>
       
       <div v-else-if="type === 'Aire-circulante'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff" class="waves-effect waves-light btn-small col s4">
-          <span v-if="onoff === true">ON</span>
-          <span v-else>OFF</span>
+        <div v-on:click="toggleOnOff">
+          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
+            <span class="black-text">ON</span>
+          </div>
+          <div v-else class="red waves-effect waves-light btn-small col s4">
+            <span>OFF</span>
+          </div>
         </div>
       </div>
       
       <div v-else-if="type === 'Agua-circulante'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s7">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
-      <div class="col s1">
-      </div>
-      <div v-on:click="toggleOnOff" class="waves-effect waves-light btn-small col s4">
-        <span v-if="onoff === true">ON</span>
-        <span v-else>OFF</span>
-      </div>
+        <div class="col s1">
+        </div>
+        <div v-on:click="toggleOnOff">
+          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
+            <span class="black-text">ON</span>
+          </div>
+          <div v-else class="red waves-effect waves-light btn-small col s4">
+            <span>OFF</span>
+          </div>
+        </div>
       </div>
       
       <div v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
     </div>
 
     <div v-else>
       <div v-if="type === 'Temperatura-aire'" class="valign-wrapper" >
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Nivel-tanque'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 orange lighten-2 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Intensidad-Luz'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Aire-fresco'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Agua-fresca'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Aire-circulante'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Agua-circulante'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
       
       <div v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="waves-effect waves-light btn-small col s12">
-          <span>{{ type }} : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s12">
+          <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
     </div>
     
-    <line-chart v-show="showOneMetric" class="card col s12"
+    <line-chart v-show="showOneMetric" class="card col s12 grey"
       :chart-data="datacollection"
       :options="{ responsive: true }"
       :width="400" :height="200"

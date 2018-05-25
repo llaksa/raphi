@@ -93,7 +93,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"center-align"},[_c('div',{staticClass:"row"},[(_vm.connected)?_c('h5',{staticClass:"col s12"},[_vm._v("Conectado")]):_c('h5',{staticClass:"col s12"},[_vm._v("Desconectado")])]),_vm._v(" "),_vm._l((_vm.metrics),function(metric){return _c('metric',{key:metric.type,attrs:{"automatic":_vm.automatic,"uuid":_vm.uuid,"socket":_vm.socket,"type":metric.type}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.connected)?_c('h5',{staticClass:"green center-align row"},[_vm._v("Conectado")]):_c('h5',{staticClass:"white-text red center-align row"},[_vm._v("Desconectado")]),_vm._v(" "),_vm._l((_vm.metrics),function(metric){return _c('metric',{key:metric.type,attrs:{"automatic":_vm.automatic,"uuid":_vm.uuid,"socket":_vm.socket,"type":metric.type}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -126,7 +126,6 @@ var vm = new Vue({
 });
 
 },{"./agent.vue":1,"./app.vue":3,"./metric.vue":5,"./top.vue":6,"vue":471}],3:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("body {\n  font-family: Arial;\n  background: #f8f8f8;\n  margin: 0;\n}")
 ;(function(){
 'use strict';
 
@@ -188,20 +187,19 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"row"},[_vm._l((_vm.agents),function(agent){return _c('top',{key:agent.uuid,attrs:{"uuid":agent.uuid}})}),_vm._v(" "),_c('div',[_c('div',{staticClass:"col s2",on:{"click":_vm.toggleControll}},[(_vm.automatic)?_c('h5',{staticClass:"btn-small"},[_vm._v("Modo automático")]):_c('h5',{staticClass:"btn-small"},[_vm._v("Modo manual")])])])],2),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,staticClass:"container",attrs:{"automatic":_vm.automatic,"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._l((_vm.agents),function(agent){return _c('top',{key:agent.uuid,attrs:{"uuid":agent.uuid}})}),_vm._v(" "),_c('div',{staticClass:"container"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"center-align col s12"},[(_vm.automatic)?_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo automático")]):_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo manual")])])]),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,attrs:{"automatic":_vm.automatic,"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
-  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-47fcf622", __vue__options__)
   } else {
     hotAPI.reload("data-v-47fcf622", __vue__options__)
   }
 })()}
-},{"request-promise-native":383,"socket.io-client":406,"vue":471,"vue-hot-reload-api":470,"vueify/lib/insert-css":472}],4:[function(require,module,exports){
+},{"request-promise-native":383,"socket.io-client":406,"vue":471,"vue-hot-reload-api":470}],4:[function(require,module,exports){
 'use strict';
 
 var _require = require('vue-chartjs'),
@@ -247,12 +245,6 @@ module.exports = {
   },
   mounted: function mounted() {
     this.initialize();
-  },
-  beforeUpdate: function beforeUpdate() {
-    this.espera = true;
-  },
-  updated: function updated() {
-    this.espera = false;
   },
 
 
@@ -354,8 +346,8 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.espera)?_c('div',{staticClass:"progress"},[_c('div',{staticClass:"indeterminate"})]):_c('div',{staticClass:"row"},[(_vm.automatic === false)?_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(0)]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(1)]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(2)]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{staticClass:"waves-effect waves-light btn-small col s4",on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('span',[_vm._v("ON")]):_c('span',[_vm._v("OFF")])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{staticClass:"waves-effect waves-light btn-small col s4",on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('span',[_vm._v("ON")]):_c('span',[_vm._v("OFF")])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{staticClass:"waves-effect waves-light btn-small col s4",on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('span',[_vm._v("ON")]):_c('span',[_vm._v("OFF")])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{staticClass:"waves-effect waves-light btn-small col s4",on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('span',[_vm._v("ON")]):_c('span',[_vm._v("OFF")])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]):_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"card col s12",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"temp","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"active",attrs:{"for":"temp"}},[_vm._v("[ C° ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"level","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"active",attrs:{"for":"level"}},[_vm._v("[ mm ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"lux","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"active",attrs:{"for":"lux"}},[_vm._v("[ Lx ]:")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row"},[(_vm.automatic === false)?_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(0)]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(1)]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(2)]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text"},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',[_vm._v("OFF")])])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text"},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',[_vm._v("OFF")])])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text"},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',[_vm._v("OFF")])])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text"},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',[_vm._v("OFF")])])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]):_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 orange lighten-2 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"card col s12 grey",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"temp","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"temp"}},[_vm._v("[ Centigrade (C°) ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"level","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"level"}},[_vm._v("[ Centimeter (cm) ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"lux","type":"number","value":"some number"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"lux"}},[_vm._v("[ Lux (Lx) ]:")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -415,8 +407,8 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"col s6"},[_c('h4',{staticClass:"center-align"},[_vm._v("Cultivo ID: "+_vm._s(_vm.pid)+" ("+_vm._s(_vm.name)+")")])]),_vm._v(" "),_vm._m(0),_vm._v(" "),_vm._m(1)])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col s2"},[_c('h5',{staticClass:"btn-small",attrs:{"href":"weather.html"}},[_vm._v("Clima")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col s2"},[_c('h5',{staticClass:"btn-small",attrs:{"href":"image.html"}},[_vm._v("Imagen")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"brown darken-4"},[_c('h2',{staticClass:"white-text text-white center-align"},[_vm._v("CULTIVO ID: "+_vm._s(_vm.pid)+" ("+_vm._s(_vm.name)+")")])])}
+__vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -42723,7 +42715,7 @@ Polling.prototype.uri = function () {
   return schema + '://' + (ipv6 ? '[' + this.hostname + ']' : this.hostname) + port + this.path + query;
 };
 
-},{"../transport":221,"component-inherit":179,"debug":187,"engine.io-parser":228,"parseqs":336,"xmlhttprequest-ssl":227,"yeast":474}],226:[function(require,module,exports){
+},{"../transport":221,"component-inherit":179,"debug":187,"engine.io-parser":228,"parseqs":336,"xmlhttprequest-ssl":227,"yeast":473}],226:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies.
@@ -43013,7 +43005,7 @@ WS.prototype.check = function () {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../transport":221,"component-inherit":179,"debug":187,"engine.io-parser":228,"parseqs":336,"ws":81,"yeast":474}],227:[function(require,module,exports){
+},{"../transport":221,"component-inherit":179,"debug":187,"engine.io-parser":228,"parseqs":336,"ws":81,"yeast":473}],227:[function(require,module,exports){
 (function (global){
 // browser shim for xmlhttprequest module
 
@@ -88481,7 +88473,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":442,"./lib/response":443,"builtin-status-codes":114,"url":456,"xtend":473}],441:[function(require,module,exports){
+},{"./lib/request":442,"./lib/response":443,"builtin-status-codes":114,"url":456,"xtend":472}],441:[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -108705,31 +108697,6 @@ module.exports = Vue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":346}],472:[function(require,module,exports){
-var inserted = exports.cache = {}
-
-function noop () {}
-
-exports.insert = function (css) {
-  if (inserted[css]) return noop
-  inserted[css] = true
-
-  var elem = document.createElement('style')
-  elem.setAttribute('type', 'text/css')
-
-  if ('textContent' in elem) {
-    elem.textContent = css
-  } else {
-    elem.styleSheet.cssText = css
-  }
-
-  document.getElementsByTagName('head')[0].appendChild(elem)
-  return function () {
-    document.getElementsByTagName('head')[0].removeChild(elem)
-    inserted[css] = false
-  }
-}
-
-},{}],473:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -108750,7 +108717,7 @@ function extend() {
     return target
 }
 
-},{}],474:[function(require,module,exports){
+},{}],473:[function(require,module,exports){
 'use strict';
 
 var alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'.split('')

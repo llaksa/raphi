@@ -1,20 +1,16 @@
 <template>
   <div>
-    <div class="center-align">
-      <div class="row">
-        <h5 v-if="connected" class="col s12">Conectado</h5>
-        <h5 v-else class="col s12">Desconectado</h5>
-      </div>
-      <metric
-        :automatic="automatic"
-        :uuid="uuid"
-        :socket="socket"
-        v-for="metric in metrics"
-        v-bind:type="metric.type"
-        v-bind:key="metric.type"
-      ></metric>
-      <p v-if="error">{{error}}</p>
-    </div>
+    <h5 v-if="connected" class="green center-align row">Conectado</h5>
+    <h5 v-else class="white-text red center-align row">Desconectado</h5>
+    <metric
+      :automatic="automatic"
+      :uuid="uuid"
+      :socket="socket"
+      v-for="metric in metrics"
+      v-bind:type="metric.type"
+      v-bind:key="metric.type"
+    ></metric>
+    <p v-if="error">{{error}}</p>
   </div>
 </template>
 

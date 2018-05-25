@@ -9,7 +9,7 @@
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
-          <input id="temp" type="number" class="validate" value="some number" />
+          <input id="temp" type="number" class="validate" value="0" />
           <label class="white-text active" for="temp">[ Centigrade (C°) ]:</label>
         </div>
       </div>
@@ -21,7 +21,7 @@
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
-          <input id="level" type="number" class="validate" value="some number" />
+          <input id="level" type="number" class="validate" value="0" />
           <label class="white-text active" for="level">[ Centimeter (cm) ]:</label>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
-          <input id="lux" type="number" class="validate" value="some number" />
+          <input id="lux" type="number" class="validate" value="0" />
           <label class="white-text active" for="lux">[ Lux (Lx) ]:</label>
         </div>
       </div>
@@ -46,10 +46,10 @@
         </div>
         <div v-on:click="toggleOnOff">
           <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span class="black-text">ON</span>
+            <span id="freshAir" class="black-text">ON</span>
           </div>
           <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span>OFF</span>
+            <span id="freshAir">OFF</span>
           </div>
         </div>
       </div>
@@ -62,10 +62,10 @@
         </div>
         <div v-on:click="toggleOnOff">
           <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span class="black-text">ON</span>
+            <span id="freshWater" class="black-text">ON</span>
           </div>
           <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span>OFF</span>
+            <span id="freshWater">OFF</span>
           </div>
         </div>
       </div>
@@ -78,10 +78,10 @@
         </div>
         <div v-on:click="toggleOnOff">
           <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span class="black-text">ON</span>
+            <span id="roundAir" class="black-text">ON</span>
           </div>
           <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span>OFF</span>
+            <span id="roundAir">OFF</span>
           </div>
         </div>
       </div>
@@ -94,10 +94,10 @@
         </div>
         <div v-on:click="toggleOnOff">
           <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span class="black-text">ON</span>
+            <span id="roundWater" class="black-text">ON</span>
           </div>
           <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span>OFF</span>
+            <span id="roundWater">OFF</span>
           </div>
         </div>
       </div>

@@ -1,10 +1,18 @@
-var request = require('request');
-var cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
-request('http://localhost:8080/', function (error, response, html) {
-  if (!error && response.statusCode == 200) {
-    var $ = cheerio.load(html);
-    const a = $('').html();
-    console.log(html);
-  }
-});
+(async () => {
+  //try {
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    const page = await browser.newPage();
+  await page.goto('http://192.168.1.37:8080');
+
+    const valueContent = await page.evaluate(() => document.querySelector('#lux'));
+
+    console.log(valueContent);
+
+    browser.close();
+
+  //} catch(error) {
+  //  console.log(error);
+  //}
+})();

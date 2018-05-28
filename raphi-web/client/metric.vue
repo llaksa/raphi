@@ -2,114 +2,98 @@
   <div class="row">
 
     <div v-if="automatic === false">
-      <div v-if="type === 'Temperatura-aire'" class="valign-wrapper" >
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+
+      <div v-if="type === 'Temperatura-aire'" class="valign-wrapper">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
+          <label class="white-text active" for="temp">[ Centigrade (C) ]:</label>
           <input id="temp" type="number" class="validate" value="0" />
-          <label class="white-text active" for="temp">[ Centigrade (C°) ]:</label>
         </div>
+        <button v-on:click="tempValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
-          <input id="level" type="number" class="validate" value="0" />
           <label class="white-text active" for="level">[ Centimeter (cm) ]:</label>
+          <input id="level" type="number" class="validate" value="0" />
         </div>
+        <button v-on:click="levelValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
         <div class="input-field inline col s4">
-          <input id="lux" type="number" class="validate" value="0" />
           <label class="white-text active" for="lux">[ Lux (Lx) ]:</label>
+          <input id="lux" type="number" class="validate" value="0" />
         </div>
+        <button v-on:click="luxValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
-    
+
       <div v-else-if="type === 'Aire-fresco'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff">
-          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span id="freshAir" class="black-text">ON</span>
-          </div>
-          <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span id="freshAir">OFF</span>
-          </div>
-        </div>
+        <div v-if="btn === false" id="freshAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="btn === true" id="freshAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="toggleBtn(document.querySelector('#freshAir'))" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-fresca'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff">
-          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span id="freshWater" class="black-text">ON</span>
-          </div>
-          <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span id="freshWater">OFF</span>
-          </div>
-        </div>
+        <div v-if="btn === false" id="freshWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="btn === true" id="freshWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
-      
+
       <div v-else-if="type === 'Aire-circulante'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff">
-          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span id="roundAir" class="black-text">ON</span>
-          </div>
-          <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span id="roundAir">OFF</span>
-          </div>
-        </div>
+        <div v-if="btn === false" id="roundAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="btn === true" id="roundAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-circulante'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
         <div class="col s1">
         </div>
-        <div v-on:click="toggleOnOff">
-          <div v-if="onoff === true" class="green waves-effect waves-light btn-small col s4">
-            <span id="roundWater" class="black-text">ON</span>
-          </div>
-          <div v-else class="red waves-effect waves-light btn-small col s4">
-            <span id="roundWater">OFF</span>
-          </div>
-        </div>
+        <div v-if="btn === false" id="roundWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="btn === true" id="roundWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <div v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</div>
       </div>
       
       <div v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
-      
+
       <div v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s7">
+        <div v-on:click="toggleOneMetric" class="brown darken-1 waves-effect waves-light btn-small col s5">
           <span class="">{{ type }} : {{ rightNowElement }}</span>
         </div>
       </div>
@@ -198,9 +182,12 @@ module.exports = {
       datacollection: {},
       showOneMetric: false,
       rightNowElement: null,
-      onoff: false,
+      btn: false,
       error: null,
-      color: null
+      color: null,
+      $temp: null,
+      $level: null,
+      $lux: null
     }
   },
 
@@ -285,6 +272,41 @@ module.exports = {
           }
         }
       })
+
+      this.definedValues()
+    },
+
+    definedValues() {
+      this.$temp = document.querySelector('#temp')
+      this.$level = document.querySelector('#level')
+      this.$lux = document.querySelector('#lux')
+
+      this.$temp.value = this.getCookie('temp')
+      this.$level.value = this.getCookie('level')
+      this.$lux.value = this.getCookie('lux')
+    },
+
+    getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+
+    setCookie(cname,cvalue,exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires=" + d.toGMTString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     },
 
     handleError (err) {
@@ -295,8 +317,23 @@ module.exports = {
       this.showOneMetric = this.showOneMetric ? false : true
     },
 
-    toggleOnOff() {
-      this.onoff = this.onoff ? false : true
+    toggleBtn(myElement) {
+      this.btn = this.btn ? false : true
+      myElement.addEventListener("click", function(){
+        socket.emit(   )
+      }
+    },
+
+    tempValue() {
+      this.setCookie('temp', this.$temp.value, 365);
+    },
+
+    levelValue() {
+      this.setCookie('level', this.$level.value, 365);
+    },
+
+    luxValue() {
+      this.setCookie('lux', this.$lux.value, 365);
     }
   }
 }

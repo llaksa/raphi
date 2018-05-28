@@ -187,8 +187,8 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._l((_vm.agents),function(agent){return _c('top',{key:agent.uuid,attrs:{"uuid":agent.uuid}})}),_vm._v(" "),_c('div',{staticClass:"container"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"center-align col s12"},[(_vm.automatic)?_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo automático")]):_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo manual")])])]),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,attrs:{"automatic":_vm.automatic,"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)],2)}
-__vue__options__.staticRenderFns = []
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._m(0),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('top',{key:agent.uuid,attrs:{"uuid":agent.uuid}})}),_vm._v(" "),_c('div',{staticClass:"container"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"center-align col s12"},[(_vm.automatic)?_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo automático")]):_c('h5',{staticClass:"brown darken-4 btn-small",on:{"click":_vm.toggleControll}},[_vm._v("Modo manual")])])]),_vm._v(" "),_vm._l((_vm.agents),function(agent){return _c('agent',{key:agent.uuid,attrs:{"automatic":_vm.automatic,"uuid":agent.uuid,"socket":_vm.socket}})}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],2)],2)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"the-class",attrs:{"id":"the-id"}},[_c('h1',[_vm._v("LA CLASE")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -238,12 +238,18 @@ module.exports = {
       datacollection: {},
       showOneMetric: false,
       rightNowElement: null,
-      onoff: false,
+      btn: false,
       error: null,
-      color: null
+      color: null,
+      $temp: null,
+      $level: null,
+      $lux: null
     };
   },
   mounted: function mounted() {
+    this.$temp = document.querySelector('#temp');
+    this.$level = document.querySelector('#level');
+    this.$lux = document.querySelector('#lux');
     this.initialize();
   },
 
@@ -330,6 +336,34 @@ module.exports = {
           };
         }
       });
+
+      this.definedValues();
+    },
+    definedValues: function definedValues() {
+      this.$temp.value = this.getCookie('temp');
+      this.$level.value = this.getCookie('level');
+      this.$lux.value = this.getCookie('lux');
+    },
+    getCookie: function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+    setCookie: function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      var expires = "expires=" + d.toGMTString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     },
     handleError: function handleError(err) {
       this.error = err.message;
@@ -337,8 +371,32 @@ module.exports = {
     toggleOneMetric: function toggleOneMetric() {
       this.showOneMetric = this.showOneMetric ? false : true;
     },
-    toggleOnOff: function toggleOnOff() {
-      this.onoff = this.onoff ? false : true;
+    toggleBtn: function toggleBtn() {
+      this.btn = this.btn ? false : true;
+    },
+    toggleFW: function toggleFW() {
+      this.ooFW = this.ooFW ? false : true;
+      this.setCookie('freshWater', this.ooFW, 365);
+      console.log(this.ooFW);
+    },
+    toggleRA: function toggleRA() {
+      this.ooRA = this.ooRA ? false : true;
+      this.setCookie('roundAir', this.ooRA, 365);
+      console.log(this.ooRA);
+    },
+    toggleRW: function toggleRW() {
+      this.ooRW = this.ooRW ? false : true;
+      this.setCookie('roundWater', this.ooRW, 365);
+      console.log(this.ooRW);
+    },
+    tempValue: function tempValue() {
+      this.setCookie('temp', this.$temp.value, 365);
+    },
+    levelValue: function levelValue() {
+      this.setCookie('level', this.$level.value, 365);
+    },
+    luxValue: function luxValue() {
+      this.setCookie('lux', this.$lux.value, 365);
     }
   }
 };
@@ -346,8 +404,8 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row"},[(_vm.automatic === false)?_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(0)]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(1)]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(2)]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text",attrs:{"id":"freshAir"}},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',{attrs:{"id":"freshAir"}},[_vm._v("OFF")])])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text",attrs:{"id":"freshWater"}},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',{attrs:{"id":"freshWater"}},[_vm._v("OFF")])])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text",attrs:{"id":"roundAir"}},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',{attrs:{"id":"roundAir"}},[_vm._v("OFF")])])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_c('div',{on:{"click":_vm.toggleOnOff}},[(_vm.onoff === true)?_c('div',{staticClass:"green waves-effect waves-light btn-small col s4"},[_c('span',{staticClass:"black-text",attrs:{"id":"roundWater"}},[_vm._v("ON")])]):_c('div',{staticClass:"red waves-effect waves-light btn-small col s4"},[_c('span',{attrs:{"id":"roundWater"}},[_vm._v("OFF")])])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s7",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]):_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 orange lighten-2 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"card col s12 grey",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"temp","type":"number","value":"0"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"temp"}},[_vm._v("[ Centigrade (C°) ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"level","type":"number","value":"0"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"level"}},[_vm._v("[ Centimeter (cm) ]:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('input',{staticClass:"validate",attrs:{"id":"lux","type":"number","value":"0"}}),_vm._v(" "),_c('label',{staticClass:"white-text active",attrs:{"for":"lux"}},[_vm._v("[ Lux (Lx) ]:")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row"},[(_vm.automatic === false)?_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.tempValue}},[_vm._v("Submit")])]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.levelValue}},[_vm._v("Submit")])]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),_vm._m(2),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.luxValue}},[_vm._v("Submit")])]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),(_vm.btn === false)?_c('div',{staticClass:"red waves-effect waves-light btn-small col s4",attrs:{"id":"freshAir"}},[_vm._v("OFF")]):_c('div',{staticClass:"white-text green waves-effect waves-light btn-small col s4",attrs:{"id":"freshAir"}},[_vm._v("ON")]),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.toggleBtn}},[_vm._v("Submit")])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),(_vm.btn === false)?_c('div',{staticClass:"red waves-effect waves-light btn-small col s4",attrs:{"id":"freshWater"}},[_vm._v("OFF")]):_c('div',{staticClass:"white-text green waves-effect waves-light btn-small col s4",attrs:{"id":"freshWater"}},[_vm._v("ON")]),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.toggleBtn}},[_vm._v("Submit")])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),(_vm.btn === false)?_c('div',{staticClass:"red waves-effect waves-light btn-small col s4",attrs:{"id":"roundAir"}},[_vm._v("OFF")]):_c('div',{staticClass:"white-text green waves-effect waves-light btn-small col s4",attrs:{"id":"roundAir"}},[_vm._v("ON")]),_vm._v(" "),_c('button',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.toggleBtn}},[_vm._v("Submit")])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])]),_vm._v(" "),_c('div',{staticClass:"col s1"}),_vm._v(" "),(_vm.btn === false)?_c('div',{staticClass:"red waves-effect waves-light btn-small col s4",attrs:{"id":"roundWater"}},[_vm._v("OFF")]):_c('div',{staticClass:"white-text green waves-effect waves-light btn-small col s4",attrs:{"id":"roundWater"}},[_vm._v("ON")]),_vm._v(" "),_c('div',{staticClass:"btn-small waves-effect waves-light col s2",attrs:{"type":"submit","name":"action"},on:{"click":_vm.toggleBtn}},[_vm._v("Submit")])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s5",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]):_c('div',[(_vm.type === 'Temperatura-aire')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Nivel-tanque')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 orange lighten-2 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Intensidad-Luz')?_c('div',{staticClass:"valign-wrapper"},[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-fresco')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-fresca')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Aire-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Agua-circulante')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'Temperatura-agua')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):(_vm.type === 'CO')?_c('div',[_c('div',{staticClass:"brown darken-1 waves-effect waves-light btn-small col s12",on:{"click":_vm.toggleOneMetric}},[_c('span',{},[_vm._v(_vm._s(_vm.type)+" : "+_vm._s(_vm.rightNowElement))])])]):_vm._e()]),_vm._v(" "),_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(_vm.showOneMetric),expression:"showOneMetric"}],staticClass:"card col s12 grey",attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}}),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()],1)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('label',{staticClass:"white-text active",attrs:{"for":"temp"}},[_vm._v("[ Centigrade (C) ]:")]),_vm._v(" "),_c('input',{staticClass:"validate",attrs:{"id":"temp","type":"number","value":"0"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('label',{staticClass:"white-text active",attrs:{"for":"level"}},[_vm._v("[ Centimeter (cm) ]:")]),_vm._v(" "),_c('input',{staticClass:"validate",attrs:{"id":"level","type":"number","value":"0"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"input-field inline col s4"},[_c('label',{staticClass:"white-text active",attrs:{"for":"lux"}},[_vm._v("[ Lux (Lx) ]:")]),_vm._v(" "),_c('input',{staticClass:"validate",attrs:{"id":"lux","type":"number","value":"0"}})])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return

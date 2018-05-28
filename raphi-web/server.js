@@ -30,6 +30,14 @@ io.on('connect', socket => {
   debug(`Connected ${socket.id}`)
 
   pipe(agent, socket)
+
+  socket.on('onoffSubmit', (data) => {
+    console.log(data)
+  })
+
+  socket.on('pidSubmit', (data) => {
+    console.log(data)
+  })
 })
 
 // Express Error Handler

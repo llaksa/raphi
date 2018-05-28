@@ -50,7 +50,7 @@
         </div>
         <div v-if="btn === false" id="freshAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
         <div v-else="btn === true" id="freshAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn(document.querySelector('#freshAir'))" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-fresca'">
@@ -61,7 +61,7 @@
         </div>
         <div v-if="btn === false" id="freshWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
         <div v-else="btn === true" id="freshWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Aire-circulante'">
@@ -72,7 +72,7 @@
         </div>
         <div v-if="btn === false" id="roundAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
         <div v-else="btn === true" id="roundAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-circulante'">
@@ -83,7 +83,7 @@
         </div>
         <div v-if="btn === false" id="roundWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
         <div v-else="btn === true" id="roundWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <div v-on:click="toggleBtn" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</div>
+        <div v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</div>
       </div>
       
       <div v-else-if="type === 'Temperatura-agua'">
@@ -317,23 +317,32 @@ module.exports = {
       this.showOneMetric = this.showOneMetric ? false : true
     },
 
-    toggleBtn(myElement) {
+    toggleBtn() {
+      const { socket } = this
       this.btn = this.btn ? false : true
-      myElement.addEventListener("click", function(){
-        socket.emit(   )
-      }
+      socket.emit('onoffSubmit', { state: this.btn })
+      console.log('SUBMITED!')
     },
 
     tempValue() {
+      const { socket } = this
       this.setCookie('temp', this.$temp.value, 365);
+      socket.emit('pidSubmit', { state: this.$temp.value })
+      console.log('SUBMITED!')
     },
 
     levelValue() {
+      const { socket } = this
       this.setCookie('level', this.$level.value, 365);
+      socket.emit('pidSubmit', { state: this.$level.value })
+      console.log('SUBMITED!')
     },
 
     luxValue() {
+      const { socket } = this
       this.setCookie('lux', this.$lux.value, 365);
+      socket.emit('pidSubmit', { state: this.$lux.value })
+      console.log('SUBMITED!')
     }
   }
 }

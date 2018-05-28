@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div id="the-id" class="the-class">
-      <h1>LA CLASE</h1>
-    </div>
     <top
       v-for="agent in agents"
       :uuid="agent.uuid"

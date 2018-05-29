@@ -33,15 +33,45 @@ io.on('connect', socket => {
 
   socket.on('stateSubmit', (data) => {
     console.log(data)
+    let { state, option } = data
+    switch (option) {
+      case 'fa':
+        stateFreshAir = state
+        break
+      case 'fw':
+        stateFresWate = state
+        break
+      case 'ra':
+        stateRoundAir = state
+        break
+      case 'rw':
+        stateRoundWater = state
+        break
+      default:
+        break
+    }
   })
 
   socket.on('valueSubmit', (data) => {
     console.log(data)
+    let { value, option } = data
+    switch (option) {
+      case 'temp':
+        valueTemp = value
+        break
+      case 'ra':
+        valueLevel = value
+        break
+      case 'rw':
+        valueLux = value
+        break
+      default:
+        break
+    }
   })
 })
 
 // ==================== JOHNNY FIVE ZONE =======================:
-/*
 const five = require('johnny-five')
 const board = new five.Board()
 
@@ -56,7 +86,6 @@ let valueLux
 board.on('ready', () => {
 
 })
-*/
 // =============================================================
 
 // Express Error Handler

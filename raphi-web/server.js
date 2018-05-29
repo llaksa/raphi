@@ -36,16 +36,16 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        stateFreshAir = state
+        stateFreshAir0 = state
         break
       case 'fw':
-        stateFresWate = state
+        stateFreshWater0 = state
         break
       case 'ra':
-        stateRoundAir = state
+        stateRoundAir0 = state
         break
       case 'rw':
-        stateRoundWater = state
+        stateRoundWater0 = state
         break
       default:
         break
@@ -57,13 +57,13 @@ io.on('connect', socket => {
     let { value, option } = data
     switch (option) {
       case 'temp':
-        valueTemp = value
+        valueTemp0 = value
         break
       case 'ra':
-        valueLevel = value
+        valueLevel0 = value
         break
       case 'rw':
-        valueLux = value
+        valueLux0 = value
         break
       default:
         break
@@ -72,18 +72,110 @@ io.on('connect', socket => {
 })
 
 // ==================== JOHNNY FIVE ZONE =======================:
-const five = require('johnny-five')
+const five  = require('johnny-five')
 const board = new five.Board()
 
-let stateFreshAir
-let stateFreshWater
-let stateRoundAir
-let stateRoundWater
-let valueTemp
-let valueLevel
-let valueLux
+let stateFreshAir0
+let stateFreshAir1
+let stateFreshWater0
+let stateFreshWater1
+let stateRoundAir0
+let stateRoundAir1
+let stateRoundWater0
+let stateRoundWater1
+let valueTemp0
+let valueTemp1
+let valueLevel0
+let valueLevel1
+let valueLux0
+let valueLux1
 
 board.on('ready', () => {
+
+  // ======= Fresh Air =======
+  const relayFA = new five.Relay({
+    pin: 7,
+    type: "NC"
+  })
+
+  setInterval(() => {
+    if (stateFreshAir0 != stateFreshAir1) {
+      if (stateFreshAir0) {
+        relayFA.on()
+        stateFreshAir1 = stateFreshAir0
+      } else {
+        relayFA.off()
+        stateFreshAir1 = stateFreshAir0
+      }
+    }
+  }, 300)
+
+  // ======= Fresh Water =======
+  const relayFW = new five.Relay({
+    pin: 8,
+    type: "NC"
+  })
+
+  setInterval(() => {
+    if (stateFreshWater0 != stateFreshWater1) {
+      if (stateFreshWater0) {
+        relayFW.on()
+        stateFreshWater1 = stateFreshWater0
+      } else {
+        relayFW.off()
+        stateFreshWater1 = stateFreshWater0
+      }
+    }
+  }, 300)
+
+  // ======= Round Air =======
+  const relayRA = new five.Relay({
+    pin: 12,
+    type: "NC"
+  })
+
+  setInterval(() => {
+    if (stateRoundAir0 != stateRoundAir1) {
+      if (stateRoundAir0) {
+        relayRA.on()
+        stateRoundAir1 = stateRoundAir0
+      } else {
+        relayRA.off()
+        stateRoundAir1 = stateRoundAir0
+      }
+    }
+  }, 300)
+
+  // ======= Round Water =======
+  const relayRW = new five.Relay({
+    pin: 13,
+    type: "NC"
+  })
+
+  setInterval(() => {
+    if (stateRoundWater0 != stateRoundWater1) {
+      if (stateRoundWater0) {
+        relayRW.on()
+        stateRoundWater1 = stateRoundWater0
+      } else {
+        relayRW.off()
+        stateRoundWater1 = stateRoundWater0
+      }
+    }
+  }, 300)
+
+  board.repl.inject({
+    relay : relay
+  })
+
+  // ======= Temp Control =======
+  let tempSetpoint = valueTemp0
+
+  // ======= Level Control =======
+  let levelSetpoint = valueLevel0
+
+  // ======= Lux Control =======
+  let luxSetpoint = valueLux0
 
 })
 // =============================================================

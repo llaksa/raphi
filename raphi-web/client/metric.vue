@@ -13,7 +13,7 @@
           <label class="white-text active" for="temp">[ Centigrade (C) ]:</label>
           <input id="temp" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="tempValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="setValue('temp')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="valign-wrapper">
@@ -26,7 +26,7 @@
           <label class="white-text active" for="level">[ Centimeter (cm) ]:</label>
           <input id="level" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="levelValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="setValue('level')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'" class="valign-wrapper">
@@ -39,7 +39,7 @@
           <label class="white-text active" for="lux">[ Lux (Lx) ]:</label>
           <input id="lux" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="luxValue" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <button v-on:click="setValue('lux')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Aire-fresco'">
@@ -48,9 +48,9 @@
         </div>
         <div class="col s1">
         </div>
-        <div v-if="btn === false" id="freshAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
-        <div v-else="btn === true" id="freshAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <div v-if="state === false" id="freshAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="setState('fa')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-fresca'">
@@ -59,9 +59,9 @@
         </div>
         <div class="col s1">
         </div>
-        <div v-if="btn === false" id="freshWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
-        <div v-else="btn === true" id="freshWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <div v-if="state === false" id="freshWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="state === true" id="freshWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="setState('fw')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
 
       <div v-else-if="type === 'Aire-circulante'">
@@ -70,9 +70,9 @@
         </div>
         <div class="col s1">
         </div>
-        <div v-if="btn === false" id="roundAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
-        <div v-else="btn === true" id="roundAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <button v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
+        <div v-if="state === false" id="roundAir" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="state === true" id="roundAir" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <button v-on:click="setState('ra')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</button>
       </div>
       
       <div v-else-if="type === 'Agua-circulante'">
@@ -81,9 +81,9 @@
         </div>
         <div class="col s1">
         </div>
-        <div v-if="btn === false" id="roundWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
-        <div v-else="btn === true" id="roundWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
-        <div v-on:click="toggleBtn('#freshAir')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</div>
+        <div v-if="state === false" id="roundWater" class="red waves-effect waves-light btn-small col s4">OFF</div>
+        <div v-else="state === true" id="roundWater" class="white-text green waves-effect waves-light btn-small col s4">ON</div>
+        <div v-on:click="setState('rw')" class="btn-small waves-effect waves-light col s2" type="submit" name="action">Submit</div>
       </div>
       
       <div v-else-if="type === 'Temperatura-agua'">
@@ -182,12 +182,13 @@ module.exports = {
       datacollection: {},
       showOneMetric: false,
       rightNowElement: null,
-      btn: false,
       error: null,
       color: null,
       $temp: null,
       $level: null,
-      $lux: null
+      $lux: null,
+      state: false,
+      value: null
     }
   },
 
@@ -317,31 +318,30 @@ module.exports = {
       this.showOneMetric = this.showOneMetric ? false : true
     },
 
-    toggleBtn() {
+    setState(option) {
       const { socket } = this
-      this.btn = this.btn ? false : true
-      socket.emit('onoffSubmit', { state: this.btn })
+      this.state = this.state ? false : true
+      socket.emit('stateSubmit', { state: this.state, option: option })
       console.log('SUBMITED!')
     },
 
-    tempValue() {
+    setValue(option) {
       const { socket } = this
-      this.setCookie('temp', this.$temp.value, 365);
-      socket.emit('pidSubmit', { state: this.$temp.value })
-      console.log('SUBMITED!')
-    },
-
-    levelValue() {
-      const { socket } = this
-      this.setCookie('level', this.$level.value, 365);
-      socket.emit('pidSubmit', { state: this.$level.value })
-      console.log('SUBMITED!')
-    },
-
-    luxValue() {
-      const { socket } = this
-      this.setCookie('lux', this.$lux.value, 365);
-      socket.emit('pidSubmit', { state: this.$lux.value })
+      switch (option) {
+        case 'temp':
+          this.value = this.$temp.value
+          break
+        case 'level':
+          this.value = this.$level.value
+          break
+        case 'lux':
+          this.value = this.$lux.value
+          break
+        default:
+          break
+      }
+      this.setCookie(option, this.value, 365);
+      socket.emit('valueSubmit', { value: this.value, option: option })
       console.log('SUBMITED!')
     }
   }

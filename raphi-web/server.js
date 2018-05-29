@@ -31,14 +31,33 @@ io.on('connect', socket => {
 
   pipe(agent, socket)
 
-  socket.on('onoffSubmit', (data) => {
+  socket.on('stateSubmit', (data) => {
     console.log(data)
   })
 
-  socket.on('pidSubmit', (data) => {
+  socket.on('valueSubmit', (data) => {
     console.log(data)
   })
 })
+
+// ==================== JOHNNY FIVE ZONE =======================:
+/*
+const five = require('johnny-five')
+const board = new five.Board()
+
+let stateFreshAir
+let stateFreshWater
+let stateRoundAir
+let stateRoundWater
+let valueTemp
+let valueLevel
+let valueLux
+
+board.on('ready', () => {
+
+})
+*/
+// =============================================================
 
 // Express Error Handler
 app.use((err, req, res, next) => {
@@ -58,3 +77,4 @@ server.listen(port, () => {
   console.log(`${chalk.green('[raphi-web]')} server listening on port ${port}`)
   agent.connect()
 })
+

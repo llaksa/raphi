@@ -187,7 +187,7 @@ board.on('ready', async () => {
   })
 
   let temp1 = 0
-  temperature.on("data", function() {
+  temperature.on("data", () => {
     let temp0 = this.celsius * 0.0609 + temp1 * 0.9391
     tempOut = temp0
     //output = Math.round(y0)
@@ -276,7 +276,7 @@ board.on('ready', async () => {
 
   let level1 = 0
 
-  proximity.on("data", async function() {
+  proximity.on("data", async () => {
     let level0 = this.cm * 0.0609 + level1 * 0.9391
     levelOut = 22 - level0
     //console.log(output)

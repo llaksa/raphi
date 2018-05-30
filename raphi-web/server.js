@@ -72,6 +72,14 @@ io.on('connect', socket => {
 })
 
 // ==================== JOHNNY FIVE ZONE =======================:
+
+/*
+   Relays Digital Pins  : 2, 4, 8, 12, 13
+   Sensors Analog Pins  : A0
+   Sensors Digital Pins : 7, 10 (PWM Pin 10 used as digital!)
+   PWM Pins             : 9
+ */
+
 const five  = require('johnny-five')
 const board = new five.Board()
 
@@ -164,31 +172,28 @@ board.on('ready', async () => {
     }
   }, 300)
 
-  // ======= Temp Control =======
+  // ======= TEMP CONTROL =======
   let tempSetpoint = usrValTemp0
 
-  let input
-  let output
-
   const relayTemp = new five.Relay({
-    pin: 8,
+    pin: 2,
     type: "NO"
   })
 
-  const temp = new five.Thermometer({
+  const temperature = new five.Thermometer({
     controller: "LM35",
     pin: "A0",
     freq: 25
   })
 
-  let y1 = 0
-  temp.on("data", function() {
-    let y0 = this.celsius * 0.0609 + y1 * 0.9391
-    output = y0
+  let temp1 = 0
+  temperature.on("data", function() {
+    let temp0 = this.celsius * 0.0609 + temp1 * 0.9391
+    tempOut = temp0
     //output = Math.round(y0)
     //console.log("temp: " + output)
     //console.log(this.celsius)
-    y1 = y0
+    temp1 = temp0
     tempPidController(tempSetpoint)
   })
 
@@ -205,54 +210,51 @@ board.on('ready', async () => {
     }
   }
 
-  // SAVING DATA ============================================================================================
+  // ======= Saving Temperature Data =======
+  let tempIn
+  let tempOut
+
   async function tempGrabarOne () {
-      await fs.appendFile('temperature.txt', `\n${output}`, () => console.log(`Temperature: ${output}`))
-      await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+      await fs.appendFile('temperature.txt', `\n${tempOut}`, () => console.log(`Temperature: ${tempOut}`))
+      await fs.appendFile('pwm.txt', `\n${tempIn}`, () => console.log(`PWM: ${tempIn}`) )
   }
 
   async function tempGrabar () {
-    await fs.unlink('temperature.txt', () => console.log(`Temperature: ${output}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
+    await fs.unlink('temperature.txt', () => console.log(`Temperature: ${tempOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${tempIn}`))
     for (let k = 0; k < 5000; k++) {
       await tempGrabarOne()
       await delay(25)
     }
   }
 
-  async function delay (time) {
-    return new Promise(resolve => {
-      setTimeout(resolve, time)
-    })
-  }
-
   async function tempSavingData () {
-    input = 0
-    await pwmFan(input)
+    tempIn = 0
+    await pwmFan(tempIn)
 
     tempGrabar()
 
     await delay(15000)
 
-    input = 255
-    await pwmFan(input)
+    tempIn = 255
+    await pwmFan(tempIn)
 
     await delay(112000)
 
-    input = 0
-    await pwmFan(input)
+    tempIn = 0
+    await pwmFan(tempIn)
   }
 
-  let pi0  = pi1  = 0
-  let err0 = err1 = 0
+  let temp_pi0  = temp_pi1  = 0
+  let temp_err0 = temp_err1 = 0
   async function tempPidController (sp) {
-    err1     = err0
-    err0 = output - sp
-    let pi0  = pi1 + 52.1 * err0 - 52.09 * err1
+    temp_err1     = temp_err0
+    temp_err0 = tempOut - sp
+    let temp_pi0  = temp_pi1 + 52.1 * temp_err0 - 52.09 * temp_err1
     pi1      = pi0
-    console.log("pi0  :  " + pi0)
-    console.log("err0 :  " + err0)
-    await pwmFan(pi0)
+    console.log("pi0  :  " + temp_pi0)
+    console.log("err0 :  " + temp_err0)
+    await pwmFan(temp_pi0)
     /*
     if (err0 > 0) {
       await pwmFan(pi0)
@@ -264,7 +266,7 @@ board.on('ready', async () => {
 
   await pwmFan(0)
 
-  // ======= Level Control =======
+  // ======= LEVEL CONTROL =======
   let levelSetpoint = valueLevel0
 
   const proximity = new five.Proximity({
@@ -272,21 +274,125 @@ board.on('ready', async () => {
     pin: 7
   })
 
-  let y1 = 0
+  let level1 = 0
+
   proximity.on("data", async function() {
-    let y0 = this.cm * 0.0609 + y1 * 0.9391
-    output = 22 - y0
+    let level0 = this.cm * 0.0609 + level1 * 0.9391
+    levelOut = 22 - level0
     //console.log(output)
-    y1 = y0
+    level1 = level0
     await levelPidController(levelSetpoint)
   })
 
+  // ======= Saving Distance Data =======
+  let levelOut
+  let levelIn
+  async function levelGrabarOne () {
+    await fs.appendFile('distance.txt', `\n${levelOut}`, () => console.log(`Distance: ${levelOut}`))
+    await fs.appendFile('pwm.txt', `\n${levelIn}`, () => console.log(`PWM: ${levelIn}`) )
+  }
+
+  async function levelGrabar () {
+    await fs.unlink('distance.txt', () => console.log(`Distance: ${levelOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${levelIn}`))
+    for (let k = 0; k < 5000; k++) {
+      await levelGrabarOne()
+      await delay(25)
+    }
+  }
+
+  async function levelSavingData () {
+    levelIn = 0
+    await pwmPump(levelIn)
+
+    levelGrabar()
+
+    await delay(5000)
+
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+    await delay(5000)
+    levelIn = 255
+    await pwmPump(levelIn)
+    await delay(10000)
+
+    levelIn = 0
+    await pwmPump(levelIn)
+  }
+
+  // ======= Level Controller =======
+  // Analog Pin 10 As Digital
+  new five.Pin({
+    pin: 10,
+    type: "digital"
+  })
+
   const motor = new five.Motor(
-    { pins: { dir: 8, pwm: 9 }, invertPWM: true }
+    { pins: { dir: 10, pwm: 9 }, invertPWM: true }
   )
 
   async function pwmPump (x) {
-    if (x < 200 || err0 < 0) {
+    if (x < 200 || lvl_err0 < 0) {
       motor.fwd(200)
     } else if (x > 255) {
       motor.fwd(255)
@@ -295,111 +401,16 @@ board.on('ready', async () => {
     }
   }
 
-  // SAVING DATA
-  async function levelGrabarOne () {
-    await fs.appendFile('distance.txt', `\n${output}`, () => console.log(`Distance: ${output}`))
-    await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
-  }
-
-  async function levelGrabar () {
-    await fs.unlink('distance.txt', () => console.log(`Distance: ${output}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
-    for (let k = 0; k < 5000; k++) {
-      await levelGrabarOne()
-      await delay(25)
-    }
-  }
-
-  async function levelSavingData () {
-    input = 0
-    await pwmPump(input)
-
-    levelGrabar()
-
-    await delay(5000)
-
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-  }
-
-  // CONTROLLING
-  let pi0  = pi1  = 0
-  let err0 = err1 = 0
+  let lvl_pi0  = lvl_pi1  = 0
+  let lvl_err0 = lvl_err1 = 0
   async function levelPidController (sp) {
-    err1     = err0
-    err0 = sp - output
-    let pi0  = pi1 + 15.63 * err0 - 15.63 * err1
-    pi1      = pi0
-    console.log("pi0  :  " + pi0)
-    console.log("err0 :  " + err0)
-    await pwmPump(pi0 * 5)
+    lvl_err1     = lvl_err0
+    lvl_err0 = sp - levelOut
+    let lvl_pi0  = lvl_pi1 + 15.63 * lvl_err0 - 15.63 * lvl_err1
+    lvl_pi1      = lvl_pi0
+    console.log("pi0  :  " + lvl_pi0)
+    console.log("err0 :  " + lvl_err0)
+    await pwmPump(lvl_pi0 * 5)
   }
 
   await pwmPump(0)
@@ -408,15 +419,15 @@ board.on('ready', async () => {
   let luxSetpoint = valueLux0
 
   board.repl.inject({
-    relay : relay,
-    temp : temp,
     relayTemp : relayTemp,
     pwmFan : pwmFan,
-    tempSavingData : tempSavingData,
-    pidController : pidController
-    motor : motor,
     pwmPump : pwmPump,
-    levelSavingData : levelSavingData
+    tempSavingData : tempSavingData,
+    levelSavingData : levelSavingData,
+    tempPidController : tempPidController,
+    levelPidController : levelPidController,
+    motor : motor,
+    relay : relay
   })
 
   // ======= UTILS =======
@@ -447,4 +458,3 @@ server.listen(port, () => {
   console.log(`${chalk.green('[raphi-web]')} server listening on port ${port}`)
   agent.connect()
 })
-

@@ -73,9 +73,9 @@ io.on('connect', socket => {
 
 // ==================== JOHNNY FIVE ZONE ======================================:
 
-// Relays Digital Pins  : 2, 4, 8, 12, 13
-// Sensors Analog Pins  : A0
-// Sensors Digital Pins : 7, 10 (PWM Pin 10 used as digital!)
+// Relays Digital Pins  : 5 (PWM Pin 5 used as digital!), 4, 8, 12, 13
+// Sensors Analog Pins  : A0, A1, A4, A5
+// Sensors Digital Pins : 2, 7, 10 (PWM Pin 10 used as digital!)
 // PWM Pins             : 9
 
 const five  = require('johnny-five')
@@ -114,7 +114,13 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Fresh Water =======
-  const FshWater_relay = new five.Relay({
+  const FshWater_relay = new five.Revar light = new five.Light({
+    controller: "BH1750",
+  });
+
+  light.on("data", function() {
+    console.log("Lux: ", this.lux);
+  });lay({
     pin: 8,
     type: "NC"
   })
@@ -170,8 +176,14 @@ board.on('ready', async () => {
   // ======= Air Temperature =======
   let airTempSp = usrAirTemp0
 
+  // Analog Pin 5 As Digital
+  new five.Pin({
+    pin: 5,
+    type: "digital"
+  })
+
   const airTemp_relay = new five.Relay({
-    pin: 2,
+    pin: 5,
     type: "NO"
   })
 
@@ -406,7 +418,17 @@ board.on('ready', async () => {
   // ======= Lux =======
   let luxSp = valLux0
 
+  // Implementar luxController(luxSp) !!!
+
   let luxOut
+  const light = new five.Light({
+    controller: "BH1750",
+  })
+
+  light.on("data", function() {
+    luxOut = light.lux
+    console.log("Lux: ", luxOut)
+  })
 
   board.repl.inject({
     airTemp_relay : airTemp_relay,
@@ -420,11 +442,30 @@ board.on('ready', async () => {
     relay : relay
   })
 
-  // ======= CO =======
+  // ======= CO Just Sensing =======
   let coOut
 
-  // ======= Water Temperature =======
+  const coSensor = new five.Sensor("A1")
+
+  coSensor.on("change", () => {
+    coOut = coSensor.scaleTo(0, 10)
+    console.log('co : ' + coOut)
+  })
+
+  // ======= Water Temperature Just Sensing =======
   let waterTempOut
+
+  // This requires OneWire support using the ConfigurableFirmata
+  let waterTemp = new five.Thermometer({
+    controller: "DS18B20",
+    pin: 2
+  })
+
+  waterTemp.on("change", function() {
+    waterTempOut = this.celsius
+    console.log(waterTempOut + "°C");
+    // console.log("0x" + this.address.toString(16));
+  });
 
   // ======= Coommon Functions =======
   async function delay (time) {

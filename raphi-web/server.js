@@ -36,16 +36,16 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        usrStateFA0 = state
+        usrFreshAir0 = state
         break
       case 'fw':
-        usrStateFW0 = state
+        usrFreshWater0 = state
         break
       case 'ra':
-        usrStateRA0 = state
+        usrRoundAir0 = state
         break
       case 'rw':
-        usrStateRW0 = state
+        usrRoundWater0 = state
         break
       default:
         break
@@ -57,12 +57,12 @@ io.on('connect', socket => {
     let { value, option } = data
     switch (option) {
       case 'temp':
-        usrValTemp0 = value
+        usrAirTemp0 = value
         break
-      case 'ra':
-        usrValLevel0 = value
+      case 'level':
+        usrTnkLevel0 = value
         break
-      case 'rw':
+      case 'lux':
         usrValLux0 = value
         break
       default:
@@ -73,109 +73,104 @@ io.on('connect', socket => {
 
 // ==================== JOHNNY FIVE ZONE ======================================:
 
-/*
-   Relays Digital Pins  : 2, 4, 8, 12, 13
-   Sensors Analog Pins  : A0
-   Sensors Digital Pins : 7, 10 (PWM Pin 10 used as digital!)
-   PWM Pins             : 9
- */
+// Relays Digital Pins  : 2, 4, 8, 12, 13
+// Sensors Analog Pins  : A0
+// Sensors Digital Pins : 7, 10 (PWM Pin 10 used as digital!)
+// PWM Pins             : 9
 
 const five  = require('johnny-five')
 const board = new five.Board()
 
-let usrStateFA0
-let usrStateFA1
-let usrStateFW0
-let usrStateFW1
-let usrStateRA0
-let usrStateRA1
-let usrStateRW0
-let usrStateRW1
-let usrValTemp0
-let usrValTemp1
-let usrValLevel0
-let usrValLevel1
+let usrFshAir0
+let usrFshAir1
+let usrFshWater0
+let usrFshWater1
+let usrRndAir0
+let usrRndAir1
+let usrRndWater0
+let usrRndWater1
+let usrAirTemp0
+let usrTnkLevel0
 let usrValLux0
-let usrvalLux1
 
 board.on('ready', async () => {
 
   // ======= Fresh Air =======
-  const relayFA = new five.Relay({
+  const fshAir_relay = new five.Relay({
     pin: 7,
     type: "NC"
   })
 
   setInterval(() => {
-    if (usrStateFA0 != usrStateFA1) {
-      if (usrStateFA0) {
-        relayFA.on()
-        usrStateFA1 = usrStateFA0
+    if (usrFshAir0 != usrFshAir1) {
+      if (usrFshAir0) {
+        fshAir_relay.on()
+        usrFshAir1 = usrFshAir0
       } else {
-        relayFA.off()
-        usrStateFA1 = usrStateFA0
+        fshAir_relay.off()
+        usrFreAir1 = usrFshAir0
       }
     }
   }, 300)
 
   // ======= Fresh Water =======
-  const relayFW = new five.Relay({
+  const FshWater_relay = new five.Relay({
     pin: 8,
     type: "NC"
   })
 
   setInterval(() => {
-    if (usrStateFW0 != usrStateFW1) {
-      if (usrStateFW0) {
-        relayFW.on()
-        usrStateFW1 = usrStateFW0
+    if (usrFshWater0 != usrFshWater1) {
+      if (usrFshWater0) {
+        fshWater_relay.on()
+        usrFshWater1 = usrFshWater0
       } else {
-        relayFW.off()
-        usrStateFW1 = usrStateFW0
+        fshWater_relay.off()
+        usrFshWater1 = usrFshWater0
       }
     }
   }, 300)
 
   // ======= Round Air =======
-  const relayRA = new five.Relay({
+  const rndAir_relay = new five.Relay({
     pin: 12,
     type: "NC"
   })
 
   setInterval(() => {
-    if (usrStateRA0 != usrStateRA1) {
-      if (usrStateRA0) {
-        relayRA.on()
-        usrStateRA1 = usrStateRA0
+    if (usrRndAir0 != usrRndAir1) {
+      if (usrRndAir0) {
+        rndAir_relay.on()
+        usrRndAir1 = usrRndAir0
       } else {
-        relayRA.off()
-        usrStateRA1 = usrStateRA0
+        rndAir_relay.off()
+        usrRndAir1 = usrRndAir0
       }
     }
   }, 300)
 
   // ======= Round Water =======
-  const relayRW = new five.Relay({
+  const rndWater_relay = new five.Relay({
     pin: 13,
     type: "NC"
   })
 
   setInterval(() => {
-    if (usrStateRW0 != usrStateRW1) {
-      if (usrStateRW0) {
-        relayRW.on()
-        usrStateRW1 = usrStateRW0
+    if (usrRndWater0 != usrRoundWater1) {
+      if (usrRndWater1 usrRndWater0) {
+        rndWater_relay.on()
+        usrRndWater1 = usrRndWater0
       } else {
-        relayRW.off()
-        usrStateRW1 = usrStateRW0
+        rndWater_relay.off()
+        usrRndWater1 = usrRndWater0
       }
     }
   }, 300)
 
-  // ======= TEMP CONTROL =======
-  let tempSetpoint = usrValTemp0
+  // ======= Air Temperature =======
+  let airTempSp = usrAirTemp0
 
-  const relayTemp = new five.Relay({
+  const airTemp_relay = new five.Relay({
     pin: 2,
     type: "NO"
   })
@@ -186,201 +181,194 @@ board.on('ready', async () => {
     freq: 25
   })
 
-  let temp1 = 0
+  let airTemp1 = 0
   temperature.on("data", () => {
-    let temp0 = this.celsius * 0.0609 + temp1 * 0.9391
-    tempOut = temp0
+    let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
+    airTempOut = airTemp0
     //output = Math.round(y0)
     //console.log("temp: " + output)
     //console.log(this.celsius)
-    temp1 = temp0
-    tempPidController(tempSetpoint)
+    airTemp1 = airTemp0
+    airTempPidController(airTempSp)
   })
 
   board.pinMode(9, five.Pin.PWM)
   async function pwmFan (x) {
     if (x < 90) {
-      relayTemp.close()
+      airTemp_relay.close()
     } else if (x > 255) {
-      relayTemp.open()
+      airTemp_relay.open()
       board.analogWrite(9, 255)
     } else {
-      relayTemp.open()
+      airTemp_relay.open()
       board.analogWrite(9, x)
     }
   }
 
-  // ======= Saving Temperature Data =======
-  let tempIn
-  let tempOut
+  // ======= Saving Air Temperature Data =======
+  let airTempIn
+  let airTempOut
 
-  async function tempGrabarOne () {
-      await fs.appendFile('temperature.txt', `\n${tempOut}`, () => console.log(`Temperature: ${tempOut}`))
-      await fs.appendFile('pwm.txt', `\n${tempIn}`, () => console.log(`PWM: ${tempIn}`) )
+  async function airTempGrabarOne () {
+      await fs.appendFile('airTemperature.txt', `\n${airTempOut}`, () => console.log(`AirTemperature: ${airTempOut}`))
+      await fs.appendFile('pwm.txt', `\n${airTempIn}`, () => console.log(`PWM: ${airTempIn}`) )
   }
 
-  async function tempGrabar () {
-    await fs.unlink('temperature.txt', () => console.log(`Temperature: ${tempOut}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${tempIn}`))
+  async function airTempGrabar () {
+    await fs.unlink('airTemperature.txt', () => console.log(`airTemperature: ${airTempOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${airTempIn}`))
     for (let k = 0; k < 5000; k++) {
-      await tempGrabarOne()
+      await airTempGrabarOne()
       await delay(25)
     }
   }
 
-  async function tempSavingData () {
-    tempIn = 0
-    await pwmFan(tempIn)
+  async function airTempSavingData () {
+    airTempIn = 0
+    await pwmFan(airTempIn)
 
-    tempGrabar()
+    airTempGrabar()
 
     await delay(15000)
 
-    tempIn = 255
-    await pwmFan(tempIn)
+    airTempIn = 255
+    await pwmFan(airTempIn)
 
     await delay(112000)
 
-    tempIn = 0
-    await pwmFan(tempIn)
+    airTempIn = 0
+    await pwmFan(airTempIn)
   }
 
-  let temp_pi0  = temp_pi1  = 0
-  let temp_err0 = temp_err1 = 0
-  async function tempPidController (sp) {
-    temp_err1     = temp_err0
-    temp_err0 = tempOut - sp
-    let temp_pi0  = temp_pi1 + 52.1 * temp_err0 - 52.09 * temp_err1
-    pi1      = pi0
-    console.log("pi0  :  " + temp_pi0)
-    console.log("err0 :  " + temp_err0)
-    await pwmFan(temp_pi0)
-    /*
-    if (err0 > 0) {
-      await pwmFan(pi0)
-    } else {
-      await pwmFan(0)
-    }
-    */
+  let airTemp_pi0  = airTemp_pi1  = 0
+  let airTemp_err0 = airTemp_err1 = 0
+  async function airTempPidController (sp) {
+    airTemp_err1     = airTemp_err0
+    airTemp_err0 = airTempOut - sp
+    let airTemp_pi0  = airTemp_pi1 + 52.1 * airTemp_err0 - 52.09 * airTemp_err1
+    airTemp_pi1      = airTemp_pi0
+    console.log("pi0  :  " + airTemp_pi0)
+    console.log("err0 :  " + airTemp_err0)
+    await pwmFan(airTemp_pi0)
   }
 
   await pwmFan(0)
 
-  // ======= LEVEL CONTROL =======
-  let levelSetpoint = valueLevel0
+  // ======= Tank Level =======
+  let tnkLevelSp = usrTnkLevel0
 
   const proximity = new five.Proximity({
     controller: "HCSR04",
     pin: 7
   })
 
-  let level1 = 0
+  let tnkLevel1 = 0
 
   proximity.on("data", async () => {
-    let level0 = this.cm * 0.0609 + level1 * 0.9391
-    levelOut = 22 - level0
+    let tnkLevel0 = this.cm * 0.0609 + tnkLevel1 * 0.9391
+    tnkLevelOut = 22 - tnkLevel0
     //console.log(output)
-    level1 = level0
-    await levelPidController(levelSetpoint)
+    tnkLevel1 = tnkLevel0
+    await tnkLevelPidController(tnkLevelSp)
   })
 
   // ======= Saving Distance Data =======
-  let levelOut
-  let levelIn
-  async function levelGrabarOne () {
-    await fs.appendFile('distance.txt', `\n${levelOut}`, () => console.log(`Distance: ${levelOut}`))
-    await fs.appendFile('pwm.txt', `\n${levelIn}`, () => console.log(`PWM: ${levelIn}`) )
+  let tnkLevelOut
+  let tnkLevelIn
+  async function tnkLevelGrabarOne () {
+    await fs.appendFile('distance.txt', `\n${tnkLevelOut}`, () => console.log(`Distance: ${tnkLevelOut}`))
+    await fs.appendFile('pwm.txt', `\n${tnkLevelIn}`, () => console.log(`PWM: ${tnkLevelIn}`) )
   }
 
-  async function levelGrabar () {
-    await fs.unlink('distance.txt', () => console.log(`Distance: ${levelOut}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${levelIn}`))
+  async function tnkLevelGrabar () {
+    await fs.unlink('distance.txt', () => console.log(`Distance: ${tnkLevelOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${tnkLevelIn}`))
     for (let k = 0; k < 5000; k++) {
-      await levelGrabarOne()
+      await tnkLevelGrabarOne()
       await delay(25)
     }
   }
 
-  async function levelSavingData () {
-    levelIn = 0
-    await pwmPump(levelIn)
+  async function tnkLevelSavingData () {
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
 
-    levelGrabar()
+    tnkLevelGrabar()
 
     await delay(5000)
 
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
     await delay(5000)
-    levelIn = 255
-    await pwmPump(levelIn)
+    tnkLevelIn = 255
+    await pwmPump(tnkLevelIn)
     await delay(10000)
 
-    levelIn = 0
-    await pwmPump(levelIn)
+    tnkLevelIn = 0
+    await pwmPump(tnkLevelIn)
   }
 
-  // ======= Level Controller =======
+  // ======= Tank Level Controller =======
   // Analog Pin 10 As Digital
   new five.Pin({
     pin: 10,
@@ -401,36 +389,44 @@ board.on('ready', async () => {
     }
   }
 
-  let lvl_pi0  = lvl_pi1  = 0
-  let lvl_err0 = lvl_err1 = 0
-  async function levelPidController (sp) {
-    lvl_err1     = lvl_err0
-    lvl_err0 = sp - levelOut
-    let lvl_pi0  = lvl_pi1 + 15.63 * lvl_err0 - 15.63 * lvl_err1
-    lvl_pi1      = lvl_pi0
-    console.log("pi0  :  " + lvl_pi0)
-    console.log("err0 :  " + lvl_err0)
-    await pwmPump(lvl_pi0 * 5)
+  let tnkLevel_pi0  = tnkLevel_pi1  = 0
+  let tnkLevel_err0 = tnkLevel_err1 = 0
+  async function tnkLevelPidController (sp) {
+    tnkLevel_err1     = tnkLevel_err0
+    tnkLevel_err0 = sp - tnkLevelOut
+    let tnkLevel_pi0  = tnkLevel_pi1 + 15.63 * tnkLevel_err0 - 15.63 * tnkLevel_err1
+    tnkLevel_pi1      = tnkLevel_pi0
+    console.log("pi0  :  " + tnkLevel_pi0)
+    console.log("err0 :  " + tnkLevel_err0)
+    await pwmPump(tnkLevel_pi0 * 5)
   }
 
   await pwmPump(0)
 
-  // ======= Lux Control =======
-  let luxSetpoint = valueLux0
+  // ======= Lux =======
+  let luxSp = valLux0
+
+  let luxOut
 
   board.repl.inject({
-    relayTemp : relayTemp,
+    airTemp_relay : airTemp_relay,
     pwmFan : pwmFan,
     pwmPump : pwmPump,
-    tempSavingData : tempSavingData,
-    levelSavingData : levelSavingData,
-    tempPidController : tempPidController,
-    levelPidController : levelPidController,
+    airTempSavingData : airTempSavingData,
+    tnkLevelSavingData : tnkLevelSavingData,
+    airTempPidController : airTempPidController,
+    tnkLevelPidController : tnkLevelPidController,
     motor : motor,
     relay : relay
   })
 
-  // ======= UTILS =======
+  // ======= CO =======
+  let coOut
+
+  // ======= Water Temperature =======
+  let waterTempOut
+
+  // ======= Coommon Functions =======
   async function delay (time) {
     return new Promise(resolve => {
       setTimeout(resolve, time)
@@ -438,6 +434,78 @@ board.on('ready', async () => {
   }
 
 })
+// =============================================================================
+
+
+// ======= Raphi Agent Zone ====================================================
+
+const agent2 = new RaphiAgent({
+  name: 'Lechuga',
+  username: 'Irvin',
+  interval: 2000
+})
+
+agent2.addMetric('Temperatura-aire', () => {
+  return Math.random() * 100
+  //return tempAirOut
+})
+
+agent2.addMetric('Nivel-tanque', () => {
+  return Math.random() * 100
+  //return tnkLevelOut
+})
+
+agent2.addMetric('Intensidad-Luz', () => {
+  return Math.random() * 100
+  //return luxOut
+})
+
+agent2.addMetric('Temperatura-agua', () => {
+  return Math.random() * 100
+  //return waterTemp
+})
+
+agent2.addMetric('CO', () => {
+  return Math.random() * 100
+  //return coOut
+})
+
+agent2.addMetric('Aire-fresco', () => {
+  return Math.random() * 100
+  //return usrFshAir0
+})
+
+agent2.addMetric('Agua-fresca', () => {
+  return Math.random() * 100
+  //return usrFshWater0
+})
+
+agent2.addMetric('Aire-circulante', () => {
+  return Math.random() * 100
+  //return usrRndAir0
+})
+
+agent2.addMetric('Agua-circulante', () => {
+  return Math.random() * 100
+  //return usrRndWater0
+})
+
+agent2.connect()
+
+// This agent only
+agent2.on('connected', handler)
+agent2.on('disconnected', handler)
+agent2.on('message', handler)
+
+// Other Agents
+agent2.on('agent/connected', handler)
+agent2.on('agent/disconnected', handler)
+agent2.on('agent/message', handler)
+
+function handler (payload) {
+  console.log(payload)
+}
+
 // =============================================================================
 
 // Express Error Handler

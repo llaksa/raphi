@@ -199,9 +199,7 @@ artificial para optimizar la producción del mismo en sistemas agrícolas de
 ambiente controlado.
 \section{Identificación de variables}
 VARIABLES DEPENDIENTES
-Algoritmos de visión artificial
-Algoritmos evolutivos
-Temperatura del aire
+Temperatura de aire
 Volumen de agua
 Intensidad de Luz
 Periodicidad de injección de aire fresco
@@ -210,10 +208,81 @@ Periodicidad de circulación de aire
 Periodicidad de circulación de agua
 
 VARIABLES INDEPENDIENTES
-Estado  de la planta
+Color y tamaño de la planta cultivada
 Temperatura del agua
 Monóxido de oxígeno
 \subsection{Operacionalización de variables}
+Temperatura de aire
+Temperatura del aire al rededor de la planta dentro del prototipo de PFC
+Medible a través de un sensor de temperatura y alterable por medio de un sistema
+de control
+Temperatura
+15 °C - 25 °C
+
+Volumen de agua
+Volumen del agua sobre la cual está la planta dentro del prototipo de PFC
+Medible indirectamente a través de un sensor de distancia y alterable por medio
+de un sistema de control
+Longitud
+0 cm - 20 cm
+
+Intensidad de Luz
+Intensidad de luz dentro del prototipo de PFC
+Intensidad luminosa
+0 lx - 1000 lx
+
+Periodicidad de injección de aire fresco
+Frecuencia con la que el prototipo de PFC es administrada con aire fresco
+Alterable a través de la programación de intervalos de tiempo en un sistema de control
+Tiempo
+c / 2 h  - c / 4 h
+
+Periodicidad de injección de agua fresca
+Frecuencia con la que el prototipo de PFC es administrada con agua fresca
+Alterable a través de la programación de intervalos de tiempo en un sistema de
+control
+Tiempo
+c / 2 h  - c / 4 h
+
+Periodicidad de circulación de aire
+Frecuencia con la que se hace circular el aire en el prototipo de PFC
+Alterable a través de la programación de intervalos de tiempo en un sistema de
+control
+Tiempo
+c / 2 h  - c / 4 h
+
+Periodicidad de circulación de agua
+Frecuencia con la que se hace circular el agua en el prototipo de PFC
+Alterable a través de la programación de intervalos de tiempo en un sistema de
+control
+Tiempo
+c / 2 h  - c / 4 h
+
+Color del cultivo
+Color de las plantas cultivadas en el prototipo de PFC
+Medible a través de la aplicación de algoritmos de visión artificial sobre una
+imagen digital diaria de las plantas
+Color
+rgb(0,0,0) - rgb(255,255,255)
+
+Área del cultivo
+Área de las plantas cultivadas en el prototipo de PFC
+Medible indirectamente a través de la aplicación de algoritmos de visión artificial sobre una
+imagen digital diaria de las plantas
+Longitud^2
+0 m^² - 0.5 m^²
+
+Temperatura del agua
+Temperatura del agua sobre la que la planta está dentro del prototipo de PFC
+Medible a través de un sensor de temperatura
+Temperatura
+15 °C - 25 °C
+
+Nivel de Monóxido de oxígeno
+Concentración de monóxido de carbono en el prototipo de PFC
+Medible a través de un sensor de la concentración de CO
+Concentración
+20 ppm - 2000 ppm
 \section{Población, muestra y muestreo}
 \subsection{Población}
 Sistemas robóticos para agricultura personal

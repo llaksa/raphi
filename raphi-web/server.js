@@ -108,19 +108,13 @@ board.on('ready', async () => {
         usrFshAir1 = usrFshAir0
       } else {
         fshAir_relay.off()
-        usrFreAir1 = usrFshAir0
+        usrFshAir1= usrFshAir0
       }
     }
   }, 300)
 
   // ======= Fresh Water =======
-  const FshWater_relay = new five.Revar light = new five.Light({
-    controller: "BH1750",
-  });
-
-  light.on("data", function() {
-    console.log("Lux: ", this.lux);
-  });lay({
+  const FshWater_relay = new five.Relay({
     pin: 8,
     type: "NC"
   })
@@ -268,10 +262,15 @@ board.on('ready', async () => {
 
   // ======= Tank Level =======
   let tnkLevelSp = usrTnkLevel0
+  // Analog Pin 5 As Digital
+  new five.Pin({
+    pin: 6,
+    type: "digital"
+  })
 
   const proximity = new five.Proximity({
     controller: "HCSR04",
-    pin: 7
+    pin: 6
   })
 
   let tnkLevel1 = 0
@@ -444,7 +443,6 @@ board.on('ready', async () => {
 
   // ======= CO Just Sensing =======
   let coOut
-
   const coSensor = new five.Sensor("A1")
 
   coSensor.on("change", () => {
@@ -487,48 +485,48 @@ const agent2 = new RaphiAgent({
 })
 
 agent2.addMetric('Temperatura-aire', () => {
-  return Math.random() * 100
-  //return tempAirOut
+  //return Math.random() * 100
+  return tempAirOut
 })
 
 agent2.addMetric('Nivel-tanque', () => {
-  return Math.random() * 100
-  //return tnkLevelOut
+  //return Math.random() * 100
+  return tnkLevelOut
 })
 
 agent2.addMetric('Intensidad-Luz', () => {
-  return Math.random() * 100
-  //return luxOut
+  //return Math.random() * 100
+  return luxOut
 })
 
 agent2.addMetric('Temperatura-agua', () => {
-  return Math.random() * 100
-  //return waterTemp
+  //return Math.random() * 100
+  return waterTempOut
 })
 
 agent2.addMetric('CO', () => {
-  return Math.random() * 100
-  //return coOut
+  //return Math.random() * 100
+  return coOut
 })
 
 agent2.addMetric('Aire-fresco', () => {
-  return Math.random() * 100
-  //return usrFshAir0
+  //return Math.random() * 100
+  return usrFshAir0
 })
 
 agent2.addMetric('Agua-fresca', () => {
-  return Math.random() * 100
-  //return usrFshWater0
+  //return Math.random() * 100
+  return usrFshWater0
 })
 
 agent2.addMetric('Aire-circulante', () => {
-  return Math.random() * 100
-  //return usrRndAir0
+  //return Math.random() * 100
+  return usrRndAir0
 })
 
 agent2.addMetric('Agua-circulante', () => {
-  return Math.random() * 100
-  //return usrRndWater0
+  //return Math.random() * 100
+  return usrRndWater0
 })
 
 agent2.connect()

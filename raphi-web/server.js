@@ -36,16 +36,16 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        usrFreshAir0 = state
+        usrFreshAir0 = state || true
         break
       case 'fw':
-        usrFreshWater0 = state
+        usrFreshWater0 = state || false
         break
       case 'ra':
-        usrRoundAir0 = state
+        usrRoundAir0 = state || true
         break
       case 'rw':
-        usrRoundWater0 = state
+        usrRoundWater0 = state || false
         break
       default:
         break
@@ -57,13 +57,16 @@ io.on('connect', socket => {
     let { value, option } = data
     switch (option) {
       case 'temp':
-        usrAirTemp0 = value
+        usrAirTemp0 = value || 22
+        airTempSp = usrAirTemp0
         break
       case 'level':
-        usrTnkLevel0 = value
+        usrTnkLevel0 = value || 10
+        tnkLevelSp = usrTnkLevel0
         break
       case 'lux':
-        usrValLux0 = value
+        usrValLux0 = value || 200
+        luxSp = usrValLux0
         break
       default:
         break
@@ -92,6 +95,11 @@ let usrRndWater1
 let usrAirTemp0
 let usrTnkLevel0
 let usrValLux0
+let usrValLux1
+
+let luxSp
+let airTempSp
+let tnkLevelSp
 
 board.on('ready', async () => {
 
@@ -168,7 +176,6 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Air Temperature =======
-  let airTempSp = usrAirTemp0
 
   // Analog Pin 5 As Digital
   new five.Pin({
@@ -261,7 +268,7 @@ board.on('ready', async () => {
   await pwmFan(0)
 
   // ======= Tank Level =======
-  let tnkLevelSp = usrTnkLevel0
+
   // Analog Pin 5 As Digital
   new five.Pin({
     pin: 6,
@@ -415,9 +422,17 @@ board.on('ready', async () => {
   await pwmPump(0)
 
   // ======= Lux =======
-  let luxSp = valLux0
+  const led = new five.Led(3)
 
-  // Implementar luxController(luxSp) !!!
+  async function luxController(luxSp) {
+    led.brightness(luxSp)
+  }
+
+  setInterval(() => {
+    if (usrValLux0 != usrValLux1) {
+      luxController(luxSp)
+    }
+  }, 300)
 
   let luxOut
   const light = new five.Light({
@@ -428,6 +443,8 @@ board.on('ready', async () => {
     luxOut = light.lux
     console.log("Lux: ", luxOut)
   })
+
+  // INJECTS
 
   board.repl.inject({
     airTemp_relay : airTemp_relay,

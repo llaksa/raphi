@@ -387,6 +387,7 @@ board.on('ready', async () => {
   }
 
   // ======= Tank Level Controller =======
+
   // Analog Pin 10 As Digital
   new five.Pin({
     pin: 10,
@@ -424,8 +425,8 @@ board.on('ready', async () => {
   // ======= Lux =======
   const led = new five.Led(3)
 
-  async function luxController(luxSp) {
-    led.brightness(luxSp)
+  async function luxController(Sp) {
+    led.brightness(Sp)
   }
 
   setInterval(() => {

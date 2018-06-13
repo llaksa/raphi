@@ -36,16 +36,16 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        usrFreshAir0 = state || true
+        usrFreshAir0 = state
         break
       case 'fw':
-        usrFreshWater0 = state || false
+        usrFreshWater0 = state
         break
       case 'ra':
-        usrRoundAir0 = state || true
+        usrRoundAir0 = state
         break
       case 'rw':
-        usrRoundWater0 = state || false
+        usrRoundWater0 = state
         break
       default:
         break
@@ -57,15 +57,15 @@ io.on('connect', socket => {
     let { value, option } = data
     switch (option) {
       case 'temp':
-        usrAirTemp0 = value || 22
+        usrAirTemp0 = value
         airTempSp = usrAirTemp0
         break
       case 'level':
-        usrTnkLevel0 = value || 10
+        usrTnkLevel0 = value
         tnkLevelSp = usrTnkLevel0
         break
       case 'lux':
-        usrValLux0 = value || 200
+        usrValLux0 = value
         luxSp = usrValLux0
         break
       default:
@@ -84,22 +84,22 @@ io.on('connect', socket => {
 const five  = require('johnny-five')
 const board = new five.Board()
 
-let usrFshAir0
-let usrFshAir1
-let usrFshWater0
-let usrFshWater1
-let usrRndAir0
-let usrRndAir1
-let usrRndWater0
-let usrRndWater1
-let usrAirTemp0
-let usrTnkLevel0
-let usrValLux0
-let usrValLux1
+let usrFshAir0 = false
+let usrFshAir1 = false
+let usrFshWater0 = false
+let usrFshWater1 = false
+let usrRndAir0 = false
+let usrRndAir1 = false
+let usrRndWater0 = false
+let usrRndWater1 = false
+let usrAirTemp0 = 22
+let usrTnkLevel0 = 10
+let usrValLux0 = 0
+let usrValLux1 = 0
 
-let luxSp
-let airTempSp
-let tnkLevelSp
+let luxSp = 0
+let airTempSp = 22
+let tnkLevelSp = 10
 
 board.on('ready', async () => {
 
@@ -164,7 +164,7 @@ board.on('ready', async () => {
   })
 
   setInterval(() => {
-    if (usrRndWater0 != usrRoundWater1) {
+    if (usrRndWater0 != usrRndWater1) {
       if (usrRndWater1 usrRndWater0) {
         rndWater_relay.on()
         usrRndWater1 = usrRndWater0

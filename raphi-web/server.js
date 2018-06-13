@@ -259,8 +259,10 @@ board.on('ready', async () => {
     await pwmFan(airTempIn)
   }
 
-  let airTemp_pi0  = airTemp_pi1  = 0
-  let airTemp_err0 = airTemp_err1 = 0
+  let airTemp_pi0 = 0
+  let airTemp_pi1  = 0
+  let airTemp_err0 = 0
+  let airTemp_err1 = 0
   async function airTempPidController (sp) {
     airTemp_err1     = airTemp_err0
     airTemp_err0 = airTempOut - sp
@@ -412,8 +414,10 @@ board.on('ready', async () => {
     }
   }
 
-  let tnkLevel_pi0  = tnkLevel_pi1  = 0
-  let tnkLevel_err0 = tnkLevel_err1 = 0
+  let tnkLevel_pi0 = 0
+  let tnkLevel_pi1  = 0
+  let tnkLevel_err0 = 0
+  let tnkLevel_err1 = 0
   async function tnkLevelPidController (sp) {
     tnkLevel_err1     = tnkLevel_err0
     tnkLevel_err0 = sp - tnkLevelOut
@@ -459,7 +463,7 @@ board.on('ready', async () => {
     airTempPidController : airTempPidController,
     tnkLevelPidController : tnkLevelPidController,
     motor : motor,
-    relay : relay
+    luxController : luxController
   })
 
   // ======= CO Just Sensing =======

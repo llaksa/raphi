@@ -165,7 +165,7 @@ board.on('ready', async () => {
 
   setInterval(() => {
     if (usrRndWater0 != usrRndWater1) {
-      if (usrRndWater1 usrRndWater0) {
+      if (usrRndWater0) {
         rndWater_relay.on()
         usrRndWater1 = usrRndWater0
       } else {

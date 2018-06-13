@@ -84,6 +84,14 @@ io.on('connect', socket => {
 const five  = require('johnny-five')
 const board = new five.Board()
 
+let airTempIn
+let airTempOut
+let tnkLevelOut
+let tnkLevelIn
+let waterTempOut
+let coOut
+let luxOut
+
 let usrFshAir0 = false
 let usrFshAir1 = false
 let usrFshWater0 = false
@@ -219,9 +227,7 @@ board.on('ready', async () => {
   }
 
   // ======= Saving Air Temperature Data =======
-  let airTempIn
-  let airTempOut
-
+  
   async function airTempGrabarOne () {
       await fs.appendFile('airTemperature.txt', `\n${airTempOut}`, () => console.log(`AirTemperature: ${airTempOut}`))
       await fs.appendFile('pwm.txt', `\n${airTempIn}`, () => console.log(`PWM: ${airTempIn}`) )
@@ -291,8 +297,6 @@ board.on('ready', async () => {
   })
 
   // ======= Saving Distance Data =======
-  let tnkLevelOut
-  let tnkLevelIn
   async function tnkLevelGrabarOne () {
     await fs.appendFile('distance.txt', `\n${tnkLevelOut}`, () => console.log(`Distance: ${tnkLevelOut}`))
     await fs.appendFile('pwm.txt', `\n${tnkLevelIn}`, () => console.log(`PWM: ${tnkLevelIn}`) )
@@ -435,7 +439,6 @@ board.on('ready', async () => {
     }
   }, 300)
 
-  let luxOut
   const light = new five.Light({
     controller: "BH1750",
   })
@@ -460,7 +463,6 @@ board.on('ready', async () => {
   })
 
   // ======= CO Just Sensing =======
-  let coOut
   const coSensor = new five.Sensor("A1")
 
   coSensor.on("change", () => {
@@ -469,7 +471,6 @@ board.on('ready', async () => {
   })
 
   // ======= Water Temperature Just Sensing =======
-  let waterTempOut
 
   // This requires OneWire support using the ConfigurableFirmata
   let waterTemp = new five.Thermometer({
@@ -504,7 +505,7 @@ const agent2 = new RaphiAgent({
 
 agent2.addMetric('Temperatura-aire', () => {
   //return Math.random() * 100
-  return tempAirOut
+  return airTempOut
 })
 
 agent2.addMetric('Nivel-tanque', () => {

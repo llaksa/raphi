@@ -405,7 +405,7 @@ board.on('ready', async () => {
   )
 
   async function pwmPump (x) {
-    if (x < 200 || lvl_err0 < 0) {
+    if (x < 200 || tnkLevel_err0 < 0) {
       motor.fwd(200)
     } else if (x > 255) {
       motor.fwd(255)

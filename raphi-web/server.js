@@ -36,16 +36,16 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        usrFreshAir0 = state
+        usrFrshAir0 = state
         break
       case 'fw':
-        usrFreshWater0 = state
+        usrFrshWater0 = state
         break
       case 'ra':
-        usrRoundAir0 = state
+        usrRndAir0 = state
         break
       case 'rw':
-        usrRoundWater0 = state
+        usrRndWater0 = state
         break
       default:
         break
@@ -82,7 +82,9 @@ io.on('connect', socket => {
 // PWM Pins             : 9
 
 const five  = require('johnny-five')
-const board = new five.Board()
+const board = new five.Board({
+  port: "/dev/ttyACM0"
+})
 
 let airTempIn
 let airTempOut
@@ -474,7 +476,22 @@ board.on('ready', async () => {
     console.log('co : ' + coOut)
   })
 
-  // ======= Water Temperature Just Sensing =======
+  // ======= Coommon Functions =======
+  async function delay (time) {
+    return new Promise(resolve => {
+      setTimeout(resolve, time)
+    })
+  }
+
+})
+
+/*
+const board2 = new five.Board({
+  port: "/dev/ttyUSB0"
+})
+
+board2.on("ready", async function() {
+// ======= Water Temperature Just Sensing =======
 
   // This requires OneWire support using the ConfigurableFirmata
   let waterTemp = new five.Thermometer({
@@ -486,16 +503,10 @@ board.on('ready', async () => {
     waterTempOut = this.celsius
     console.log(waterTempOut + "°C");
     // console.log("0x" + this.address.toString(16));
-  });
-
-  // ======= Coommon Functions =======
-  async function delay (time) {
-    return new Promise(resolve => {
-      setTimeout(resolve, time)
-    })
-  }
-
+  })
 })
+*/
+
 // =============================================================================
 
 
@@ -508,28 +519,28 @@ const agent2 = new RaphiAgent({
 })
 
 agent2.addMetric('Temperatura-aire', () => {
-  //return Math.random() * 100
-  return airTempOut
+  return Math.random() * 100
+  //return airTempOut
 })
 
 agent2.addMetric('Nivel-tanque', () => {
-  //return Math.random() * 100
-  return tnkLevelOut
+  return Math.random() * 100
+  //return tnkLevelOut
 })
 
 agent2.addMetric('Intensidad-Luz', () => {
-  //return Math.random() * 100
-  return luxOut
+  return Math.random() * 100
+  //return luxOut
 })
 
 agent2.addMetric('Temperatura-agua', () => {
-  //return Math.random() * 100
-  return waterTempOut
+  return Math.random() * 100
+  //return waterTempOut
 })
 
 agent2.addMetric('CO', () => {
-  //return Math.random() * 100
-  return coOut
+  return Math.random() * 100
+  //return coOut
 })
 
 agent2.addMetric('Aire-fresco', () => {

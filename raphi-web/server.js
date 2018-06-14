@@ -94,8 +94,8 @@ let waterTempOut
 let coOut
 let luxOut
 
-let usrFshAir0 = false
-let usrFshAir1 = false
+let usrFshAir0 = true
+let usrFshAir1 = true
 let usrFshWater0 = false
 let usrFshWater1 = false
 let usrRndAir0 = false

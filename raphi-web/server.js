@@ -82,9 +82,11 @@ io.on('connect', socket => {
 // PWM Pins             : 9
 
 const five  = require('johnny-five')
-const board = new five.Board({
-  port: "/dev/ttyACM0"
-})
+const ports = [
+  { id: "A", port: "/dev/ttyACM0" },
+  { id: "B", port: "/dev/ttyUSB0" }
+]
+const board = new five.Boards(ports)
 
 let airTempIn
 let airTempOut
@@ -116,7 +118,8 @@ board.on('ready', async () => {
   // ======= Fresh Air =======
   const fshAir_relay = new five.Relay({
     pin: 7,
-    type: "NC"
+    type: "NC",
+    board: board.byId("A")
   })
 
   fshAir_relay.off()
@@ -135,7 +138,8 @@ board.on('ready', async () => {
   // ======= Fresh Water =======
   const fshWater_relay = new five.Relay({
     pin: 8,
-    type: "NC"
+    type: "NC",
+    board: board.byId("A")
   })
 
   fshWater_relay.off()
@@ -154,7 +158,8 @@ board.on('ready', async () => {
   // ======= Round Air =======
   const rndAir_relay = new five.Relay({
     pin: 12,
-    type: "NC"
+    type: "NC",
+    board: board.byId("A")
   })
 
   rndAir_relay.off()
@@ -173,7 +178,8 @@ board.on('ready', async () => {
   // ======= Round Water =======
   const rndWater_relay = new five.Relay({
     pin: 13,
-    type: "NC"
+    type: "NC",
+    board: board.byId("A")
   })
 
   rndWater_relay.off()
@@ -190,18 +196,22 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Lux =======
-  const led = new five.Led(3)
+  var led = new five.Led({
+    pin: 3,
+    board: board.byId("A")
+  })
 
   async function luxController(Sp) {
     led.brightness(Sp)
   }
 
-  setInterval(() => {
+  setInterval(async () => {
     if (usrValLux0 != usrValLux1) {
-      luxController(luxSp)
+      await luxController(luxSp)
     }
   }, 300)
 
+  /*
   const light = new five.Light({
     controller: "BH1750",
   })
@@ -209,6 +219,17 @@ board.on('ready', async () => {
   light.on("data", function() {
     luxOut = light.lux
     console.log("Lux: ", luxOut)
+  })
+  */
+
+  // ======= CO Just Sensing =======
+  const coSensor = new five.Sensor({
+    pin: "A1",
+    board: board.byId("A")
+  })
+
+  coSensor.on("change", () => {
+    coOut = coSensor.scaleTo(0, 10)
   })
 
   /*
@@ -255,39 +276,6 @@ board.on('ready', async () => {
     }
   }
 
-  // ======= Saving Air Temperature Data =======
-  
-  async function airTempGrabarOne () {
-      await fs.appendFile('airTemperature.txt', `\n${airTempOut}`, () => console.log(`AirTemperature: ${airTempOut}`))
-      await fs.appendFile('pwm.txt', `\n${airTempIn}`, () => console.log(`PWM: ${airTempIn}`) )
-  }
-
-  async function airTempGrabar () {
-    await fs.unlink('airTemperature.txt', () => console.log(`airTemperature: ${airTempOut}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${airTempIn}`))
-    for (let k = 0; k < 5000; k++) {
-      await airTempGrabarOne()
-      await delay(25)
-    }
-  }
-
-  async function airTempSavingData () {
-    airTempIn = 0
-    await pwmFan(airTempIn)
-
-    airTempGrabar()
-
-    await delay(15000)
-
-    airTempIn = 255
-    await pwmFan(airTempIn)
-
-    await delay(112000)
-
-    airTempIn = 0
-    await pwmFan(airTempIn)
-  }
-
   let airTemp_pi0 = 0
   let airTemp_pi1  = 0
   let airTemp_err0 = 0
@@ -327,100 +315,6 @@ board.on('ready', async () => {
     await tnkLevelPidController(tnkLevelSp)
   })
 
-  // ======= Saving Distance Data =======
-  async function tnkLevelGrabarOne () {
-    await fs.appendFile('distance.txt', `\n${tnkLevelOut}`, () => console.log(`Distance: ${tnkLevelOut}`))
-    await fs.appendFile('pwm.txt', `\n${tnkLevelIn}`, () => console.log(`PWM: ${tnkLevelIn}`) )
-  }
-
-  async function tnkLevelGrabar () {
-    await fs.unlink('distance.txt', () => console.log(`Distance: ${tnkLevelOut}`))
-    await fs.unlink('pwm.txt', () => console.log(`PWM: ${tnkLevelIn}`))
-    for (let k = 0; k < 5000; k++) {
-      await tnkLevelGrabarOne()
-      await delay(25)
-    }
-  }
-
-  async function tnkLevelSavingData () {
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-
-    tnkLevelGrabar()
-
-    await delay(5000)
-
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-    await delay(5000)
-    tnkLevelIn = 255
-    await pwmPump(tnkLevelIn)
-    await delay(10000)
-
-    tnkLevelIn = 0
-    await pwmPump(tnkLevelIn)
-  }
-
   // ======= Tank Level Controller =======
 
   // Analog Pin 10 As Digital
@@ -459,30 +353,22 @@ board.on('ready', async () => {
 
   await pwmPump(0)
 
-  // INJECTS
-
-  board.repl.inject({
-    airTemp_relay : airTemp_relay,
-    pwmFan : pwmFan,
-    pwmPump : pwmPump,
-    airTempSavingData : airTempSavingData,
-    tnkLevelSavingData : tnkLevelSavingData,
-    airTempPidController : airTempPidController,
-    tnkLevelPidController : tnkLevelPidController,
-    motor : motor,
-    luxController : luxController
-  })
-
-
-  // ======= CO Just Sensing =======
-  const coSensor = new five.Sensor("A1")
-
-  coSensor.on("change", () => {
-    coOut = coSensor.scaleTo(0, 10)
-    console.log('co : ' + coOut)
-  })
   */
 
+  // ======= Water Temperature Just Sensing =======
+
+  // This requires OneWire support using the ConfigurableFirmata
+  let waterTemp = new five.Thermometer({
+    controller: "DS18B20",
+    pin: 2,
+    board: board.byId("B")
+  })
+
+  waterTemp.on("change", function() {
+    waterTempOut = this.celsius
+    console.log(waterTempOut + "°C");
+    // console.log("0x" + this.address.toString(16));
+  })
 
   // ======= Coommon Functions =======
   async function delay (time) {
@@ -492,28 +378,6 @@ board.on('ready', async () => {
   }
 
 })
-
-/*
-const board2 = new five.Board({
-  port: "/dev/ttyUSB0"
-})
-
-board2.on("ready", async function() {
-// ======= Water Temperature Just Sensing =======
-
-  // This requires OneWire support using the ConfigurableFirmata
-  let waterTemp = new five.Thermometer({
-    controller: "DS18B20",
-    pin: 2
-  })
-
-  waterTemp.on("change", function() {
-    waterTempOut = this.celsius
-    console.log(waterTempOut + "°C");
-    // console.log("0x" + this.address.toString(16));
-  })
-})
-*/
 
 // =============================================================================
 
@@ -537,8 +401,9 @@ agent2.addMetric('Nivel-tanque', () => {
 })
 
 agent2.addMetric('Intensidad-Luz', () => {
-  return Math.random() * 100
+  //return Math.random() * 100
   //return luxOut
+  return usrValLux0
 })
 
 agent2.addMetric('Temperatura-agua', () => {
@@ -547,8 +412,8 @@ agent2.addMetric('Temperatura-agua', () => {
 })
 
 agent2.addMetric('CO', () => {
-  return Math.random() * 100
-  //return coOut
+  //return Math.random() * 100
+  return coOut
 })
 
 agent2.addMetric('Aire-fresco', () => {

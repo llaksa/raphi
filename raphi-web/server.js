@@ -132,7 +132,7 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Fresh Water =======
-  const FshWater_relay = new five.Relay({
+  const fshWater_relay = new five.Relay({
     pin: 8,
     type: "NC"
   })

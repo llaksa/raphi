@@ -94,8 +94,8 @@ let waterTempOut
 let coOut
 let luxOut
 
-let usrFshAir0 = true
-let usrFshAir1 = true
+let usrFshAir0 = false
+let usrFshAir1 = false
 let usrFshWater0 = false
 let usrFshWater1 = false
 let usrRndAir0 = false
@@ -119,6 +119,7 @@ board.on('ready', async () => {
     type: "NC"
   })
 
+  fshAir_relay.off()
   setInterval(() => {
     if (usrFshAir0 != usrFshAir1) {
       if (usrFshAir0) {
@@ -137,6 +138,7 @@ board.on('ready', async () => {
     type: "NC"
   })
 
+  fshWater_relay.off()
   setInterval(() => {
     if (usrFshWater0 != usrFshWater1) {
       if (usrFshWater0) {
@@ -155,6 +157,7 @@ board.on('ready', async () => {
     type: "NC"
   })
 
+  rndAir_relay.off()
   setInterval(() => {
     if (usrRndAir0 != usrRndAir1) {
       if (usrRndAir0) {
@@ -173,6 +176,7 @@ board.on('ready', async () => {
     type: "NC"
   })
 
+  rndWater_relay.off()
   setInterval(() => {
     if (usrRndWater0 != usrRndWater1) {
       if (usrRndWater0) {
@@ -184,6 +188,28 @@ board.on('ready', async () => {
       }
     }
   }, 300)
+
+  // ======= Lux =======
+  const led = new five.Led(3)
+
+  async function luxController(Sp) {
+    led.brightness(Sp)
+  }
+
+  setInterval(() => {
+    if (usrValLux0 != usrValLux1) {
+      luxController(luxSp)
+    }
+  }, 300)
+
+  const light = new five.Light({
+    controller: "BH1750",
+  })
+
+  light.on("data", function() {
+    luxOut = light.lux
+    console.log("Lux: ", luxOut)
+  })
 
   /*
   // ======= Air Temperature =======
@@ -432,28 +458,6 @@ board.on('ready', async () => {
   }
 
   await pwmPump(0)
-
-  // ======= Lux =======
-  const led = new five.Led(3)
-
-  async function luxController(Sp) {
-    led.brightness(Sp)
-  }
-
-  setInterval(() => {
-    if (usrValLux0 != usrValLux1) {
-      luxController(luxSp)
-    }
-  }, 300)
-
-  const light = new five.Light({
-    controller: "BH1750",
-  })
-
-  light.on("data", function() {
-    luxOut = light.lux
-    console.log("Lux: ", luxOut)
-  })
 
   // INJECTS
 

@@ -36,10 +36,10 @@ io.on('connect', socket => {
     let { state, option } = data
     switch (option) {
       case 'fa':
-        usrFrshAir0 = state
+        usrFshAir0 = state
         break
       case 'fw':
-        usrFrshWater0 = state
+        usrFshWater0 = state
         break
       case 'ra':
         usrRndAir0 = state

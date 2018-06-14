@@ -185,6 +185,7 @@ board.on('ready', async () => {
     }
   }, 300)
 
+  /*
   // ======= Air Temperature =======
 
   // Analog Pin 5 As Digital
@@ -468,6 +469,7 @@ board.on('ready', async () => {
     luxController : luxController
   })
 
+
   // ======= CO Just Sensing =======
   const coSensor = new five.Sensor("A1")
 
@@ -475,6 +477,8 @@ board.on('ready', async () => {
     coOut = coSensor.scaleTo(0, 10)
     console.log('co : ' + coOut)
   })
+  */
+
 
   // ======= Coommon Functions =======
   async function delay (time) {

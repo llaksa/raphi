@@ -32,7 +32,7 @@ io.on('connect', socket => {
   pipe(agent, socket)
 
   socket.on('stateSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { state, option } = data
     switch (option) {
       case 'fa':
@@ -53,7 +53,7 @@ io.on('connect', socket => {
   })
 
   socket.on('valueSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { value, option } = data
     switch (option) {
       case 'temp':
@@ -229,6 +229,7 @@ board.on('ready', async () => {
 
   waterTemperature.on("data", () => {
     waterTempOut = this.celsius
+    console.log(waterTemperature)
   })
 
   /*

@@ -82,11 +82,9 @@ io.on('connect', socket => {
 // PWM Pins             : 9
 
 const five  = require('johnny-five')
-const ports = [
-  { id: "A", port: "/dev/ttyACM0" },
-  { id: "B", port: "/dev/ttyUSB0" }
-]
-const board = new five.Boards(ports)
+const board = new five.Board({
+  port: "/dev/ttyACM0"
+})
 
 let airTempIn
 let airTempOut
@@ -118,8 +116,7 @@ board.on('ready', async () => {
   // ======= Fresh Air =======
   const fshAir_relay = new five.Relay({
     pin: 7,
-    type: "NC",
-    board: board.byId("A")
+    type: "NC"
   })
 
   fshAir_relay.off()
@@ -138,8 +135,7 @@ board.on('ready', async () => {
   // ======= Fresh Water =======
   const fshWater_relay = new five.Relay({
     pin: 8,
-    type: "NC",
-    board: board.byId("A")
+    type: "NC"
   })
 
   fshWater_relay.off()
@@ -158,8 +154,7 @@ board.on('ready', async () => {
   // ======= Round Air =======
   const rndAir_relay = new five.Relay({
     pin: 12,
-    type: "NC",
-    board: board.byId("A")
+    type: "NC"
   })
 
   rndAir_relay.off()
@@ -178,8 +173,7 @@ board.on('ready', async () => {
   // ======= Round Water =======
   const rndWater_relay = new five.Relay({
     pin: 13,
-    type: "NC",
-    board: board.byId("A")
+    type: "NC"
   })
 
   rndWater_relay.off()
@@ -196,10 +190,7 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Lux =======
-  var led = new five.Led({
-    pin: 3,
-    board: board.byId("A")
-  })
+  var led = new five.Led(3)
 
   async function luxController(Sp) {
     led.brightness(Sp)
@@ -223,13 +214,21 @@ board.on('ready', async () => {
   */
 
   // ======= CO Just Sensing =======
-  const coSensor = new five.Sensor({
-    pin: "A1",
-    board: board.byId("A")
-  })
+  const coSensor = new five.Sensor("A1")
 
   coSensor.on("change", () => {
     coOut = coSensor.scaleTo(0, 10)
+  })
+
+  // ======= Water Temperature Just Sensing =======
+  const waterTemperature = new five.Thermometer({
+    controller: "LM35",
+    pin: "A2",
+    freq: 25
+  })
+
+  waterTemperature.on("data", () => {
+    waterTempOut = this.celsius
   })
 
   /*
@@ -246,14 +245,14 @@ board.on('ready', async () => {
     type: "NO"
   })
 
-  const temperature = new five.Thermometer({
+  const airTemperature = new five.Thermometer({
     controller: "LM35",
     pin: "A0",
     freq: 25
   })
 
   let airTemp1 = 0
-  temperature.on("data", () => {
+  airTemperature.on("data", () => {
     let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
     airTempOut = airTemp0
     //output = Math.round(y0)
@@ -355,20 +354,6 @@ board.on('ready', async () => {
 
   */
 
-  // ======= Water Temperature Just Sensing =======
-
-  // This requires OneWire support using the ConfigurableFirmata
-  let waterTemp = new five.Thermometer({
-    controller: "DS18B20",
-    pin: 2,
-    board: board.byId("B")
-  })
-
-  waterTemp.on("change", function() {
-    waterTempOut = this.celsius
-    console.log(waterTempOut + "°C");
-    // console.log("0x" + this.address.toString(16));
-  })
 
   // ======= Coommon Functions =======
   async function delay (time) {
@@ -407,8 +392,8 @@ agent2.addMetric('Intensidad-Luz', () => {
 })
 
 agent2.addMetric('Temperatura-agua', () => {
-  return Math.random() * 100
-  //return waterTempOut
+  //return Math.random() * 100
+  return waterTempOut
 })
 
 agent2.addMetric('CO', () => {

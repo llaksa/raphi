@@ -232,7 +232,6 @@ board.on('ready', async () => {
     y1 = y0
   })
 
-  /*
   // ======= Air Temperature =======
 
   // Analog Pin 5 As Digital
@@ -353,9 +352,6 @@ board.on('ready', async () => {
 
   await pwmPump(0)
 
-  */
-
-
   // ======= Coommon Functions =======
   async function delay (time) {
     return new Promise(resolve => {
@@ -403,8 +399,8 @@ agent2.addMetric('CO', () => {
 })
 
 agent2.addMetric('Aire-fresco', () => {
-  return Math.random() * 100
-  //return usrFshAir0
+  //return Math.random() * 100
+  return usrFshAir0
 })
 
 agent2.addMetric('Agua-fresca', () => {

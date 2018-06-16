@@ -32,7 +32,7 @@ io.on('connect', socket => {
   pipe(agent, socket)
 
   socket.on('stateSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { state, option } = data
     switch (option) {
       case 'fa':
@@ -53,7 +53,7 @@ io.on('connect', socket => {
   })
 
   socket.on('valueSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { value, option } = data
     switch (option) {
       case 'temp':
@@ -86,11 +86,13 @@ const board = new five.Board({
   port: "/dev/ttyACM0"
 })
 
-let airTempOut = 0
-let tnkLevelOut = 0
-let waterTempOut = 0
-let coOut = 0
-let luxOut = 0
+let airTempIn
+let airTempOut
+let tnkLevelOut
+let tnkLevelIn
+let waterTempOut
+let coOut
+let luxOut
 
 let usrFshAir0 = false
 let usrFshAir1 = false
@@ -219,17 +221,15 @@ board.on('ready', async () => {
   })
 
   // ======= Water Temperature Just Sensing =======
-  const waterTemp = new five.Thermometer({
+  const waterTemperature = new five.Thermometer({
     controller: "LM35",
     pin: "A0",
-    freq: 25
+    freq: 100
   })
 
-  let y1 = 0
-  waterTemp.on("data", function () {
-    let y0 = this.celsius * 0.0609 + y1 * 0.9391
-    waterTempOut = y0
-    y1 = y0
+  waterTemperature.on("change", () => {
+    waterTempOut = this.celsius
+    console.log(waterTempOut)
   })
 
   /*
@@ -403,8 +403,8 @@ agent2.addMetric('CO', () => {
 })
 
 agent2.addMetric('Aire-fresco', () => {
-  return Math.random() * 100
-  //return usrFshAir0
+  //return Math.random() * 100
+  return usrFshAir0
 })
 
 agent2.addMetric('Agua-fresca', () => {

@@ -247,16 +247,16 @@ board.on('ready', async () => {
 
   const airTemperature = new five.Thermometer({
     controller: "LM35",
-    pin: "A0",
+    pin: "A2",
     freq: 25
   })
 
   let airTemp1 = 0
-  airTemperature.on("data", () => {
+  airTemperature.on("data", function () {
     let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
     airTempOut = airTemp0
     //output = Math.round(y0)
-    //console.log("temp: " + output)
+    console.log("temp: " + airTempOut)
     //console.log(this.celsius)
     airTemp1 = airTemp0
     airTempPidController(airTempSp)
@@ -306,7 +306,7 @@ board.on('ready', async () => {
 
   let tnkLevel1 = 0
 
-  proximity.on("data", async () => {
+  proximity.on("data", async function () {
     let tnkLevel0 = this.cm * 0.0609 + tnkLevel1 * 0.9391
     tnkLevelOut = 22 - tnkLevel0
     //console.log(output)

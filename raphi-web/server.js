@@ -256,7 +256,7 @@ board.on('ready', async () => {
     let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
     airTempOut = airTemp0
     //output = Math.round(y0)
-    console.log("temp: " + airTempOut)
+    //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
     airTemp1 = airTemp0
     airTempPidController(airTempSp)
@@ -284,8 +284,8 @@ board.on('ready', async () => {
     airTemp_err0 = airTempOut - sp
     let airTemp_pi0  = airTemp_pi1 + 52.1 * airTemp_err0 - 52.09 * airTemp_err1
     airTemp_pi1      = airTemp_pi0
-    console.log("pi0  :  " + airTemp_pi0)
-    console.log("err0 :  " + airTemp_err0)
+    //console.log("pi0  :  " + airTemp_pi0)
+    //console.log("err0 :  " + airTemp_err0)
     await pwmFan(airTemp_pi0)
   }
 
@@ -345,8 +345,8 @@ board.on('ready', async () => {
     tnkLevel_err0 = sp - tnkLevelOut
     let tnkLevel_pi0  = tnkLevel_pi1 + 15.63 * tnkLevel_err0 - 15.63 * tnkLevel_err1
     tnkLevel_pi1      = tnkLevel_pi0
-    console.log("pi0  :  " + tnkLevel_pi0)
-    console.log("err0 :  " + tnkLevel_err0)
+    //console.log("pi0  :  " + tnkLevel_pi0)
+    //console.log("err0 :  " + tnkLevel_err0)
     await pwmPump(tnkLevel_pi0 * 5)
   }
 
@@ -373,13 +373,13 @@ const agent2 = new RaphiAgent({
 })
 
 agent2.addMetric('Temperatura-aire', () => {
-  return Math.random() * 100
-  //return airTempOut
+  //return Math.random() * 100
+  return airTempOut
 })
 
 agent2.addMetric('Nivel-tanque', () => {
-  return Math.random() * 100
-  //return tnkLevelOut
+  //return Math.random() * 100
+  return tnkLevelOut
 })
 
 agent2.addMetric('Intensidad-Luz', () => {

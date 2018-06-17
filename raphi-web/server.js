@@ -32,7 +32,7 @@ io.on('connect', socket => {
   pipe(agent, socket)
 
   socket.on('stateSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { state, option } = data
     switch (option) {
       case 'fa':
@@ -53,7 +53,7 @@ io.on('connect', socket => {
   })
 
   socket.on('valueSubmit', (data) => {
-    console.log(data)
+    //console.log(data)
     let { value, option } = data
     switch (option) {
       case 'temp':
@@ -236,12 +236,12 @@ board.on('ready', async () => {
 
   // Analog Pin 5 As Digital
   new five.Pin({
-    pin: 5,
+    pin: 4,
     type: "digital"
   })
 
   const airTemp_relay = new five.Relay({
-    pin: 5,
+    pin: 4,
     type: "NO"
   })
 
@@ -259,10 +259,10 @@ board.on('ready', async () => {
     //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
     airTemp1 = airTemp0
-    airTempPidController(airTempSp)
+    //airTempPidController(airTempSp)
   })
 
-  board.pinMode(9, five.Pin.PWM)
+  board.pinMode(5, five.Pin.PWM)
   async function pwmFan (x) {
     if (x < 90) {
       airTemp_relay.close()
@@ -291,6 +291,11 @@ board.on('ready', async () => {
 
   await pwmFan(0)
 
+  board.repl.inject({
+    pwmFan : pwmFan,
+    relay : airTemp_relay
+  })
+
   // ======= Tank Level =======
 
   // Analog Pin 5 As Digital
@@ -309,7 +314,7 @@ board.on('ready', async () => {
   proximity.on("data", async function () {
     let tnkLevel0 = this.cm * 0.0609 + tnkLevel1 * 0.9391
     tnkLevelOut = 22 - tnkLevel0
-    //console.log(output)
+    //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
     await tnkLevelPidController(tnkLevelSp)
   })
@@ -431,7 +436,7 @@ agent2.on('agent/disconnected', handler)
 agent2.on('agent/message', handler)
 
 function handler (payload) {
-  console.log(payload)
+  //console.log(payload)
 }
 
 // =============================================================================

@@ -254,7 +254,7 @@ board.on('ready', async () => {
   let airTemp1 = 0
   airTemperature.on("data", function () {
     let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
-    airTempOut = airTemp0
+    airTemp100Out = airTemp0
     //output = Math.round(y0)
     //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
@@ -268,10 +268,10 @@ board.on('ready', async () => {
       airTemp_relay.close()
     } else if (x > 255) {
       airTemp_relay.open()
-      board.analogWrite(9, 255)
+      board.analogWrite(5, 255)
     } else {
       airTemp_relay.open()
-      board.analogWrite(9, x)
+      board.analogWrite(5, x)
     }
   }
 
@@ -316,7 +316,7 @@ board.on('ready', async () => {
     tnkLevelOut = 22 - tnkLevel0
     //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
-    await tnkLevelPidController(tnkLevelSp)
+    //await tnkLevelPidController(tnkLevelSp)
   })
 
   // ======= Tank Level Controller =======

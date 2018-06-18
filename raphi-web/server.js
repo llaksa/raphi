@@ -109,7 +109,7 @@ let luxSp = 0
 let airTempSp = 22
 let tnkLevelSp = 10
 
-board.on('ready', async () => {
+board.on('ready', async function () {
 
   // ======= Fresh Air =======
   const fshAir_relay = new five.Relay({
@@ -131,8 +131,13 @@ board.on('ready', async () => {
   }, 300)
 
   // ======= Fresh Water =======
+  new five.Pin({
+    pin: 10,
+    type: "digital"
+  })
+
   const fshWater_relay = new five.Relay({
-    pin: 8,
+    pin: 10,
     type: "NC"
   })
 
@@ -254,7 +259,7 @@ board.on('ready', async () => {
   let airTemp1 = 0
   airTemperature.on("data", function () {
     let airTemp0 = this.celsius * 0.0609 + airTemp1 * 0.9391
-    airTemp100Out = airTemp0
+    airTempOut = airTemp0
     //output = Math.round(y0)
     //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
@@ -291,11 +296,6 @@ board.on('ready', async () => {
 
   await pwmFan(0)
 
-  board.repl.inject({
-    pwmFan : pwmFan,
-    relay : airTemp_relay
-  })
-
   // ======= Tank Level =======
 
   // Analog Pin 5 As Digital
@@ -316,28 +316,25 @@ board.on('ready', async () => {
     tnkLevelOut = 22 - tnkLevel0
     //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
-    //await tnkLevelPidController(tnkLevelSp)
+    await tnkLevelPidController(tnkLevelSp)
   })
 
   // ======= Tank Level Controller =======
 
   // Analog Pin 10 As Digital
-  new five.Pin({
-    pin: 10,
-    type: "digital"
+  const motor = new five.Motor({
+    pins: { dir: 8, pwm: 9 }, invertPWM: true
   })
-
-  const motor = new five.Motor(
-    { pins: { dir: 10, pwm: 9 }, invertPWM: true }
-  )
 
   async function pwmPump (x) {
     if (x < 200 || tnkLevel_err0 < 0) {
-      motor.fwd(200)
+      await motor.stop(0)
     } else if (x > 255) {
-      motor.fwd(255)
+      await motor.stop(0)
+      await motor.fwd(255)
     } else {
-      motor.fwd(200)
+      await motor.stop(0)
+      await motor.fwd(x)
     }
   }
 
@@ -363,6 +360,14 @@ board.on('ready', async () => {
       setTimeout(resolve, time)
     })
   }
+
+  // ====== REPL ======
+  board.repl.inject({
+    pwmFan : pwmFan,
+    pwmPump : pwmPump,
+    relay : airTemp_relay,
+    motor : motor
+  })
 
 })
 

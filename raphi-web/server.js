@@ -264,7 +264,7 @@ board.on('ready', async function () {
     //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
     airTemp1 = airTemp0
-    //airTempPidController(airTempSp)
+    airTempPidController(airTempSp)
   })
 
   board.pinMode(5, five.Pin.PWM)
@@ -278,6 +278,7 @@ board.on('ready', async function () {
       airTemp_relay.open()
       board.analogWrite(5, x)
     }
+    console.log(x)
   }
 
   let airTemp_pi0 = 0

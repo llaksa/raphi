@@ -278,7 +278,6 @@ board.on('ready', async function () {
       airTemp_relay.open()
       board.analogWrite(5, x)
     }
-    console.log(x)
   }
 
   let airTemp_pi0 = 0

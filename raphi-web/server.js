@@ -220,7 +220,7 @@ board.on('ready', async function () {
   const coSensor = new five.Sensor("A1")
 
   coSensor.on("change", () => {
-    coOut = coSensor.scaleTo(0, 100)
+    coOut = 19.32 * (coSensor.scaleTo(0, 1023)^(-0.64))
   })
 
   // ======= Water Temperature Just Sensing =======

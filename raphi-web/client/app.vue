@@ -5,13 +5,11 @@
       :uuid="agent.uuid"
       :key="agent.uuid">
     </top>
+    <div class="black-text center-align">
+      <h5 v-if="automatic" v-on:click="toggleControll" class="deep-orange lighten-4">Modo automático</h5>
+      <h5 v-else v-on:click="toggleControll" class="deep-orange lighten-4">Modo manual</h5>
+    </div>
     <div class="container">
-      <div class="row">
-        <div class="center-align col s12">
-          <h5 v-if="automatic" v-on:click="toggleControll" class="brown darken-4 btn-small">Modo automático</h5>
-          <h5 v-else v-on:click="toggleControll" class="brown darken-4 btn-small">Modo manual</h5>
-        </div>
-      </div>
       <agent
         :automatic="automatic"
         v-for="agent in agents"

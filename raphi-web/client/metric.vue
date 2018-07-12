@@ -4,13 +4,13 @@
     <div v-if="automatic === false">
 
       <div v-if="type === 'Temperatura-aire'" class="valign-wrapper">
-        <div v-on:click="toggleOneMetric" class="indigo accent-3 waves-effect waves-light btn-small col s5">
-          <span class="">Temperatura del Aire : {{ rightNowElement }}</span>
+        <div v-on:click="toggleOneMetric" class="indigo accent-3 waves-effect waves-light btn-small col s3">
+          <span class="">Temperatura del Aire :</span>
         </div>
+        <div class="green accent-3 waves-effect waves-light btn-small col s2">{{ rightNowElement }}</div>
         <div class="col s2">
         </div>
-        <div class="input-field inline col s4">
-          <label class="white-text active" for="temp">[ Centigrade (C) ]:</label>
+        <div class="col s4">
           <input id="temp" type="number" class="validate" value="0" />
         </div>
         <button v-on:click="setValue('temp')" class="btn-small waves-effect waves-light col s1" type="submit" name="action">Submit</button>
@@ -22,8 +22,7 @@
         </div>
         <div class="col s2">
         </div>
-        <div class="input-field inline col s4">
-          <label class="white-text active" for="level">[ Centimeter (cm) ]:</label>
+        <div class="col s4">
           <input id="level" type="number" class="validate" value="0" />
         </div>
         <button v-on:click="setValue('level')" class="btn-small waves-effect waves-light col s1" type="submit" name="action">Submit</button>
@@ -35,8 +34,7 @@
         </div>
         <div class="col s2">
         </div>
-        <div class="input-field inline col s4">
-          <label class="white-text active" for="lux">[ Lux (Lx) ]:</label>
+        <div class="col s4">
           <input id="lux" type="number" class="validate" value="0" />
         </div>
         <button v-on:click="setValue('lux')" class="btn-small waves-effect waves-light col s1" type="submit" name="action">Submit</button>

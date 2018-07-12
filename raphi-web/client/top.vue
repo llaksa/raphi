@@ -1,6 +1,6 @@
 <template>
-  <nav class="light-blue darken-1">
-    <h2 class="white-text text-white center-align">CULTIVO ID: {{pid}} ({{name}})</h2>
+  <nav class="cyan">
+    <h2 class="black-text black-white center-align">CULTIVO ID: {{pid}} ({{name}})</h2>
   </nav>
 </template>
 

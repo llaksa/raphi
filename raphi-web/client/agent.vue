@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h5 v-if="connected" class="green center-align row">Conectado</h5>
-    <h5 v-else class="white-text red center-align row">Desconectado</h5>
     <metric
       :automatic="automatic"
       :uuid="uuid"

@@ -1,5 +1,5 @@
 <template>
-  <nav class="brown darken-4">
+  <nav class="light-blue darken-1">
     <h2 class="white-text text-white center-align">CULTIVO ID: {{pid}} ({{name}})</h2>
   </nav>
 </template>

@@ -5,12 +5,14 @@
       :uuid="agent.uuid"
       :key="agent.uuid">
     </top>
-    <div class="black-text center-align">
-      <h5 v-if="automatic" v-on:click="toggleControll" class="deep-orange lighten-4">Modo automático</h5>
-      <h5 v-else v-on:click="toggleControll" class="deep-orange lighten-4">Modo manual</h5>
+    <div class="black-text center-align row">
+      <div v-if="automatic" v-on:click="toggleControll" class="btn cyan black-text col s6">Modo automático</div>
+      <div v-else v-on:click="toggleControll" class="btn cyan black-text col s6">Modo manual</div>
+      <div v-on:click="toggleShowMetrics" class="btn teal lighten-1 black-text row col s6">Toggle charts</div>
     </div>
     <div class="container">
       <agent
+        :showMetrics="showMetrics"
         :automatic="automatic"
         v-for="agent in agents"
         :uuid="agent.uuid"
@@ -33,6 +35,7 @@ module.exports = {
       agents: [],
       error: null,
       automatic: false,
+      showMetrics: false,
       socket
     }
   },
@@ -70,6 +73,9 @@ module.exports = {
 
     toggleControll() {
       this.automatic = this.automatic ? false : true
+    },
+    toggleShowMetrics() {
+      this.showMetrics = this.showMetrics ? false : true
     }
   }
 }

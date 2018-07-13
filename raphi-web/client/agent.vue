@@ -1,6 +1,7 @@
 <template>
   <div class="row">
     <metric
+      :showMetrics="showMetrics"
       :automatic="automatic"
       :uuid="uuid"
       :socket="socket"
@@ -16,7 +17,7 @@
 const request = require('request-promise-native')
 
 module.exports = {
-  props: [ 'uuid', 'socket', 'automatic' ],
+  props: [ 'uuid', 'socket', 'automatic', 'showMetrics' ],
 
   data() {
     return {

@@ -1,19 +1,13 @@
 <template>
-  <div class="row">
+  <div class="card grid-item row">
 
     <div v-if="automatic === false">
 
       <div v-if="type === 'Temperatura-aire'" class="">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
           <span class="">Temperatura del Aire [C°] :</span>
         </div>
         <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
-        <div class="col s1">
-        </div>
         <div class="col s1">
           <input id="temp" type="number" class="validate" value="0" />
         </div>
@@ -21,16 +15,10 @@
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
           <span class="">Nivel de agua [cm] :</span>
         </div>
         <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
-        <div class="col s1">
-        </div>
         <div class="col s1">
           <input id="level" type="number" class="validate" value="0" />
         </div>
@@ -38,98 +26,72 @@
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'" class="">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
           <span class="">Intensidad de Luz [lux] :</span>
         </div>
         <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
-        <div class="col s1">
-        </div>
         <div class="col s1">
           <input id="lux" type="number" class="validate" value="0" />
         </div>
         <button v-on:click="setValue('lux')" class="light-blue darken-4 btn-small waves-effect waves-light col s1" type="submit" name="action">Set</button>
       </div>
 
-      <div v-else-if="type === 'Aire-fresco'">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s4">
+      <div v-else-if="type === 'Aire-fresco'" class="">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Aire fresco</span>
         </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s1">ON</div>
-        <div class="col s1">
+        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
+        <div class="card-image">
+          <img src="images/sol.jpg">
         </div>
-        <button v-on:click="setState('fa')" class="cyan darken-4 btn-small waves-effect waves-light col s2" type="submit" name="action">Toggle</button>
-      </div>
-      
-      <div v-else-if="type === 'Agua-fresca'">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s4">
-          <span class="">Agua fresca</span>
-        </div>
-        <div v-if="state === false" id="freshWater" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshWater" class="white-text green darken-1 btn-small col s1">ON</div>
-        <div class="col s1">
-        </div>
-        <button v-on:click="setState('fw')" class="cyan darken-4 btn-small waves-effect waves-light col s2" type="submit" name="action">Toggle</button>
+        <button v-on:click="setState('fa')" class="white-text cyan darken-4 btn-small waves-effect waves-light col s12" type="submit" name="action">Toggle</button>
       </div>
 
-      <div v-else-if="type === 'Aire-circulante'">
-        <div class="col s1">
+      <div class="" v-else-if="type === 'Agua-fresca'">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
+          <span class="">Agua fresca</span>
         </div>
-        <div class="col s3">
+        <div v-if="state === false" id="freshWater" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshWater" class="white-text green darken-1 btn-small col s3">ON</div>
+        <div class="card-image">
+          <img src="images/sol.jpg">
         </div>
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s4">
+        <button v-on:click="setState('fw')" class="row white-text cyan darken-4 btn-small waves-effect waves-light col s12" type="submit" name="action">Toggle</button>
+      </div>
+
+      <div class="" v-else-if="type === 'Aire-circulante'">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Circulación de aire</span>
         </div>
-        <div v-if="state === false" id="roundAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="roundAir" class="white-text green darken-1 btn-small col s1">ON</div>
-        <div class="col s1">
+        <div v-if="state === false" id="roundAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="roundAir" class="white-text green darken-1 btn-small col s3">ON</div>
+        <div class="card-image">
+          <img src="images/sol.jpg">
         </div>
-        <button v-on:click="setState('ra')" class="cyan darken-4 btn-small waves-effect waves-light col s2" type="submit" name="action">Toggle</button>
+        <button v-on:click="setState('ra')" class="row white-text cyan darken-4 btn-small waves-effect waves-light col s12" type="submit" name="action">Toggle</button>
       </div>
-      
-      <div v-else-if="type === 'Agua-circulante'">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s4">
+
+      <div class="" v-else-if="type === 'Agua-circulante'">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Circulación de agua</span>
         </div>
-        <div v-if="state === false" id="roundWater" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="roundWater" class="white-text green darken-1 btn-small col s1">ON</div>
-        <div class="col s1">
+        <div v-if="state === false" id="roundWater" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="roundWater" class="white-text green darken-1 btn-small col s3">ON</div>
+        <div class="card-image">
+          <img src="images/sol.jpg">
         </div>
-        <button v-on:click="setState('rw')" class="cyan darken-4 btn-small waves-effect waves-light col s2" type="submit" name="action">Toggle</button>
+        <button v-on:click="setState('rw')" class="row white-text cyan darken-4 btn-small waves-effect waves-light col s12" type="submit" name="action">Toggle</button>
       </div>
-      
-      <div v-else-if="type === 'Temperatura-agua'">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
+
+      <div class="" v-else-if="type === 'Temperatura-agua'">
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
           <span class="">Temperatura del agua [C°]:</span>
         </div>
         <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
       </div>
 
-      <div v-else-if="type === 'CO'">
-        <div class="col s1">
-        </div>
-        <div class="col s3">
-        </div>
+      <div class="" v-else-if="type === 'CO'">
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
           <span class="">Monóxido de carbono [ppm] :</span>
         </div>
@@ -137,7 +99,7 @@
       </div>
     </div>
 
-    <div v-else>
+    <div class="card grid-item" v-else>
       <div v-if="type === 'Temperatura-aire'">
         <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
           <span class="">Temperatura del aire [C°] :</span>
@@ -205,13 +167,14 @@
         <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
       </div>
     </div>
-    
-    <line-chart v-show="showOneMetric" class="card col s12"
+
+    <line-chart v-show="showOneMetric" class="col s12"
       :chart-data="datacollection"
       :options="{ responsive: true }"
       :width="400" :height="200"
     ></line-chart>
     <p v-if="error">{{error}}</p>
+
   </div>
 </template>
 

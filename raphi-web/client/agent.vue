@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <metric
       :automatic="automatic"
       :uuid="uuid"

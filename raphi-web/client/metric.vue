@@ -18,31 +18,31 @@
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Nivel de agua [cm] :</span>
         </div>
-        <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
-        <div class="col s1">
+        <div class="col s6">
           <input id="level" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="setValue('level')" class="light-blue darken-4 btn-small waves-effect waves-light col s1" type="submit" name="action">Set</button>
+        <button v-on:click="setValue('level')" class="light-blue darken-4 btn-small waves-effect waves-light col s6" type="submit" name="action">Set</button>
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'" class="">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Intensidad de Luz [lux] :</span>
         </div>
-        <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
-        <div class="col s1">
+        <div class="col s6">
           <input id="lux" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="setValue('lux')" class="light-blue darken-4 btn-small waves-effect waves-light col s1" type="submit" name="action">Set</button>
+        <button v-on:click="setValue('lux')" class="light-blue darken-4 btn-small waves-effect waves-light col s6" type="submit" name="action">Set</button>
       </div>
 
       <div v-else-if="type === 'Aire-fresco'" class="">
@@ -94,20 +94,20 @@
       </div>
 
       <div class="" v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Temperatura del agua [C°]:</span>
         </div>
-        <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
       <div class="card-image">
         <img src="images/sol.jpg">
       </div>
       </div>
 
       <div class="" v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s3">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Monóxido de carbono [ppm] :</span>
         </div>
-        <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
@@ -116,94 +116,94 @@
 
     <div class="card col s4" v-else>
       <div v-if="type === 'Temperatura-aire'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Temperatura del aire [C°] :</span>
         </div>
-        <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">NIvel de agua [cm] :</span>
         </div>
-        <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Intensidad de luz [lux] :</span>
         </div>
-        <div class="black-text pink accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Aire-fresco'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s11">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Aire fresco</span>
         </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s1">ON</div>
+        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Agua-fresca'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s11">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Agua fresca</span>
         </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s1">ON</div>
+        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Aire-circulante'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s11">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Circulación de aire</span>
         </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s1">ON</div>
+        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Agua-circulante'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s11">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Circulación de agua</span>
         </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s1">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s1">ON</div>
+        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
+        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Temperatura del agua [C°] :</span>
         </div>
-        <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>
       </div>
 
       <div v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s10">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 waves-effect waves-light btn-small col s9">
           <span class="">Monóxido de carbono [ppm] :</span>
         </div>
-        <div class="black-text purple accent-2 btn-small col s2">{{ rightNowElement }}</div>
+        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
         <div class="card-image">
           <img src="images/sol.jpg">
         </div>

@@ -18,7 +18,7 @@
       </div>
 
       <div v-else-if="type === 'Nivel-tanque'" class="">
-        <div v-on:click="toggleOneMetric" class="box2 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Nivel de agua [cm] :</span>
         </div>
         <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
@@ -32,7 +32,7 @@
       </div>
 
       <div v-else-if="type === 'Intensidad-Luz'" class="">
-        <div v-on:click="toggleOneMetric" class="box3 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Intensidad de Luz [lux] :</span>
         </div>
         <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
@@ -46,7 +46,7 @@
       </div>
 
       <div v-else-if="type === 'Aire-fresco'" class="">
-        <div v-on:click="toggleOneMetric" class="box4 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Aire fresco</span>
         </div>
         <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
@@ -58,7 +58,7 @@
       </div>
 
       <div class="" v-else-if="type === 'Agua-fresca'">
-        <div v-on:click="toggleOneMetric" class="box5 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Agua fresca</span>
         </div>
         <div v-if="state === false" id="freshWater" class="black-text red accent-2 btn-small col s3">OFF</div>
@@ -70,7 +70,7 @@
       </div>
 
       <div class="" v-else-if="type === 'Aire-circulante'">
-        <div v-on:click="toggleOneMetric" class="box6 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Circulación de aire</span>
         </div>
         <div v-if="state === false" id="roundAir" class="black-text red accent-2 btn-small col s3">OFF</div>
@@ -82,7 +82,7 @@
       </div>
 
       <div class="" v-else-if="type === 'Agua-circulante'">
-        <div v-on:click="toggleOneMetric" class="box7 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Circulación de agua</span>
         </div>
         <div v-if="state === false" id="roundWater" class="black-text red accent-2 btn-small col s3">OFF</div>
@@ -94,7 +94,7 @@
       </div>
 
       <div class="" v-else-if="type === 'Temperatura-agua'">
-        <div v-on:click="toggleOneMetric" class="box8 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Temperatura del agua [C°]:</span>
         </div>
         <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
@@ -104,7 +104,7 @@
       </div>
 
       <div class="" v-else-if="type === 'CO'">
-        <div v-on:click="toggleOneMetric" class="box9 black-text orange accent-3 btn-small col s9">
+        <div v-on:click="toggleOneMetric" class="black-text orange accent-3 btn-small col s9">
           <span class="">Monóxido de carbono [ppm] :</span>
         </div>
         <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>

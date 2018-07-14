@@ -74,8 +74,12 @@ module.exports = {
     toggleControll() {
       this.automatic = this.automatic ? false : true
     },
+    addingClass(el) {
+      return el.classList.toggle('valign-wrapper')
+    },
     toggleShowMetrics() {
       this.showMetrics = this.showMetrics ? false : true
+      document.querySelectorAll('.box').forEach(this.addingClass)
     }
   }
 }

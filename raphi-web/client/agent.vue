@@ -25,7 +25,6 @@ module.exports = {
       hostname: null,
       connected: false,
       pid: null,
-      showMetrics: false,
       error: null,
       metrics: []
     }
@@ -37,6 +36,8 @@ module.exports = {
 
   methods: {
     async initialize() {
+      this.$box = document.querySelector('.box')
+
       const { uuid } = this
 
       const options = {
@@ -91,10 +92,6 @@ module.exports = {
           this.connected = false
         }
       })
-    },
-
-    toggleMetrics() {
-      this.showMetrics = this.showMetrics ? false : true
     }
   }
 }

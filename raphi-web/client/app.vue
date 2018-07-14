@@ -16,10 +16,9 @@
         </top>
       </div>
       <div v-on:click="toggleControll" class="column has-text-centered">
-        <span v-if="Automatic">Automatic mode</span>
+        <span v-if="automatic">Automatic mode</span>
         <span v-else>Manual mode</span>
       </div>
-      <div v-on:click="toggleShowMetrics" class="column has-text-centered">Toggle charts</div>
     </div>
     <div class="">
       <agent

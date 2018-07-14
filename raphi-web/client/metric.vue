@@ -1,13 +1,13 @@
 <template>
   <div class="box">
     
-    <div v-if="type === 'Temperatura-aire'" class="">
+    <div v-if="type === 'AirTemperature'" class="">
       <div class="">
         <span class="">Temperatura del Aire [C°] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
       <img class="" src="images/sol.jpg">
-      <div v-show="automatic">
+      <div v-show="!automatic">
         <div class="">
           <input id="temp" type="number" class="validate" value="0" />
         </div>
@@ -15,7 +15,7 @@
       </div>
     </div>
     
-    <div v-else-if="type === 'Nivel-tanque'" class="">
+    <div v-else-if="type === 'TankLevel'" class="">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
@@ -23,7 +23,7 @@
         <span class="">Nivel de agua [cm] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
-      <div v-show="automatic">
+      <div v-show="!automatic">
         <div class="">
           <input id="level" type="number" class="" value="0" />
         </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     
-    <div v-else-if="type === 'Intensidad-Luz'" class="">
+    <div v-else-if="type === 'LightIntensity'" class="">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
@@ -39,7 +39,7 @@
         <span class="">Intensidad de Luz [lux] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
-      <div v-show="automatic">
+      <div v-show="!automatic">
         <div class="">
           <input id="lux" type="number" class="" value="0" />
         </div>
@@ -47,63 +47,63 @@
       </div>
     </div>
     
-    <div v-else-if="type === 'Aire-fresco'" class="">
+    <div v-else-if="type === 'FreshAir'" class="">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
         <span class="">Aire fresco</span>
       </div>
-      <div v-if="state === false" id="freshAir" class="">OFF</div>
-      <div v-else="state === true" id="freshAir" class="">ON</div>
-      <div v-show="automatic">
+      <div v-if="state === false" class="">OFF</div>
+      <div v-else="state === true" class="">ON</div>
+      <div v-show="!automatic">
         <button v-on:click="setState('fa')" class="" type="submit" name="action">Toggle</button>
       </div>
     </div>
     
-    <div class="" v-else-if="type === 'Agua-fresca'">
+    <div class="" v-else-if="type === 'FreshWater'">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
         <span class="">Agua fresca</span>
       </div>
-      <div v-if="state === false" id="freshWater" class="">OFF</div>
-      <div v-else="state === true" id="freshWater" class="">ON</div>
-      <div v-show="automatic">
+      <div v-if="state === false" class="">OFF</div>
+      <div v-else="state === true" class="">ON</div>
+      <div v-show="!automatic">
         <button v-on:click="setState('fw')" class="" type="submit" name="action">Toggle</button>
       </div>
     </div>
     
-    <div class="" v-else-if="type === 'Aire-circulante'">
+    <div class="" v-else-if="type === 'AirCirculation'">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
         <span class="">Circulación de aire</span>
       </div>
-      <div v-if="state === false" id="roundAir" class="">OFF</div>
-      <div v-else="state === true" id="roundAir" class="">ON</div>
-      <div v-show="automatic">
+      <div v-if="state === false" class="">OFF</div>
+      <div v-else="state === true" class="">ON</div>
+      <div v-show="!automatic">
         <button v-on:click="setState('ra')" class="" type="submit" name="action">Toggle</button>
       </div>
     </div>
     
-    <div class="" v-else-if="type === 'Agua-circulante'">
+    <div class="" v-else-if="type === 'WaterCirculation'">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
         <span class="">Circulación de agua</span>
       </div>
-      <div v-if="state === false" id="roundWater" class="">OFF</div>
-      <div v-else="state === true" id="roundWater" class="">ON</div>
-      <div v-show="automatic">
+      <div v-if="state === false" class="">OFF</div>
+      <div v-else="state === true" class="">ON</div>
+      <div v-show="!automatic">
         <button v-on:click="setState('rw')" class="" type="submit" name="action">Toggle</button>
       </div>
     </div>
     
-    <div class="" v-else-if="type === 'Temperatura-agua'">
+    <div class="" v-else-if="type === 'WaterCirculation'">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
@@ -122,15 +122,22 @@
       </div>
       <div class="">{{ rightNowElement }}</div>
     </div>
-    
-    <line-chart v-show="showMetrics" class=""
-      :chart-data="datacollection"
-      :options="{ responsive: true }"
-      :width="400" :height="200"
-    ></line-chart>
-    
+
+    <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+
+    <div class="modal" v-bind:id="type">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+          <line-chart v-show="!showMetrics" class=""
+            :chart-data="datacollection"
+            :options="{ responsive: true }"
+            :width="400" :height="200"
+          ></line-chart>
+      </div>
+      <button class="modal-close is-large" v-on:click="classIsActive" aria-label="close"></button>
+    </div>
+
     <p v-if="error">{{error}}</p>
-    
   </div>
 </template>
 
@@ -254,6 +261,10 @@ module.exports = {
       this.$temp.value = this.getCookie('temp')
       this.$level.value = this.getCookie('level')
       this.$lux.value = this.getCookie('lux')
+    },
+
+    classIsActive() {
+      document.querySelector(`#${this.type}`).classList.toggle('is-active')
     },
 
     getCookie(cname) {

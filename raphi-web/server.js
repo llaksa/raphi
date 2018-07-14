@@ -382,48 +382,48 @@ const agent2 = new RaphiAgent({
   interval: 2000
 })
 
-agent2.addMetric('Temperatura-aire', () => {
+agent2.addMetric('AirTemperature', () => {
   //return Math.random() * 100
   return airTempOut
 })
 
-agent2.addMetric('Nivel-tanque', () => {
+agent2.addMetric('TankLevel', () => {
   //return Math.random() * 100
   return tnkLevelOut
 })
 
-agent2.addMetric('Intensidad-Luz', () => {
+agent2.addMetric('LightIntensity', () => {
   //return Math.random() * 100
   //return luxOut
   return usrValLux0
 })
 
-agent2.addMetric('Temperatura-agua', () => {
+agent2.addMetric('WaterTemperature', () => {
   //return Math.random() * 100
   return waterTempOut
 })
 
-agent2.addMetric('CO', () => {
+agent2.addMetric('OxygenMonoxide', () => {
   //return Math.random() * 100
   return coOut
 })
 
-agent2.addMetric('Aire-fresco', () => {
+agent2.addMetric('FreshAir', () => {
   //return Math.random() * 100
   return usrFshAir0
 })
 
-agent2.addMetric('Agua-fresca', () => {
+agent2.addMetric('FreshWater', () => {
   //return Math.random() * 100
   return usrFshWater0
 })
 
-agent2.addMetric('Aire-circulante', () => {
+agent2.addMetric('AirCirculation', () => {
   //return Math.random() * 100
   return usrRndAir0
 })
 
-agent2.addMetric('Agua-circulante', () => {
+agent2.addMetric('WaterCirculation', () => {
   //return Math.random() * 100
   return usrRndWater0
 })

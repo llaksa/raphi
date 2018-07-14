@@ -15,8 +15,10 @@
           :key="agent.uuid">
         </top>
       </div>
-      <div v-if="automatic" v-on:click="toggleControll" class="column has-text-centered">Toggle automatic</div>
-      <div v-else v-on:click="toggleControll" class="column has-text-centered">Toggle manual</div>
+      <div v-on:click="toggleControll" class="column has-text-centered">
+        <span v-if="Automatic">Automatic mode</span>
+        <span v-else>Manual mode</span>
+      </div>
       <div v-on:click="toggleShowMetrics" class="column has-text-centered">Toggle charts</div>
     </div>
     <div class="">
@@ -83,12 +85,8 @@ module.exports = {
     toggleControll() {
       this.automatic = this.automatic ? false : true
     },
-    addingClass(el) {
-      return el.classList.toggle('')
-    },
     toggleShowMetrics() {
       this.showMetrics = this.showMetrics ? false : true
-      document.querySelectorAll('.box').forEach(this.addingClass)
     }
   }
 }

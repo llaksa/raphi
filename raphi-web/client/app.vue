@@ -1,16 +1,25 @@
 <template>
   <div>
-    <top
-      v-for="agent in agents"
-      :uuid="agent.uuid"
-      :key="agent.uuid">
-    </top>
-    <div class="black-text center-align row">
-      <div v-if="automatic" v-on:click="toggleControll" class="btn cyan black-text col s6">Modo automático</div>
-      <div v-else v-on:click="toggleControll" class="btn cyan black-text col s6">Modo manual</div>
-      <div v-on:click="toggleShowMetrics" class="btn teal lighten-1 black-text row col s6">Toggle charts</div>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <img src="images/leaf.png" alt="Some Alt" width="112" height="28">
+        </div>
+      </div>
+    </nav>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <top
+          v-for="agent in agents"
+          :uuid="agent.uuid"
+          :key="agent.uuid">
+        </top>
+      </div>
+      <div v-if="automatic" v-on:click="toggleControll" class="column has-text-centered">Toggle automatic</div>
+      <div v-else v-on:click="toggleControll" class="column has-text-centered">Toggle manual</div>
+      <div v-on:click="toggleShowMetrics" class="column has-text-centered">Toggle charts</div>
     </div>
-    <div class="container">
+    <div class="">
       <agent
         :showMetrics="showMetrics"
         :automatic="automatic"
@@ -75,7 +84,7 @@ module.exports = {
       this.automatic = this.automatic ? false : true
     },
     addingClass(el) {
-      return el.classList.toggle('valign-wrapper')
+      return el.classList.toggle('')
     },
     toggleShowMetrics() {
       this.showMetrics = this.showMetrics ? false : true

@@ -1,221 +1,136 @@
 <template>
   <div class="box">
-
-    <div class="col s4" v-if="automatic === false">
-
-      <div v-if="type === 'Temperatura-aire'" class="">
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Temperatura del Aire [C°] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
-        <img class="col s12" src="images/sol.jpg">
-        <div class="col s6">
+    
+    <div v-if="type === 'Temperatura-aire'" class="">
+      <div class="">
+        <span class="">Temperatura del Aire [C°] :</span>
+      </div>
+      <div class="">{{ rightNowElement }}</div>
+      <img class="" src="images/sol.jpg">
+      <div v-show="automatic">
+        <div class="">
           <input id="temp" type="number" class="validate" value="0" />
         </div>
-        <button v-on:click="setValue('temp')" class="light-blue darken-4 btn-small col s6" type="submit" name="action">Set</button>
-      </div>
-
-      <div v-else-if="type === 'Nivel-tanque'" class="">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Nivel de agua [cm] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
-        <div class="col s6">
-          <input id="level" type="number" class="validate" value="0" />
-        </div>
-        <button v-on:click="setValue('level')" class="light-blue darken-4 btn-small col s6" type="submit" name="action">Set</button>
-      </div>
-
-      <div v-else-if="type === 'Intensidad-Luz'" class="">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Intensidad de Luz [lux] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
-        <div class="col s6">
-          <input id="lux" type="number" class="validate" value="0" />
-        </div>
-        <button v-on:click="setValue('lux')" class="light-blue darken-4 btn-small col s6" type="submit" name="action">Set</button>
-      </div>
-
-      <div v-else-if="type === 'Aire-fresco'" class="">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Aire fresco</span>
-        </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
-        <button v-on:click="setState('fa')" class="white-text cyan darken-4 btn-small col s12" type="submit" name="action">Toggle</button>
-      </div>
-
-      <div class="" v-else-if="type === 'Agua-fresca'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Agua fresca</span>
-        </div>
-        <div v-if="state === false" id="freshWater" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshWater" class="white-text green darken-1 btn-small col s3">ON</div>
-        <button v-on:click="setState('fw')" class="white-text cyan darken-4 btn-small col s12" type="submit" name="action">Toggle</button>
-      </div>
-
-      <div class="" v-else-if="type === 'Aire-circulante'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Circulación de aire</span>
-        </div>
-        <div v-if="state === false" id="roundAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="roundAir" class="white-text green darken-1 btn-small col s3">ON</div>
-        <button v-on:click="setState('ra')" class="white-text cyan darken-4 btn-small col s12" type="submit" name="action">Toggle</button>
-      </div>
-
-      <div class="" v-else-if="type === 'Agua-circulante'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Circulación de agua</span>
-        </div>
-        <div v-if="state === false" id="roundWater" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="roundWater" class="white-text green darken-1 btn-small col s3">ON</div>
-        <button v-on:click="setState('rw')" class="white-text cyan darken-4 btn-small col s12" type="submit" name="action">Toggle</button>
-      </div>
-
-      <div class="" v-else-if="type === 'Temperatura-agua'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Temperatura del agua [C°]:</span>
-        </div>
-        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
-      </div>
-
-      <div class="" v-else-if="type === 'CO'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Monóxido de carbono [ppm] :</span>
-        </div>
-        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
+        <button v-on:click="setValue('temp')" class="" type="submit" name="action">Set</button>
       </div>
     </div>
-
-    <div class="col s4" v-else>
-      <div v-if="type === 'Temperatura-aire'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Temperatura del aire [C°] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
+    
+    <div v-else-if="type === 'Nivel-tanque'" class="">
+      <div class="">
+        <img class="" src="images/sol.jpg">
       </div>
-
-      <div v-else-if="type === 'Nivel-tanque'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">NIvel de agua [cm] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
+      <div class="">
+        <span class="">Nivel de agua [cm] :</span>
       </div>
-
-      <div v-else-if="type === 'Intensidad-Luz'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
+      <div class="">{{ rightNowElement }}</div>
+      <div v-show="automatic">
+        <div class="">
+          <input id="level" type="number" class="" value="0" />
         </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Intensidad de luz [lux] :</span>
-        </div>
-        <div class="black-text pink accent-2 btn-small col s3">{{ rightNowElement }}</div>
-      </div>
-
-      <div v-else-if="type === 'Aire-fresco'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Aire fresco</span>
-        </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
-      </div>
-
-      <div v-else-if="type === 'Agua-fresca'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Agua fresca</span>
-        </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
-      </div>
-
-      <div v-else-if="type === 'Aire-circulante'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Circulación de aire</span>
-        </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
-      </div>
-
-      <div v-else-if="type === 'Agua-circulante'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Circulación de agua</span>
-        </div>
-        <div v-if="state === false" id="freshAir" class="black-text red accent-2 btn-small col s3">OFF</div>
-        <div v-else="state === true" id="freshAir" class="white-text green darken-1 btn-small col s3">ON</div>
-      </div>
-
-      <div v-else-if="type === 'Temperatura-agua'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Temperatura del agua [C°] :</span>
-        </div>
-        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
-      </div>
-
-      <div v-else-if="type === 'CO'">
-        <div class="card-image col s12">
-          <img class="" src="images/sol.jpg">
-        </div>
-        <div class="black-text orange accent-3 btn-small col s9">
-          <span class="">Monóxido de carbono [ppm] :</span>
-        </div>
-        <div class="black-text purple accent-2 btn-small col s3">{{ rightNowElement }}</div>
+        <button v-on:click="setValue('level')" class="" type="submit" name="action">Set</button>
       </div>
     </div>
-
-    <line-chart v-show="showMetrics" class="card col s8"
+    
+    <div v-else-if="type === 'Intensidad-Luz'" class="">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Intensidad de Luz [lux] :</span>
+      </div>
+      <div class="">{{ rightNowElement }}</div>
+      <div v-show="automatic">
+        <div class="">
+          <input id="lux" type="number" class="" value="0" />
+        </div>
+        <button v-on:click="setValue('lux')" class="" type="submit" name="action">Set</button>
+      </div>
+    </div>
+    
+    <div v-else-if="type === 'Aire-fresco'" class="">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Aire fresco</span>
+      </div>
+      <div v-if="state === false" id="freshAir" class="">OFF</div>
+      <div v-else="state === true" id="freshAir" class="">ON</div>
+      <div v-show="automatic">
+        <button v-on:click="setState('fa')" class="" type="submit" name="action">Toggle</button>
+      </div>
+    </div>
+    
+    <div class="" v-else-if="type === 'Agua-fresca'">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Agua fresca</span>
+      </div>
+      <div v-if="state === false" id="freshWater" class="">OFF</div>
+      <div v-else="state === true" id="freshWater" class="">ON</div>
+      <div v-show="automatic">
+        <button v-on:click="setState('fw')" class="" type="submit" name="action">Toggle</button>
+      </div>
+    </div>
+    
+    <div class="" v-else-if="type === 'Aire-circulante'">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Circulación de aire</span>
+      </div>
+      <div v-if="state === false" id="roundAir" class="">OFF</div>
+      <div v-else="state === true" id="roundAir" class="">ON</div>
+      <div v-show="automatic">
+        <button v-on:click="setState('ra')" class="" type="submit" name="action">Toggle</button>
+      </div>
+    </div>
+    
+    <div class="" v-else-if="type === 'Agua-circulante'">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Circulación de agua</span>
+      </div>
+      <div v-if="state === false" id="roundWater" class="">OFF</div>
+      <div v-else="state === true" id="roundWater" class="">ON</div>
+      <div v-show="automatic">
+        <button v-on:click="setState('rw')" class="" type="submit" name="action">Toggle</button>
+      </div>
+    </div>
+    
+    <div class="" v-else-if="type === 'Temperatura-agua'">
+      <div class="">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Temperatura del agua [C°]:</span>
+      </div>
+      <div class="">{{ rightNowElement }}</div>
+    </div>
+    
+    <div class="" v-else-if="type === 'CO'">
+      <div class="card-image col s12">
+        <img class="" src="images/sol.jpg">
+      </div>
+      <div class="">
+        <span class="">Monóxido de carbono [ppm] :</span>
+      </div>
+      <div class="">{{ rightNowElement }}</div>
+    </div>
+    
+    <line-chart v-show="showMetrics" class=""
       :chart-data="datacollection"
       :options="{ responsive: true }"
       :width="400" :height="200"
     ></line-chart>
-
+    
     <p v-if="error">{{error}}</p>
-
+    
   </div>
 </template>
 

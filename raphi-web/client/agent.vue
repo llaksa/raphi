@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="">
     <metric
       :showMetrics="showMetrics"
       :automatic="automatic"

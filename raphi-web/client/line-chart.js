@@ -1,9 +1,9 @@
 'use strict'
 
-const { Bar, mixins } = require('vue-chartjs')
+const { Line, mixins } = require('vue-chartjs')
 const { reactiveProp } = mixins
 
-module.exports = Bar.extend({
+module.exports = Line.extend({
   mixins: [ reactiveProp ],
   props: [ 'options' ],
   mounted () {

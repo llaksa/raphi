@@ -1,22 +1,28 @@
 <template>
   <div>
-    <agent
+    <top
       v-for="agent in agents"
       :uuid="agent.uuid"
-      :key="agent.uuid"
-      :socket="socket">
-    </agent>
-    <p v-if="error">{{error}}</p>
+      :key="agent.uuid">
+    </top>
+    <div class="black-text center-align row">
+      <div v-if="automatic" v-on:click="toggleControll" class="btn cyan black-text col s6">Modo automático</div>
+      <div v-else v-on:click="toggleControll" class="btn cyan black-text col s6">Modo manual</div>
+      <div v-on:click="toggleShowMetrics" class="btn teal lighten-1 black-text row col s6">Toggle charts</div>
+    </div>
+    <div class="container">
+      <agent
+        :showMetrics="showMetrics"
+        :automatic="automatic"
+        v-for="agent in agents"
+        :uuid="agent.uuid"
+        :key="agent.uuid"
+        :socket="socket">
+      </agent>
+      <p v-if="error">{{error}}</p>
+    </div>
   </div>
 </template>
-
-<style>
-  body {
-    font-family: Arial;
-    background: #f8f8f8;
-    margin: 0;
-  }
-</style>
 
 <script>
 const request = require('request-promise-native')
@@ -28,6 +34,8 @@ module.exports = {
     return {
       agents: [],
       error: null,
+      automatic: false,
+      showMetrics: false,
       socket
     }
   },
@@ -61,6 +69,17 @@ module.exports = {
           this.agents.push(payload.agent)
         }
       })
+    },
+
+    toggleControll() {
+      this.automatic = this.automatic ? false : true
+    },
+    addingClass(el) {
+      return el.classList.toggle('valign-wrapper')
+    },
+    toggleShowMetrics() {
+      this.showMetrics = this.showMetrics ? false : true
+      document.querySelectorAll('.box').forEach(this.addingClass)
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div>{{name}} ID {{pid}}</div>
-  </div>
+  <nav class="green darken-1">
+    <h2 class="white-text center-align">Cultivo N° {{pid}} : {{name}}</h2>
+  </nav>
 </template>
 
 <script>

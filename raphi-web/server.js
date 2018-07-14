@@ -377,7 +377,7 @@ board.on('ready', async function () {
 // ======= Raphi Agent Zone ====================================================
 
 const agent2 = new RaphiAgent({
-  name: 'Lechuga',
+  name: 'Lettuce',
   username: 'Irvin',
   interval: 2000
 })

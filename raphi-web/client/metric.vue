@@ -3,7 +3,7 @@
     
     <div v-if="type === 'AirTemperature'" class="">
       <div class="">
-        <span class="">Temperatura del Aire [C°] :</span>
+        <span class="">Air Temperature [C°] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
       <img class="" src="images/sol.jpg">
@@ -20,7 +20,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Nivel de agua [cm] :</span>
+        <span class="">Water Level [cm] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
       <div v-show="!automatic">
@@ -36,7 +36,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Intensidad de Luz [lux] :</span>
+        <span class="">Light Intensity [lux] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
       <div v-show="!automatic">
@@ -52,7 +52,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Aire fresco</span>
+        <span class="">Fresh Air</span>
       </div>
       <div v-if="state === false" class="">OFF</div>
       <div v-else="state === true" class="">ON</div>
@@ -66,7 +66,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Agua fresca</span>
+        <span class="">Fresh Water</span>
       </div>
       <div v-if="state === false" class="">OFF</div>
       <div v-else="state === true" class="">ON</div>
@@ -80,7 +80,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Circulación de aire</span>
+        <span class="">Air Circulation</span>
       </div>
       <div v-if="state === false" class="">OFF</div>
       <div v-else="state === true" class="">ON</div>
@@ -94,7 +94,7 @@
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Circulación de agua</span>
+        <span class="">Water Circulation</span>
       </div>
       <div v-if="state === false" class="">OFF</div>
       <div v-else="state === true" class="">ON</div>
@@ -103,22 +103,22 @@
       </div>
     </div>
     
-    <div class="" v-else-if="type === 'WaterCirculation'">
+    <div class="" v-else-if="type === 'WaterTemperature'">
       <div class="">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Temperatura del agua [C°]:</span>
+        <span class="">Water Temperature [C°]:</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
     </div>
     
-    <div class="" v-else-if="type === 'CO'">
+    <div class="" v-else-if="type === 'OxygenMonoxide'">
       <div class="card-image col s12">
         <img class="" src="images/sol.jpg">
       </div>
       <div class="">
-        <span class="">Monóxido de carbono [ppm] :</span>
+        <span class="">Oxygen Monoxide [ppm] :</span>
       </div>
       <div class="">{{ rightNowElement }}</div>
     </div>

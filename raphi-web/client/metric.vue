@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="column is-one-quarter">
     
-    <div v-if="type === 'AirTemperature'" class="card column">
-      <div class="card-image">
+    <div v-if="type === 'AirTemperature'" class="card">
+      <br/>
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/airTemperature.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Air Temperature [C°]
         </p>
         <p class="subtitle">
@@ -22,14 +23,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div v-else-if="type === 'TankLevel'" class="card column">
-      <div class="card-image">
+    <div v-else-if="type === 'TankLevel'" class="card">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/tankLevel.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Liquid Level [cm]
         </p>
         <p class="subtitle">
@@ -43,14 +44,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
 
-    <div v-else-if="type === 'LightIntensity'" class="card column">
-      <div class="card-image">
+    <div v-else-if="type === 'LightIntensity'" class="card">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/lightIntensity.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Light Intensity [lux]
         </p>
         <p class="subtitle">
@@ -64,14 +65,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
 
-    <div v-else-if="type === 'FreshAir'" class="card column">
-      <div class="card-image">
+    <div v-else-if="type === 'FreshAir'" class="card">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/freshAir.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Fresh Air
         </p>
         <p class="subtitle">
@@ -86,14 +87,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div class="card column" v-else-if="type === 'FreshWater'">
-      <div class="card-image">
+    <div class="card" v-else-if="type === 'FreshWater'">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/freshWater.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Fresh Liquid
         </p>
         <p class="subtitle">
@@ -108,14 +109,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div class="card column" v-else-if="type === 'AirCirculation'">
-      <div class="card-image">
+    <div class="card" v-else-if="type === 'AirCirculation'">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/airCirculation.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Air Circulation
         </p>
         <p class="subtitle">
@@ -130,14 +131,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div class="card column" v-else-if="type === 'WaterCirculation'">
-      <div class="card-image">
+    <div class="card" v-else-if="type === 'WaterCirculation'">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/liquidCirculation.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Liquid Circulation
         </p>
         <p class="subtitle">
@@ -152,14 +153,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div class="card column" v-else-if="type === 'WaterTemperature'">
-      <div class="card-image">
+    <div class="card" v-else-if="type === 'WaterTemperature'">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/liquidTemperature.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Liquid Temperature [C°]
         </p>
         <p class="subtitle">
@@ -169,14 +170,14 @@
       <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div class="card column" v-else-if="type === 'OxygenMonoxide'">
-      <div class="card-image">
+    <div class="card" v-else-if="type === 'OxygenMonoxide'">
+      <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/co.svg">
         </figure>
       </div>
       <div class="card-content">
-        <p class="title">
+        <p class="title is-size-5">
           Oxygen Monoxide [ppm]
         </p>
         <p class="subtitle">

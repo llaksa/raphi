@@ -15,9 +15,14 @@
           :key="agent.uuid">
         </top>
       </div>
-      <div v-on:click="toggleControll" class="column has-text-centered">
-        <span class="is-size-1 tag is-info" v-if="automatic">Automatic mode</span>
-        <span class="is-size-1 tag is-info" v-else>Manual mode</span>
+      <div class="column has-text-centered">
+        <div class="level-item has-text-centered">
+          <div>
+            <p v-on:click="toggleControll" class="button is-info heading">toggle mode</p>
+            <p class="tag is-medium is-warning" v-if="automatic">Automatic</p>
+            <p class="tag is-medium is-warning" v-else>Manual</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="">

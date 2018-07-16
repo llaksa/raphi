@@ -9,8 +9,8 @@
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Air Temperature [C°]</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="title is-size-5">Air Temperature</p>
+        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} C°</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="temp" class="input is-primary" type="number" value="0">
@@ -30,8 +30,8 @@
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Liquid Level [cm]</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="title is-size-5">Nutritive Solution Level</p>
+        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} cm</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="level" class="input is-primary" type="number" value="0">
@@ -51,8 +51,8 @@
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Light Intensity [lux]</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="title is-size-5">Light Intensity</p>
+        <p class="subtitle">{{ rightNowElement }} lux</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="lux" class="input is-primary" type="number" value="0">
@@ -87,15 +87,15 @@
       </div>
     </div>
       
-    <div class="card" v-else-if="type === 'FreshWater'">
+    <div class="card" v-else-if="type === 'FreshNutriSol'">
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/freshWater.svg">
+          <img class="" src="images/freshNutriSol.svg">
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Fresh Liquid</p>
+        <p class="title is-size-5">Fresh Nutritive Solution</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
@@ -135,14 +135,14 @@
       </div>
     </div>
     
-    <div class="card" v-else-if="type === 'WaterCirculation'">
+    <div class="card" v-else-if="type === 'NutriSolCirculation'">
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/liquidCirculation.svg">
+          <img class="" src="images/nutriSolCirculation.svg">
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Liquid Circulation</p>
+        <p class="title is-size-5">Nutritive Solution Circulation</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
@@ -158,16 +158,16 @@
       </div>
     </div>
     
-    <div class="card" v-else-if="type === 'WaterTemperature'">
+    <div class="card" v-else-if="type === 'NutriSolTemperature'">
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/liquidTemperature.svg">
+          <img class="" src="images/nutriSolTemperature.svg">
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Liquid Temperature [C°]</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="title is-size-5">Nutritive Solution Temperature</p>
+        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} C°</p>
       </div>
     </div>
     
@@ -178,8 +178,8 @@
         </figure>
       </div>
       <div class="card-content has-background-light">
-        <p class="title is-size-5">Oxygen Monoxide [ppm]</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="title is-size-5">Oxygen Monoxide</p>
+        <p class="subtitle">{{ rightNowElement }} ppm</p>
       </div>
     </div>
     
@@ -204,14 +204,12 @@ const request = require('request-promise-native')
 const moment = require('moment')
 const randomColor = require('random-material-color')
 const LineChart = require('./line-chart')
-
 module.exports = {
   name: 'metric',
   components: {
     LineChart
   },
   props: [ 'uuid', 'type', 'socket', 'automatic', 'showMetrics' ],
-
   data() {
     return {
       datacollection: {},
@@ -225,23 +223,18 @@ module.exports = {
       value: null
     }
   },
-
   mounted() {
     this.initialize()
   },
-
   methods: {
     async initialize() {
       const { uuid, type } = this
-
       this.color = randomColor.getColor()
-
       const options = {
         method: 'GET',
         url: `http://localhost:8080/metrics/${uuid}/${type}`,
         json: true
       }
-
       let result
       try {
         result = await request(options)
@@ -249,17 +242,14 @@ module.exports = {
         this.error = e.error.error
         return
       }
-
       const labels = []
       const data = []
-
       if (Array.isArray(result)) {
         result.forEach(m => {
           labels.push(moment(m.createdAt).format('HH:mm:ss'))
           data.push(m.value)
         })
       }
-
       this.datacollection = {
         labels,
         datasets: [{
@@ -268,35 +258,26 @@ module.exports = {
           data
         }]
       }
-
       this.startRealtime()
     },
-
     startRealtime () {
       const { type, uuid, socket } = this
-
       socket.on('agent/message', payload => {
         if (payload.agent.uuid === uuid) {
           const metric = payload.metrics.find(m => m.type === type)
-
           // Copy current values
           const labels = this.datacollection.labels
           const data = this.datacollection.datasets[0].data
-
           this.rightNowElement = metric.value
-
           // Remove first element if length > 20
           const length = labels.length || data.length
-
           if (length >= 20) {
             labels.shift()
             data.shift()
           }
-
           // Add new elements
           labels.push(moment(metric.createdAt).format('HH:mm:ss'))
           data.push(metric.value)
-
           this.datacollection = {
             labels,
             datasets: [{
@@ -307,24 +288,19 @@ module.exports = {
           }
         }
       })
-
       this.definedValues()
     },
-
     definedValues() {
       this.$temp = document.querySelector('#temp')
       this.$level = document.querySelector('#level')
       this.$lux = document.querySelector('#lux')
-
       this.$temp.value = this.getCookie('temp')
       this.$level.value = this.getCookie('level')
       this.$lux.value = this.getCookie('lux')
     },
-
     classIsActive() {
       document.querySelector(`#${this.type}`).classList.toggle('is-active')
     },
-
     getCookie(cname) {
       const name = cname + "=";
       const decodedCookie = decodeURIComponent(document.cookie);
@@ -340,25 +316,21 @@ module.exports = {
       }
       return "";
     },
-
     setCookie(cname,cvalue,exdays) {
       var d = new Date();
       d.setTime(d.getTime() + (exdays*24*60*60*1000));
       var expires = "expires=" + d.toGMTString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     },
-
     handleError (err) {
       this.error = err.message
     },
-
     setState(option) {
       const { socket } = this
       this.state = this.state ? false : true
       socket.emit('stateSubmit', { state: this.state, option: option })
       console.log('SUBMITED!')
     },
-
     setValue(option) {
       const { socket } = this
       switch (option) {

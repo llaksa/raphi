@@ -39,13 +39,13 @@ io.on('connect', socket => {
         usrFshAir0 = state
         break
       case 'fw':
-        usrFshWater0 = state
+        usrFshNutriSol0 = state
         break
       case 'ra':
         usrRndAir0 = state
         break
       case 'rw':
-        usrRndWater0 = state
+        usrRndNutriSol0 = state
         break
       default:
         break
@@ -88,18 +88,18 @@ const board = new five.Board({
 
 let airTempOut = 0
 let tnkLevelOut = 0
-let waterTempOut = 0
+let nutriSolTempOut = 0
 let coOut = 0
 let luxOut = 0
 
 let usrFshAir0 = false
 let usrFshAir1 = false
-let usrFshWater0 = false
-let usrFshWater1 = false
+let usrFshNutriSol0 = false
+let usrFshNutriSol1 = false
 let usrRndAir0 = false
 let usrRndAir1 = false
-let usrRndWater0 = false
-let usrRndWater1 = false
+let usrRndNutriSol0 = false
+let usrRndNutriSol1 = false
 let usrAirTemp0 = 22
 let usrTnkLevel0 = 10
 let usrValLux0 = 0
@@ -130,26 +130,26 @@ board.on('ready', async function () {
     }
   }, 300)
 
-  // ======= Fresh Water =======
+  // ======= Fresh Nutritive Solution =======
   new five.Pin({
     pin: 10,
     type: "digital"
   })
 
-  const fshWater_relay = new five.Relay({
+  const fshNutriSol_relay = new five.Relay({
     pin: 10,
     type: "NC"
   })
 
-  fshWater_relay.off()
+  fshNutriSol_relay.off()
   setInterval(() => {
-    if (usrFshWater0 != usrFshWater1) {
-      if (usrFshWater0) {
-        fshWater_relay.on()
-        usrFshWater1 = usrFshWater0
+    if (usrFshNutriSol0 != usrFshNutriSol1) {
+      if (usrFshNutriSol0) {
+        fshNutriSol_relay.on()
+        usrFshNutriSol1 = usrFshNutriSol0
       } else {
-        fshWater_relay.off()
-        usrFshWater1 = usrFshWater0
+        fshNutriSol_relay.off()
+        usrFshNutriSol1 = usrFshNutriSol0
       }
     }
   }, 300)
@@ -173,21 +173,21 @@ board.on('ready', async function () {
     }
   }, 300)
 
-  // ======= Round Water =======
-  const rndWater_relay = new five.Relay({
+  // ======= Round Nutritive Solution  =======
+  const rndNutriSol_relay = new five.Relay({
     pin: 13,
     type: "NC"
   })
 
-  rndWater_relay.off()
+  rndNutriSol_relay.off()
   setInterval(() => {
-    if (usrRndWater0 != usrRndWater1) {
-      if (usrRndWater0) {
-        rndWater_relay.on()
-        usrRndWater1 = usrRndWater0
+    if (usrRndNutriSol0 != usrRndNutriSol1) {
+      if (usrRndNutriSol0) {
+        rndNutriSol_relay.on()
+        usrRndNutriSol1 = usrRndNutriSol0
       } else {
-        rndWater_relay.off()
-        usrRndWater1 = usrRndWater0
+        rndNutriSol_relay.off()
+        usrRndNutriSol1 = usrRndNutriSol0
       }
     }
   }, 300)
@@ -223,17 +223,17 @@ board.on('ready', async function () {
     coOut = 10.32 * (coSensor.scaleTo(0, 1023)^(-0.64))
   })
 
-  // ======= Water Temperature Just Sensing =======
-  const waterTemp = new five.Thermometer({
+  // ======= Nutritive Solution Temperature Just Sensing =======
+  const nutriSolTemp = new five.Thermometer({
     controller: "LM35",
     pin: "A0",
     freq: 25
   })
 
   let y1 = 0
-  waterTemp.on("data", function () {
+  nutriSolTemp.on("data", function () {
     let y0 = this.celsius * 0.0609 + y1 * 0.9391
-    waterTempOut = y0
+    nutriSolTempOut = y0
     y1 = y0
   })
 
@@ -398,9 +398,9 @@ agent2.addMetric('LightIntensity', () => {
   return usrValLux0
 })
 
-agent2.addMetric('WaterTemperature', () => {
+agent2.addMetric('NutriSolTemperature', () => {
   //return Math.random() * 100
-  return waterTempOut
+  return nutriSolTempOut
 })
 
 agent2.addMetric('OxygenMonoxide', () => {
@@ -413,9 +413,9 @@ agent2.addMetric('FreshAir', () => {
   return usrFshAir0
 })
 
-agent2.addMetric('FreshWater', () => {
+agent2.addMetric('FreshNutriSol', () => {
   //return Math.random() * 100
-  return usrFshWater0
+  return usrFshNutriSol0
 })
 
 agent2.addMetric('AirCirculation', () => {
@@ -423,9 +423,9 @@ agent2.addMetric('AirCirculation', () => {
   return usrRndAir0
 })
 
-agent2.addMetric('WaterCirculation', () => {
+agent2.addMetric('NutriSolCirculation', () => {
   //return Math.random() * 100
-  return usrRndWater0
+  return usrRndNutriSol0
 })
 
 agent2.connect()

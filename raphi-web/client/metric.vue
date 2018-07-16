@@ -24,6 +24,7 @@
     </div>
     
     <div v-else-if="type === 'TankLevel'" class="card">
+      <br/>
       <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/tankLevel.svg">
@@ -45,6 +46,7 @@
     </div>
 
     <div v-else-if="type === 'LightIntensity'" class="card">
+      <br/>
       <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/lightIntensity.svg">
@@ -88,6 +90,7 @@
     </div>
     
     <div class="card" v-else-if="type === 'FreshWater'">
+      <br/>
       <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/freshWater.svg">
@@ -110,6 +113,7 @@
     </div>
     
     <div class="card" v-else-if="type === 'AirCirculation'">
+      <br/>
       <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/airCirculation.svg">
@@ -154,6 +158,7 @@
     </div>
     
     <div class="card" v-else-if="type === 'WaterTemperature'">
+      <br/>
       <div class="card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/liquidTemperature.svg">

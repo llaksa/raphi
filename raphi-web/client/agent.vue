@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="columns is-multiline">
     <metric
       :showMetrics="showMetrics"
       :automatic="automatic"

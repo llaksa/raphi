@@ -1,142 +1,203 @@
 <template>
-  <div class="box">
+  <div>
     
-    <div v-if="type === 'AirTemperature'" class="">
-      <div class="">
-        <span class="">Air Temperature [C°] :</span>
+    <div v-if="type === 'AirTemperature'" class="card column">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/airTemperature.svg">
+        </figure>
       </div>
-      <div class="">{{ rightNowElement }}</div>
-      <img class="" src="images/sol.jpg">
-      <div v-show="!automatic">
-        <div class="">
-          <input id="temp" type="number" class="validate" value="0" />
-        </div>
-        <button v-on:click="setValue('temp')" class="" type="submit" name="action">Set</button>
+      <div class="card-content">
+        <p class="title">
+          Air Temperature [C°]
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer v-show="!automatic" class="card-footer">
+          <input id="temp" type="number" class="card-footer-item" value="0" />
+          <button class="card-footer-item" v-on:click="setValue('temp')" type="submit" name="action">Set</button>
+        </footer>
       </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
     
-    <div v-else-if="type === 'TankLevel'" class="">
-      <div class="">
-        <img class="" src="images/sol.jpg">
+    <div v-else-if="type === 'TankLevel'" class="card column">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/tankLevel.svg">
+        </figure>
       </div>
-      <div class="">
-        <span class="">Water Level [cm] :</span>
+      <div class="card-content">
+        <p class="title">
+          Liquid Level [cm]
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer v-show="!automatic" class="card-footer">
+          <input id="level" type="number" class="card-footer-item" value="0" />
+          <button v-on:click="setValue('level')" class="card-footer-item" type="submit" name="action">Set</button>
+        </footer>
       </div>
-      <div class="">{{ rightNowElement }}</div>
-      <div v-show="!automatic">
-        <div class="">
-          <input id="level" type="number" class="" value="0" />
-        </div>
-        <button v-on:click="setValue('level')" class="" type="submit" name="action">Set</button>
-      </div>
-    </div>
-    
-    <div v-else-if="type === 'LightIntensity'" class="">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Light Intensity [lux] :</span>
-      </div>
-      <div class="">{{ rightNowElement }}</div>
-      <div v-show="!automatic">
-        <div class="">
-          <input id="lux" type="number" class="" value="0" />
-        </div>
-        <button v-on:click="setValue('lux')" class="" type="submit" name="action">Set</button>
-      </div>
-    </div>
-    
-    <div v-else-if="type === 'FreshAir'" class="">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Fresh Air</span>
-      </div>
-      <div v-if="state === false" class="">OFF</div>
-      <div v-else="state === true" class="">ON</div>
-      <div v-show="!automatic">
-        <button v-on:click="setState('fa')" class="" type="submit" name="action">Toggle</button>
-      </div>
-    </div>
-    
-    <div class="" v-else-if="type === 'FreshWater'">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Fresh Water</span>
-      </div>
-      <div v-if="state === false" class="">OFF</div>
-      <div v-else="state === true" class="">ON</div>
-      <div v-show="!automatic">
-        <button v-on:click="setState('fw')" class="" type="submit" name="action">Toggle</button>
-      </div>
-    </div>
-    
-    <div class="" v-else-if="type === 'AirCirculation'">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Air Circulation</span>
-      </div>
-      <div v-if="state === false" class="">OFF</div>
-      <div v-else="state === true" class="">ON</div>
-      <div v-show="!automatic">
-        <button v-on:click="setState('ra')" class="" type="submit" name="action">Toggle</button>
-      </div>
-    </div>
-    
-    <div class="" v-else-if="type === 'WaterCirculation'">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Water Circulation</span>
-      </div>
-      <div v-if="state === false" class="">OFF</div>
-      <div v-else="state === true" class="">ON</div>
-      <div v-show="!automatic">
-        <button v-on:click="setState('rw')" class="" type="submit" name="action">Toggle</button>
-      </div>
-    </div>
-    
-    <div class="" v-else-if="type === 'WaterTemperature'">
-      <div class="">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Water Temperature [C°]:</span>
-      </div>
-      <div class="">{{ rightNowElement }}</div>
-    </div>
-    
-    <div class="" v-else-if="type === 'OxygenMonoxide'">
-      <div class="card-image col s12">
-        <img class="" src="images/sol.jpg">
-      </div>
-      <div class="">
-        <span class="">Oxygen Monoxide [ppm] :</span>
-      </div>
-      <div class="">{{ rightNowElement }}</div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
     </div>
 
-    <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    <div v-else-if="type === 'LightIntensity'" class="card column">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/lightIntensity.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Light Intensity [lux]
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer v-show="!automatic" class="card-footer">
+          <input id="lux" type="number" class="card-footer-item" value="0" />
+          <button v-on:click="setValue('lux')" class="card-footer-item" type="submit" name="action">Set</button>
+        </footer>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
 
+    <div v-else-if="type === 'FreshAir'" class="card column">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/freshAir.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Fresh Air
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer class="card-footer">
+          <div v-if="state === false" class="card-footer-item">OFF</div>
+          <div v-else="state === true" class="card-footer-item">ON</div>
+          <button v-show="!automatic" v-on:click="setState('fa')" class="card-footer-item" type="submit" name="action">Toggle</button>
+        </footer>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
+    <div class="card column" v-else-if="type === 'FreshWater'">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/freshWater.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Fresh Liquid
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer class="card-footer">
+          <div v-if="state === false" class="card-footer-item">OFF</div>
+          <div v-else="state === true" class="card-footer-item">ON</div>
+          <button v-show="!automatic" v-on:click="setState('fw')" class="card-footer-item" type="submit" name="action">Toggle</button>
+        </footer>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
+    <div class="card column" v-else-if="type === 'AirCirculation'">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/airCirculation.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Air Circulation
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer class="card-footer">
+          <div v-if="state === false" class="card-footer-item">OFF</div>
+          <div v-else="state === true" class="card-footer-item">ON</div>
+          <button v-show="!automatic" v-on:click="setState('ra')" class="card-footer-item" type="submit" name="action">Toggle</button>
+        </footer>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
+    <div class="card column" v-else-if="type === 'WaterCirculation'">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/liquidCirculation.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Liquid Circulation
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+        <footer class="card-footer">
+          <div v-if="state === false" class="card-footer-item">OFF</div>
+          <div v-else="state === true" class="card-footer-item">ON</div>
+          <button v-show="!automatic" v-on:click="setState('rw')" class="card-footer-item" type="submit" name="action">Toggle</button>
+        </footer>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
+    <div class="card column" v-else-if="type === 'WaterTemperature'">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/liquidTemperature.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Liquid Temperature [C°]
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
+    <div class="card column" v-else-if="type === 'OxygenMonoxide'">
+      <div class="card-image">
+        <figure class="image is-128x128">
+          <img class="" src="images/co.svg">
+        </figure>
+      </div>
+      <div class="card-content">
+        <p class="title">
+          Oxygen Monoxide [ppm]
+        </p>
+        <p class="subtitle">
+          {{ rightNowElement }}
+        </p>
+      </div>
+      <button v-on:click="classIsActive" class="modal-button">MODAL BUTTON</button>
+    </div>
+    
     <div class="modal" v-bind:id="type">
       <div class="modal-background"></div>
       <div class="modal-content">
-          <line-chart v-show="!showMetrics" class=""
-            :chart-data="datacollection"
-            :options="{ responsive: true }"
-            :width="400" :height="200"
-          ></line-chart>
+        <line-chart v-show="!showMetrics" class=""
+          :chart-data="datacollection"
+          :options="{ responsive: true }"
+          :width="400" :height="200"
+        ></line-chart>
       </div>
       <button class="modal-close is-large" v-on:click="classIsActive" aria-label="close"></button>
     </div>
-
+    
     <p v-if="error">{{error}}</p>
   </div>
 </template>

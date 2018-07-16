@@ -80,13 +80,13 @@
           <div v-else class="control is-large is-expanded tag is-danger">
             <p>ON</p>
           </div>
-        </div>
-        <div class="control" v-show="!automatic">
-          <button v-show="!automatic" v-on:click="setState('fa')" class="button is-primary" type="submit" name="action">Toggle</button>
+          <div class="control" v-show="!automatic">
+            <button v-show="!automatic" v-on:click="setState('fa')" class="button is-primary" type="submit" name="action">Toggle</button>
+          </div>
         </div>
       </div>
     </div>
-  
+      
     <div class="card" v-else-if="type === 'FreshWater'">
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">

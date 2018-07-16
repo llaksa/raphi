@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="">
+    <div class="container">
       <agent
         :showMetrics="showMetrics"
         :automatic="automatic"

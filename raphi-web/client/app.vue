@@ -8,7 +8,7 @@
       </div>
     </nav>
     <div class="columns">
-      <div class="column has-text-centered">
+      <div class="column has-text-centered has-text-success">
         <top
           v-for="agent in agents"
           :uuid="agent.uuid"
@@ -16,8 +16,8 @@
         </top>
       </div>
       <div v-on:click="toggleControll" class="column has-text-centered">
-        <span v-if="automatic">Automatic mode</span>
-        <span v-else>Manual mode</span>
+        <span class="is-size-1 tag is-info" v-if="automatic">Automatic mode</span>
+        <span class="is-size-1 tag is-info" v-else>Manual mode</span>
       </div>
     </div>
     <div class="">

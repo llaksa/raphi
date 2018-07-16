@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{name}} ID {{pid}}</div>
+    <div class="is-size-1 has-text-weight-bold">{{name}} ID {{pid}}</div>
   </div>
 </template>
 

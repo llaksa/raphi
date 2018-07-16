@@ -8,7 +8,7 @@
           <img class="" src="images/airTemperature.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Air Temperature [C°]</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div v-show="!automatic" class="field has-addons">
@@ -29,7 +29,7 @@
           <img class="" src="images/tankLevel.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Liquid Level [cm]</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div v-show="!automatic" class="field has-addons">
@@ -50,7 +50,7 @@
           <img class="" src="images/lightIntensity.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Light Intensity [lux]</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div v-show="!automatic" class="field has-addons">
@@ -70,7 +70,7 @@
           <img class="" src="images/freshAir.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Air</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
@@ -94,7 +94,7 @@
           <img class="" src="images/freshWater.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Liquid</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
@@ -118,7 +118,7 @@
           <img class="" src="images/airCirculation.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Air Circulation</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
@@ -141,7 +141,7 @@
           <img class="" src="images/liquidCirculation.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Liquid Circulation</p>
         <p class="subtitle">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
@@ -165,7 +165,7 @@
           <img class="" src="images/liquidTemperature.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Liquid Temperature [C°]</p>
         <p class="subtitle">{{ rightNowElement }}</p>
       </div>
@@ -177,7 +177,7 @@
           <img class="" src="images/co.svg">
         </figure>
       </div>
-      <div class="card-content">
+      <div class="card-content has-background-light">
         <p class="title is-size-5">Oxygen Monoxide [ppm]</p>
         <p class="subtitle">{{ rightNowElement }}</p>
       </div>

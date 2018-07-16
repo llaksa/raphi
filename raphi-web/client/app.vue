@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="has-background-white-ter">
     <nav class="navbar">
       <div class="navbar-brand">
         <div class="navbar-item">
@@ -7,6 +7,7 @@
         </div>
       </div>
     </nav>
+    <br/>
     <div class="columns">
       <div class="column has-text-centered has-text-success">
         <top
@@ -18,9 +19,9 @@
       <div class="column has-text-centered">
         <div class="level-item has-text-centered">
           <div>
-            <p v-on:click="toggleControll" class="button is-info heading">toggle mode</p>
-            <p class="tag is-medium is-warning" v-if="automatic">Automatic</p>
-            <p class="tag is-medium is-warning" v-else>Manual</p>
+            <p v-on:click="toggleControll" class="button is-success heading">toggle mode</p>
+            <p class="tag is-medium is-danger" v-if="automatic">Automatic</p>
+            <p class="tag is-medium is-danger" v-else>Manual</p>
           </div>
         </div>
       </div>
@@ -36,6 +37,7 @@
       </agent>
       <p v-if="error">{{error}}</p>
     </div>
+    <br/>
     <footer class="footer">
       <div class="content has-text-centered">
         <p>

@@ -252,7 +252,7 @@ board.on('ready', async function () {
 
   const airTemperature = new five.Thermometer({
     controller: "LM35",
-    pin: "A2",
+    pin: "A5",
     freq: 25
   })
 

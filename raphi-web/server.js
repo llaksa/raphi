@@ -226,7 +226,7 @@ board.on('ready', async function () {
   // ======= Nutritive Solution Temperature Just Sensing =======
   const nutriSolTemp = new five.Thermometer({
     controller: "LM35",
-    pin: "A0",
+    pin: "A5",
     freq: 25
   })
 
@@ -252,7 +252,7 @@ board.on('ready', async function () {
 
   const airTemperature = new five.Thermometer({
     controller: "LM35",
-    pin: "A5",
+    pin: "A0",
     freq: 25
   })
 
@@ -289,8 +289,8 @@ board.on('ready', async function () {
     airTemp_err0 = airTempOut - sp
     let airTemp_pi0  = airTemp_pi1 + 52.1 * airTemp_err0 - 52.09 * airTemp_err1
     airTemp_pi1      = airTemp_pi0
-    //console.log("pi0  :  " + airTemp_pi0)
-    //console.log("err0 :  " + airTemp_err0)
+    console.log("pi0  :  " + airTemp_pi0)
+    console.log("err0 :  " + airTemp_err0)
     await pwmFan(airTemp_pi0)
   }
 

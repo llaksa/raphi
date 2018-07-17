@@ -196,7 +196,7 @@ board.on('ready', async function () {
   var led = new five.Led(3)
 
   async function luxController(Sp) {
-    led.brightness(Sp)
+    led.brightness( Math.round(Sp) )
   }
 
   setInterval(async () => {

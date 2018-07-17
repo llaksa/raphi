@@ -8,9 +8,10 @@
           <img class="" src="images/airTemperature.svg">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Air Temperature</p>
-        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} C°</p>
+        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} C°</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="temp" class="input is-primary" type="number" value="0">
@@ -23,15 +24,14 @@
     </div>
     
     <div v-else-if="type === 'TankLevel'" class="card">
-      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/tankLevel.svg">
+          <img class="" src="images/tankLevel.png">
         </figure>
       </div>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Nutritive Solution Level</p>
-        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} cm</p>
+        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} cm</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="level" class="input is-primary" type="number" value="0">
@@ -50,9 +50,10 @@
           <img class="" src="images/lightIntensity.svg">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Light Intensity</p>
-        <p class="subtitle">{{ rightNowElement }} lux</p>
+        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 65535 / 255) }} lux</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="lux" class="input is-primary" type="number" value="0">
@@ -67,12 +68,12 @@
     <div v-else-if="type === 'FreshAir'" class="card">
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/freshAir.svg">
+          <img class="" src="images/freshAir.png">
         </figure>
       </div>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Air</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
             <p>OFF</p>
@@ -91,12 +92,13 @@
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/freshNutriSol.svg">
+          <img class="" src="images/freshNutriSol.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Nutritive Solution</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
             <p>OFF</p>
@@ -118,9 +120,10 @@
           <img class="" src="images/airCirculation.svg">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Air Circulation</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
             <p>OFF</p>
@@ -138,12 +141,12 @@
     <div class="card" v-else-if="type === 'NutriSolCirculation'">
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/nutriSolCirculation.svg">
+          <img class="" src="images/nutriSolCirculation.png">
         </figure>
       </div>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Nutritive Solution Circulation</p>
-        <p class="subtitle">{{ rightNowElement }}</p>
+        <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
           <div v-if="state === false" class="control is-large is-expanded tag is-success">
             <p>OFF</p>
@@ -159,27 +162,29 @@
     </div>
     
     <div class="card" v-else-if="type === 'NutriSolTemperature'">
-      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/nutriSolTemperature.svg">
+          <img class="" src="images/nutriSolTemperature.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Nutritive Solution Temperature</p>
-        <p class="subtitle">{{ Math.round(rightNowElement * 100) / 100 }} C°</p>
+        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} C°</p>
       </div>
     </div>
     
     <div class="card" v-else-if="type === 'OxygenMonoxide'">
+      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/co.svg">
+          <img class="" src="images/co.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Oxygen Monoxide</p>
-        <p class="subtitle">{{ rightNowElement }} ppm</p>
+        <p class="subtitle tag is-warning">{{ Math.round( rightNowElement * 10 ) / 10 }} ppm</p>
       </div>
     </div>
     

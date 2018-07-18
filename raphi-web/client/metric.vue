@@ -5,7 +5,7 @@
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/airTemperature.svg">
+          <img class="" src="images/airTemperature.png">
         </figure>
       </div>
       <br/>
@@ -24,11 +24,13 @@
     </div>
     
     <div v-else-if="type === 'TankLevel'" class="card">
+      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/tankLevel.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Nutritive Solution Level</p>
         <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} cm</p>
@@ -53,7 +55,7 @@
       <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Light Intensity</p>
-        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 65535 / 255) }} lux</p>
+        <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 65535 / 255) }} lx</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
             <input id="lux" class="input is-primary" type="number" value="0">
@@ -66,11 +68,13 @@
     </div>
     
     <div v-else-if="type === 'FreshAir'" class="card">
+      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/freshAir.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Air</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
@@ -117,7 +121,7 @@
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
-          <img class="" src="images/airCirculation.svg">
+          <img class="" src="images/airCirculation.png">
         </figure>
       </div>
       <br/>
@@ -139,11 +143,13 @@
     </div>
     
     <div class="card" v-else-if="type === 'NutriSolCirculation'">
+      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/nutriSolCirculation.png">
         </figure>
       </div>
+      <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Nutritive Solution Circulation</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
@@ -162,6 +168,7 @@
     </div>
     
     <div class="card" v-else-if="type === 'NutriSolTemperature'">
+      <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/nutriSolTemperature.png">

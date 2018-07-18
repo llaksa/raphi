@@ -266,7 +266,7 @@ board.on('ready', async function () {
     //console.log("temp: " + airTempOut)
     //console.log(this.celsius)
     airTemp1 = airTemp0
-    airTempPidController(airTempSp)
+    //airTempPidController(airTempSp)
   })
 
   board.pinMode(5, five.Pin.PWM)
@@ -319,7 +319,7 @@ board.on('ready', async function () {
     tnkLevelOut = tnkLevel0
     //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
-    await tnkLevelPidController(tnkLevelSp)
+    //await tnkLevelPidController(tnkLevelSp)
   })
 
   // ======= Tank Level Controller =======
@@ -357,6 +357,114 @@ board.on('ready', async function () {
 
   await pwmPump(0)
 
+  // ========= Saving Data =======
+  const fs = require("fs")
+
+  async function pwmPump (x) {
+    if (x < 200 || tnkLevel_err0 < 0) {
+      motor.stop(0)
+    } else if (x > 255) {
+      motor.fwd(255)
+    } else {
+      motor.fwd(x)
+    }
+  }
+
+  // SAVING DATA
+  async function grabarOne () {
+    await fs.appendFile('distance.txt', `\n${tnkLevelOut}`, () => console.log(`Distance: ${tnkLevelOut}`))
+    await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+  }
+
+  async function grabar () {
+    await fs.unlink('distance.txt', () => console.log(`Distance: ${tnkLevelOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
+    for (let k = 0; k < 5000; k++) {
+      await grabarOne()
+      await delay(25)
+    }
+  }
+
+  let input
+  async function savingData () {
+    input = 0
+    await pwmPump(input)
+
+    grabar()
+
+    await delay(5000)
+
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+  }
+
   // ======= Coommon Functions =======
   async function delay (time) {
     return new Promise(resolve => {
@@ -369,7 +477,8 @@ board.on('ready', async function () {
     pwmFan : pwmFan,
     pwmPump : pwmPump,
     relay : airTemp_relay,
-    motor : motor
+    motor : motor,
+    savingData : savingData
   })
 
 })

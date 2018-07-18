@@ -14,10 +14,10 @@
         <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} C°</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
-            <input id="temp" class="input is-primary" type="number" value="0">
+            <input id="temp" class="input is-success" type="number" value="0">
           </div>
           <div class="control">
-            <button class="button is-primary" v-on:click="setValue('temp')" type="submit" name="action">Set</button>
+            <button class="button is-success" v-on:click="setValue('temp')" type="submit" name="action">Set</button>
           </div>
         </div>
       </div>
@@ -36,10 +36,10 @@
         <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 10) / 10 }} cm</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
-            <input id="level" class="input is-primary" type="number" value="0">
+            <input id="level" class="input is-success" type="number" value="0">
           </div>
           <div class="control">
-            <button class="button is-primary" v-on:click="setValue('level')" type="submit" name="action">Set</button>
+            <button class="button is-success" v-on:click="setValue('level')" type="submit" name="action">Set</button>
           </div>
         </div>
       </div>
@@ -58,10 +58,10 @@
         <p class="subtitle tag is-warning">{{ Math.round(rightNowElement * 65535 / 255) }} lx</p>
         <div v-show="!automatic" class="field has-addons">
           <div class="control">
-            <input id="lux" class="input is-primary" type="number" value="0">
+            <input id="lux" class="input is-success" type="number" value="0">
           </div>
           <div class="control">
-            <button class="button is-primary" v-on:click="setValue('lux')" type="submit" name="action">Set</button>
+            <button class="button is-success" v-on:click="setValue('lux')" type="submit" name="action">Set</button>
           </div>
         </div>
       </div>
@@ -79,14 +79,14 @@
         <p class="title is-size-5">Fresh Air</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-success">
+          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
             <p>ON</p>
           </div>
           <div class="control" v-show="!automatic">
-            <button v-show="!automatic" v-on:click="setState('fa')" class="button is-primary" type="submit" name="action">Toggle</button>
+            <button v-show="!automatic" v-on:click="setState('fa')" class="button is-success" type="submit" name="action">Toggle</button>
           </div>
         </div>
       </div>
@@ -104,14 +104,14 @@
         <p class="title is-size-5">Fresh Nutritive Solution</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-success">
+          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
             <p>ON</p>
           </div>
           <div class="control" v-show="!automatic">
-            <button v-show="!automatic" v-on:click="setState('fw')" class="button is-primary" type="submit" name="action">Toggle</button>
+            <button v-show="!automatic" v-on:click="setState('fw')" class="button is-success" type="submit" name="action">Toggle</button>
           </div>
         </div>
       </div>
@@ -129,14 +129,14 @@
         <p class="title is-size-5">Air Circulation</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-success">
+          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
             <p>ON</p>
           </div>
           <div class="control" v-show="!automatic">
-            <button v-show="!automatic" v-on:click="setState('ra')" class="button is-primary" type="submit" name="action">Toggle</button>
+            <button v-show="!automatic" v-on:click="setState('ra')" class="button is-success" type="submit" name="action">Toggle</button>
           </div>
         </div>
       </div>
@@ -154,14 +154,14 @@
         <p class="title is-size-5">Nutritive Solution Circulation</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-success">
+          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
             <p>ON</p>
           </div>
           <div class="control" v-show="!automatic">
-            <button v-show="!automatic" v-on:click="setState('rw')" class="button is-primary" type="submit" name="action">Toggle</button>
+            <button v-show="!automatic" v-on:click="setState('rw')" class="button is-success" type="submit" name="action">Toggle</button>
           </div>
         </div>
       </div>

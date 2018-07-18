@@ -82,9 +82,11 @@ io.on('connect', socket => {
 // PWM Pins             : 9
 
 const five  = require('johnny-five')
-const board = new five.Board({
-  port: "/dev/ttyACM0"
-})
+const board = new five.Board(
+  //{
+  //port: "/dev/ttyACM0"
+  //}
+)
 
 let airTempOut = 0
 let tnkLevelOut = 0
@@ -101,7 +103,7 @@ let usrRndAir1 = false
 let usrRndNutriSol0 = false
 let usrRndNutriSol1 = false
 let usrAirTemp0 = 22
-let usrTnkLevel0 = 10
+let usrTnkLevel0 = 5
 let usrValLux0 = 0
 let usrValLux1 = 0
 
@@ -313,7 +315,8 @@ board.on('ready', async function () {
 
   proximity.on("data", async function () {
     let tnkLevel0 = this.cm * 0.0609 + tnkLevel1 * 0.9391
-    tnkLevelOut = 22 - tnkLevel0
+    //let tnkLevel0 = this.cm
+    tnkLevelOut = tnkLevel0
     //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
     await tnkLevelPidController(tnkLevelSp)

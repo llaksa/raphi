@@ -316,7 +316,9 @@ board.on('ready', async function () {
   proximity.on("data", async function () {
     let tnkLevel0 = this.cm * 0.0609 + tnkLevel1 * 0.9391
     //let tnkLevel0 = this.cm
-    tnkLevelOut = tnkLevel0
+    //console.log(tnkLevel0)
+    //let tnkLevel0 = this.cm
+    tnkLevelOut = 12.1 - tnkLevel0
     //console.log(tnkLevelOut)
     tnkLevel1 = tnkLevel0
     //await tnkLevelPidController(tnkLevelSp)
@@ -371,17 +373,26 @@ board.on('ready', async function () {
   }
 
   // SAVING DATA
-  async function grabarOne () {
-    await fs.appendFile('distance.txt', `\n${tnkLevelOut}`, () => console.log(`Distance: ${tnkLevelOut}`))
-    await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+  let tnkLevelOut1 = -1000
+  async function grabarOne (out) {
+    if (tnkLevelOut1 <= out) {
+      await fs.appendFile('distance.txt', `\n${out}`, () => console.log(`Distance: ${out}`))
+      await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+      tnkLevelOut1 = out
+    } else {
+      await fs.appendFile('distance.txt', `\n${tnkLevelOut1}`, () => console.log(`Distance: ${tnkLevelOut1}`))
+      await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+    }
   }
 
   async function grabar () {
     await fs.unlink('distance.txt', () => console.log(`Distance: ${tnkLevelOut}`))
     await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
-    for (let k = 0; k < 5000; k++) {
-      await grabarOne()
+    let k = 0
+    while (k<5700) {
+      await grabarOne(tnkLevelOut)
       await delay(25)
+      k++
     }
   }
 
@@ -394,6 +405,41 @@ board.on('ready', async function () {
 
     await delay(5000)
 
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
+    input = 255
+    await pwmPump(input)
+    await delay(10000)
+
+    input = 0
+    await pwmPump(input)
+    await delay(5000)
     input = 255
     await pwmPump(input)
     await delay(10000)

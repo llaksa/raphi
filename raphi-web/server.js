@@ -103,13 +103,13 @@ let usrRndAir1 = false
 let usrRndNutriSol0 = false
 let usrRndNutriSol1 = false
 let usrAirTemp0 = 22
-let usrTnkLevel0 = 5
+let usrTnkLevel0 = 8
 let usrValLux0 = 0
 let usrValLux1 = 0
 
 let luxSp = 0
 let airTempSp = 22
-let tnkLevelSp = 10
+let tnkLevelSp = 8
 
 board.on('ready', async function () {
 
@@ -298,6 +298,47 @@ board.on('ready', async function () {
 
   await pwmFan(0)
 
+  // SAVING DATA ============================================================================================
+  let airTempOut1 = 10000000
+  async function airTempGrabarOne (out) {
+    if (airTempOut1 > out) {
+      await fs.appendFile('distance.txt', `\n${out}`, () => console.log(`Distance: ${out}`))
+      await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+      airTempOut1 = out
+    } else {
+      await fs.appendFile('temperature.txt', `\n${airTempOut1}`, () => console.log(`Temperature: ${airTempOut1}`))
+      await fs.appendFile('pwm.txt', `\n${input}`, () => console.log(`PWM: ${input}`) )
+    }
+  }
+
+  async function airTempGrabar () {
+    await fs.unlink('temperature.txt', () => console.log(`Temperature: ${airTempOut}`))
+    await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
+    let k = 0
+    while (k<5700) {
+      await airTempGrabarOne(airTempOut)
+      await delay(25)
+      k++
+    }
+  }
+
+  async function airTempSavingData () {
+    input = 0
+    await pwmFan(input)
+
+    airTempGrabar()
+
+    await delay(15000)
+
+    input = 255
+    await pwmFan(input)
+
+    await delay(112000)
+    //await delay(18000)
+    input = 0
+    await pwmFan(input)
+  }
+
   // ======= Tank Level =======
 
   // Analog Pin 5 As Digital
@@ -350,7 +391,7 @@ board.on('ready', async function () {
   async function tnkLevelPidController (sp) {
     tnkLevel_err1     = tnkLevel_err0
     tnkLevel_err0 = sp - tnkLevelOut
-    let tnkLevel_pi0  = tnkLevel_pi1 + 15.63 * tnkLevel_err0 - 15.63 * tnkLevel_err1
+    let tnkLevel_pi0  = tnkLevel_pi1 + 433.4 * tnkLevel_err0 - 433.3 * tnkLevel_err1
     tnkLevel_pi1      = tnkLevel_pi0
     //console.log("pi0  :  " + tnkLevel_pi0)
     //console.log("err0 :  " + tnkLevel_err0)
@@ -403,109 +444,11 @@ board.on('ready', async function () {
 
     grabar()
 
-    await delay(5000)
+    await delay(75000)
 
     input = 255
     await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
-
-    input = 0
-    await pwmPump(input)
-    await delay(5000)
-    input = 255
-    await pwmPump(input)
-    await delay(10000)
+    await delay(150000)
 
     input = 0
     await pwmPump(input)
@@ -524,7 +467,8 @@ board.on('ready', async function () {
     pwmPump : pwmPump,
     relay : airTemp_relay,
     motor : motor,
-    savingData : savingData
+    savingData : savingData,
+    airTempSavingData : airTempSavingData
   })
 
 })

@@ -103,13 +103,13 @@ let usrRndAir1 = false
 let usrRndNutriSol0 = false
 let usrRndNutriSol1 = false
 let usrAirTemp0 = 22
-let usrTnkLevel0 = 8
+let usrTnkLevel0 = 0
 let usrValLux0 = 0
 let usrValLux1 = 0
 
 let luxSp = 0
 let airTempSp = 22
-let tnkLevelSp = 8
+let tnkLevelSp = 0
 
 board.on('ready', async function () {
 
@@ -228,7 +228,7 @@ board.on('ready', async function () {
   // ======= Nutritive Solution Temperature Just Sensing =======
   const nutriSolTemp = new five.Thermometer({
     controller: "LM35",
-    pin: "A5",
+    pin: "A0",
     freq: 25
   })
 
@@ -254,7 +254,7 @@ board.on('ready', async function () {
 
   const airTemperature = new five.Thermometer({
     controller: "LM35",
-    pin: "A0",
+    pin: "A5",
     freq: 25
   })
 
@@ -289,7 +289,7 @@ board.on('ready', async function () {
   async function airTempPidController (sp) {
     airTemp_err1     = airTemp_err0
     airTemp_err0 = airTempOut - sp
-    let airTemp_pi0  = airTemp_pi1 + 52.1 * airTemp_err0 - 52.09 * airTemp_err1
+    let airTemp_pi0  = airTemp_pi1 + 34.61 * airTemp_err0 - 34.6 * airTemp_err1
     airTemp_pi1      = airTemp_pi0
     //console.log("pi0  :  " + airTemp_pi0)
     //console.log("err0 :  " + airTemp_err0)
@@ -315,7 +315,7 @@ board.on('ready', async function () {
     await fs.unlink('temperature.txt', () => console.log(`Temperature: ${airTempOut}`))
     await fs.unlink('pwm.txt', () => console.log(`PWM: ${input}`))
     let k = 0
-    while (k<5700) {
+    while (k<7000) {
       await airTempGrabarOne(airTempOut)
       await delay(25)
       k++
@@ -333,7 +333,7 @@ board.on('ready', async function () {
     input = 255
     await pwmFan(input)
 
-    await delay(112000)
+    await delay(212000)
     //await delay(18000)
     input = 0
     await pwmFan(input)
@@ -391,7 +391,8 @@ board.on('ready', async function () {
   async function tnkLevelPidController (sp) {
     tnkLevel_err1     = tnkLevel_err0
     tnkLevel_err0 = sp - tnkLevelOut
-    let tnkLevel_pi0  = tnkLevel_pi1 + 433.4 * tnkLevel_err0 - 433.3 * tnkLevel_err1
+    //let tnkLevel_pi0  = tnkLevel_pi1 + 433.4 * tnkLevel_err0 - 433.3 * tnkLevel_err1
+    let tnkLevel_pi0  = tnkLevel_pi1 + 165.8 * tnkLevel_err0 - 165.7 * tnkLevel_err1
     tnkLevel_pi1      = tnkLevel_pi0
     //console.log("pi0  :  " + tnkLevel_pi0)
     //console.log("err0 :  " + tnkLevel_err0)

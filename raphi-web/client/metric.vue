@@ -66,20 +66,20 @@
         </div>
       </div>
     </div>
-    
+
     <div v-else-if="type === 'FreshAir'" class="card">
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
         <figure class="image is-128x128">
           <img class="" src="images/freshAir.png">
         </figure>
-      </div>
+     </div>
       <br/>
       <div class="card-content has-background-light">
         <p class="title is-size-5">Fresh Air</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
+          <div v-if="rightNowElement === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
@@ -91,7 +91,7 @@
         </div>
       </div>
     </div>
-      
+
     <div class="card" v-else-if="type === 'FreshNutriSol'">
       <br/>
       <div v-on:click="classIsActive" class="modal-button card-image is-flex is-horizontal-centered">
@@ -104,7 +104,7 @@
         <p class="title is-size-5">Fresh Nutritive Solution</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
+          <div v-if="rightNowElement === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
@@ -129,7 +129,7 @@
         <p class="title is-size-5">Air Circulation</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
+          <div v-if="rightNowElement === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
@@ -154,7 +154,7 @@
         <p class="title is-size-5">Nutritive Solution Circulation</p>
         <p class="subtitle tag is-warning">{{ rightNowElement }}</p>
         <div class="field is-grouped is-vertical-centered">
-          <div v-if="state === false" class="control is-large is-expanded tag is-primary">
+          <div v-if="rightNowElement === false" class="control is-large is-expanded tag is-primary">
             <p>OFF</p>
           </div>
           <div v-else class="control is-large is-expanded tag is-danger">
@@ -244,7 +244,7 @@ module.exports = {
       this.color = randomColor.getColor()
       const options = {
         method: 'GET',
-        url: `http://localhost:8080/metrics/${uuid}/${type}`,
+        url: `http://192.168.1.8:8080/metrics/${uuid}/${type}`,
         json: true
       }
       let result

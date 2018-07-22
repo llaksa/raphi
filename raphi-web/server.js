@@ -482,7 +482,7 @@ board.on('ready', async function () {
 const agent2 = new RaphiAgent({
   name: 'Lettuce',
   username: 'Irvin',
-  interval: 2000
+  interval: 100
 })
 
 agent2.addMetric('AirTemperature', () => {

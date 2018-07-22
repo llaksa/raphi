@@ -28,7 +28,7 @@ module.exports = {
 
       const options = {
         method: 'GET',
-        url: `http://localhost:8080/agent/${uuid}`,
+        url: `http://192.168.1.8:8080/agent/${uuid}`,
         json: true
       }
 

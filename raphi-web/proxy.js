@@ -6,6 +6,9 @@ const request  = require('request-promise-native')
 
 const { endpoint, apiToken } = require('./config')
 
+//const { apiToken } = require('./config')
+//const endpoint = 'http://localhost:3000'
+
 const api = asyncify(express.Router())
 
 api.get('/agents', async (req, res, next) => {

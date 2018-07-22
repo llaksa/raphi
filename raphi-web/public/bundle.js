@@ -31,7 +31,7 @@ module.exports = {
 
       var options = {
         method: 'GET',
-        url: 'http://localhost:8080/agent/' + uuid,
+        url: 'http://192.168.1.8:8080/agent/' + uuid,
         json: true
       };
 
@@ -56,7 +56,7 @@ module.exports = {
 
       var options = {
         method: 'GET',
-        url: 'http://localhost:8080/metrics/' + uuid,
+        url: 'http://192.168.1.8:8080/metrics/' + uuid,
         json: true
       };
 
@@ -129,7 +129,7 @@ var vm = new Vue({
 
 var request = require('request-promise-native');
 var io = require('socket.io-client');
-var socket = io();
+var socket = io('http://192.168.1.8:8080');
 
 module.exports = {
   data: function data() {
@@ -152,7 +152,7 @@ module.exports = {
 
       var options = {
         method: 'GET',
-        url: 'http://localhost:8080/agents',
+        url: 'http://192.168.1.8:8080/agents',
         json: true
       };
 
@@ -258,7 +258,7 @@ module.exports = {
       this.color = randomColor.getColor();
       var options = {
         method: 'GET',
-        url: 'http://localhost:8080/metrics/' + uuid + '/' + type,
+        url: 'http://192.168.1.8:8080/metrics/' + uuid + '/' + type,
         json: true
       };
       var result = void 0;
@@ -391,7 +391,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"column is-one-quarter"},[(_vm.type === 'AirTemperature')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(0)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Air Temperature")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" C°")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('temp')}}},[_vm._v("Set")])])])])]):(_vm.type === 'TankLevel')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(2)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Level")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" cm")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(3),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('level')}}},[_vm._v("Set")])])])])]):(_vm.type === 'LightIntensity')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(4)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Light Intensity")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 65535 / 255))+" lx")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(5),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('lux')}}},[_vm._v("Set")])])])])]):(_vm.type === 'FreshAir')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(6)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Fresh Air")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.state === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('fa')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'FreshNutriSol')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(7)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Fresh Nutritive Solution")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.state === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('fw')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'AirCirculation')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(8)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Air Circulation")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.state === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('ra')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'NutriSolCirculation')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(9)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Circulation")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.state === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('rw')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'NutriSolTemperature')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(10)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Temperature")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" C°")])])]):(_vm.type === 'OxygenMonoxide')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(11)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Oxygen Monoxide")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round( _vm.rightNowElement * 10 ) / 10)+" ppm")])])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"modal",attrs:{"id":_vm.type}},[_c('div',{staticClass:"modal-background"}),_vm._v(" "),_c('div',{staticClass:"modal-content"},[_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(!_vm.showMetrics),expression:"!showMetrics"}],attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}})],1),_vm._v(" "),_c('button',{staticClass:"modal-close is-large",attrs:{"aria-label":"close"},on:{"click":_vm.classIsActive}})]),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"column is-one-quarter"},[(_vm.type === 'AirTemperature')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(0)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Air Temperature")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" C°")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('temp')}}},[_vm._v("Set")])])])])]):(_vm.type === 'TankLevel')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(2)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Level")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" cm")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(3),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('level')}}},[_vm._v("Set")])])])])]):(_vm.type === 'LightIntensity')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(4)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Light Intensity")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 65535 / 255))+" lx")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"field has-addons"},[_vm._m(5),_vm._v(" "),_c('div',{staticClass:"control"},[_c('button',{staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setValue('lux')}}},[_vm._v("Set")])])])])]):(_vm.type === 'FreshAir')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(6)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Fresh Air")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.rightNowElement === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('fa')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'FreshNutriSol')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(7)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Fresh Nutritive Solution")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.rightNowElement === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('fw')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'AirCirculation')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(8)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Air Circulation")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.rightNowElement === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('ra')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'NutriSolCirculation')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(9)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Circulation")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(_vm.rightNowElement))]),_vm._v(" "),_c('div',{staticClass:"field is-grouped is-vertical-centered"},[(_vm.rightNowElement === false)?_c('div',{staticClass:"control is-large is-expanded tag is-primary"},[_c('p',[_vm._v("OFF")])]):_c('div',{staticClass:"control is-large is-expanded tag is-danger"},[_c('p',[_vm._v("ON")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"control"},[_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.automatic),expression:"!automatic"}],staticClass:"button is-success",attrs:{"type":"submit","name":"action"},on:{"click":function($event){_vm.setState('rw')}}},[_vm._v("Toggle")])])])])]):(_vm.type === 'NutriSolTemperature')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(10)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Nutritive Solution Temperature")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round(_vm.rightNowElement * 10) / 10)+" C°")])])]):(_vm.type === 'OxygenMonoxide')?_c('div',{staticClass:"card"},[_c('br'),_vm._v(" "),_c('div',{staticClass:"modal-button card-image is-flex is-horizontal-centered",on:{"click":_vm.classIsActive}},[_vm._m(11)]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"card-content has-background-light"},[_c('p',{staticClass:"title is-size-5"},[_vm._v("Oxygen Monoxide")]),_vm._v(" "),_c('p',{staticClass:"subtitle tag is-warning"},[_vm._v(_vm._s(Math.round( _vm.rightNowElement * 10 ) / 10)+" ppm")])])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"modal",attrs:{"id":_vm.type}},[_c('div',{staticClass:"modal-background"}),_vm._v(" "),_c('div',{staticClass:"modal-content"},[_c('line-chart',{directives:[{name:"show",rawName:"v-show",value:(!_vm.showMetrics),expression:"!showMetrics"}],attrs:{"chart-data":_vm.datacollection,"options":{ responsive: true },"width":400,"height":200}})],1),_vm._v(" "),_c('button',{staticClass:"modal-close is-large",attrs:{"aria-label":"close"},on:{"click":_vm.classIsActive}})]),_vm._v(" "),(_vm.error)?_c('p',[_vm._v(_vm._s(_vm.error))]):_vm._e()])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/airTemperature.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control"},[_c('input',{staticClass:"input is-success",attrs:{"id":"temp","type":"number","value":"0"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/tankLevel.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control"},[_c('input',{staticClass:"input is-success",attrs:{"id":"level","type":"number","value":"0"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/lightIntensity.svg"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control"},[_c('input',{staticClass:"input is-success",attrs:{"id":"lux","type":"number","value":"0"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/freshAir.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/freshNutriSol.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/airCirculation.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/nutriSolCirculation.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/nutriSolTemperature.png"}})])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('figure',{staticClass:"image is-128x128"},[_c('img',{attrs:{"src":"images/co.png"}})])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -431,7 +431,7 @@ module.exports = {
 
       var options = {
         method: 'GET',
-        url: 'http://localhost:8080/agent/' + uuid,
+        url: 'http://192.168.1.8:8080/agent/' + uuid,
         json: true
       };
 
@@ -40800,30 +40800,36 @@ utils.intFromLE = intFromLE;
 
 },{"bn.js":79,"minimalistic-assert":312,"minimalistic-crypto-utils":313}],218:[function(require,module,exports){
 module.exports={
-  "_from": "elliptic@^6.0.0",
+  "_args": [
+    [
+      "elliptic@6.4.0",
+      "/home/llaksa/repositories/raphi/raphi-web"
+    ]
+  ],
+  "_development": true,
+  "_from": "elliptic@6.4.0",
   "_id": "elliptic@6.4.0",
   "_inBundle": false,
   "_integrity": "sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=",
   "_location": "/elliptic",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "elliptic@^6.0.0",
+    "raw": "elliptic@6.4.0",
     "name": "elliptic",
     "escapedName": "elliptic",
-    "rawSpec": "^6.0.0",
+    "rawSpec": "6.4.0",
     "saveSpec": null,
-    "fetchSpec": "^6.0.0"
+    "fetchSpec": "6.4.0"
   },
   "_requiredBy": [
     "/browserify-sign",
     "/create-ecdh"
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
-  "_shasum": "cac9af8762c85836187003c8dfe193e5e2eae5df",
-  "_spec": "elliptic@^6.0.0",
-  "_where": "/home/llaksa/repositories/kallpa/raphi/raphi-web/node_modules/browserify-sign",
+  "_spec": "6.4.0",
+  "_where": "/home/llaksa/repositories/raphi/raphi-web",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -40831,7 +40837,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "bn.js": "^4.4.0",
     "brorand": "^1.0.1",
@@ -40841,7 +40846,6 @@ module.exports={
     "minimalistic-assert": "^1.0.0",
     "minimalistic-crypto-utils": "^1.0.0"
   },
-  "deprecated": false,
   "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
@@ -91368,30 +91372,35 @@ Store.prototype.getAllCookies = function(cb) {
 
 },{}],453:[function(require,module,exports){
 module.exports={
-  "_from": "tough-cookie@~2.3.3",
+  "_args": [
+    [
+      "tough-cookie@2.3.4",
+      "/home/llaksa/repositories/raphi/raphi-web"
+    ]
+  ],
+  "_from": "tough-cookie@2.3.4",
   "_id": "tough-cookie@2.3.4",
   "_inBundle": false,
   "_integrity": "sha512-TZ6TTfI5NtZnuyy/Kecv+CnoROnyXn2DN97LontgQpCwsX2XyLYCC0ENhYkehSOwAp8rTQKc/NUIF7BkQ5rKLA==",
   "_location": "/tough-cookie",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "tough-cookie@~2.3.3",
+    "raw": "tough-cookie@2.3.4",
     "name": "tough-cookie",
     "escapedName": "tough-cookie",
-    "rawSpec": "~2.3.3",
+    "rawSpec": "2.3.4",
     "saveSpec": null,
-    "fetchSpec": "~2.3.3"
+    "fetchSpec": "2.3.4"
   },
   "_requiredBy": [
     "/request",
     "/request-promise-native"
   ],
   "_resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.4.tgz",
-  "_shasum": "ec60cee38ac675063ffc97a5c18970578ee83655",
-  "_spec": "tough-cookie@~2.3.3",
-  "_where": "/home/llaksa/repositories/kallpa/raphi/raphi-web/node_modules/request",
+  "_spec": "2.3.4",
+  "_where": "/home/llaksa/repositories/raphi/raphi-web",
   "author": {
     "name": "Jeremy Stashewsky",
     "email": "jstashewsky@salesforce.com"
@@ -91399,7 +91408,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/salesforce/tough-cookie/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Alexander Savin"
@@ -91423,7 +91431,6 @@ module.exports={
   "dependencies": {
     "punycode": "^1.4.1"
   },
-  "deprecated": false,
   "description": "RFC6265 Cookies and Cookie Jar for node.js",
   "devDependencies": {
     "async": "^1.4.2",

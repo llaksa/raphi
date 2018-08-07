@@ -55,6 +55,7 @@
     "raphi-agent": "file:../raphi-agent",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
+    "serve-favicon": "^2.5.0",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "vue": "^2.4.2",

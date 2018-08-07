@@ -2,6 +2,7 @@
 
 const debug       = require('debug')('raphi:web')
 const http        = require('http')
+const favicon     = require('serve-favicon')
 const path        = require('path')
 const express     = require('express')
 const cors        = require('cors')
@@ -20,6 +21,7 @@ const server = http.createServer(app)
 const io     = socketio(server)
 const agent  = new RaphiAgent()
 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(cors())
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -291,8 +293,8 @@ board.on('ready', async function () {
     airTemp_err0 = airTempOut - sp
     let airTemp_pi0  = airTemp_pi1 + 34.61 * airTemp_err0 - 34.6 * airTemp_err1
     airTemp_pi1      = airTemp_pi0
-    //console.log("pi0  :  " + airTemp_pi0)
-    //console.log("err0 :  " + airTemp_err0)
+    console.log("pi0  :  " + airTemp_pi0)
+    console.log("err0 :  " + airTemp_err0)
     await pwmFan(airTemp_pi0)
   }
 

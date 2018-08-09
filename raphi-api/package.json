@@ -34,7 +34,7 @@
     "express-asyncify": "^1.0.0",
     "express-jwt": "^5.3.0",
     "express-jwt-permissions": "^1.0.0",
-    "jsonwebtoken": "^7.4.2",
-    "raphi-db": "file:../raphi-db"
+    "raphi-db": "file:../raphi-db",
+    "jsonwebtoken": "^7.4.2"
   }
 }

@@ -52,12 +52,12 @@
     "johnny-five": "^0.15.0",
     "moment": "^2.18.1",
     "random-material-color": "^1.0.3",
-    "raphi-agent": "file:../raphi-agent",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "vue": "^2.4.2",
+    "raphi-agent": "file:../raphi-agent",
     "vue-chartjs": "^2.8.1"
   }
 }

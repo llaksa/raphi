@@ -1,45 +1,45 @@
 const RaphiAgent = require('../')
 
 const agent = new RaphiAgent({
-  name: 'Lechuga',
+  name: 'Lettuce',
   username: 'Irvin',
   interval: 2000
 })
 
-agent.addMetric('Temperatura-aire', () => {
+agent.addMetric('AirTemperature', () => {
   return Math.random() * 100
 })
 
-agent.addMetric('Nivel-tanque', () => {
+agent.addMetric('TankLevel', () => {
   return Math.random() * 100
 })
 
-agent.addMetric('Intensidad-Luz', () => {
+agent.addMetric('LightIntensity', () => {
   return Math.random() * 100
 })
 
-agent.addMetric('Temperatura-agua', () => {
+agent.addMetric('WaterTemperature', () => {
   return Math.random() * 100
 })
 
-agent.addMetric('CO', () => {
+agent.addMetric('OxygenMonoxide', () => {
   return Math.random() * 100
 })
 
-agent.addMetric('Aire-fresco', () => {
-  return Math.random() * 100
+agent.addMetric('FreshAir', () => {
+  return true
 })
 
-agent.addMetric('Agua-fresca', () => {
-  return Math.random() * 100
+agent.addMetric('FreshNutriSol', () => {
+  return true
 })
 
-agent.addMetric('Aire-circulante', () => {
-  return Math.random() * 100
+agent.addMetric('AirCirculation', () => {
+  return false
 })
 
-agent.addMetric('Agua-circulante', () => {
-  return Math.random() * 100
+agent.addMetric('NutriSolCirculation', () => {
+  return false
 })
 
 agent.connect()

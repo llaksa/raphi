@@ -2,7 +2,7 @@
 
 const debug        = require('debug')('raphi:agent')
 const os           = require('os')
-const util         = require('util')
+const util         = require('util') // se llama porq necesitamos usar promisify
 const mqtt         = require('mqtt')
 const defaults     = require('defaults')
 const uuid         = require('uuid')
@@ -58,7 +58,7 @@ class RaphiAgent extends EventEmitter { // el agente raphi-agent se extiende de 
         this.emit('connected', this._agentId) // este es un evento del cliente MQTT PARA SÍ MISMO! Se está creando un emisor de evento "connected" cuando el cliente se cnecta al servidor, esto es para enviar el dato "this._agentId" cuando se implemente un objeto de esta clase con agent.on"connected", cb) (y se ejecute cb(this_agentId)
 
         this._timer = setInterval(async () => {
-          if (this._metrics.size > 0) {
+          if (this._metrics.size > 0) { // transmitir cuerpo de metricas y agente solo si hay más métricas
             // inicialización del cuerpo de los objetos agent y metrics!!!:
             let message = {
               agent: {
@@ -73,19 +73,19 @@ class RaphiAgent extends EventEmitter { // el agente raphi-agent se extiende de 
             }
 
             for (let [ metric, fn ] of this._metrics) {
-              if (fn.length === 1) {
-                fn = util.promisify(fn)
+              if (fn.length === 1) { // para hallar el function addity, mediante la propiedad lenght y saber si tiene argumentos; y si tiene solo un argumento es porque es callback
+                fn = util.promisify(fn) // se convierte la función síncrona fn a promesa
               }
 
-              message.metrics.push({
+              message.metrics.push({ // agrega al cuerpo de metricas del mensaje, los tipos y valores
                 type: metric,
-                value: await Promise.resolve(fn())
+                value: await Promise.resolve(fn()) // arroja el valor de la función
               })
             }
 
             debug('Sending', message)
 
-            this._client.publish('agent/message', JSON.stringify(message))
+            this._client.publish('agent/message', JSON.stringify(message)) // se publica el topic "agent/message" con el payload q es string, no olvidar"
             this.emit('message', message) // este es un evento del cliente MQTT PARA SÍ MISMO!
           }
         }, opts.interval) // emite el evento "agent/message" cada tiempo según opts.interval!
